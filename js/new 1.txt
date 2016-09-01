@@ -1,0 +1,92 @@
+#define PI 3.1415926535897932384626433832795
+precision mediump float;
+varying vec2 TexCoords;
+uniform sampler2D tex2D;
+uniform vec3 lp[113];
+uniform vec3 lc[113];
+uniform int lt[113];
+uniform vec2 ld[113];
+varying vec3 p;
+
+vec3 comp_l1(in int id) {
+  vec2 pv = normalize(p.xy-lp[id].xy);
+  float ang = mod((pv.y>0.0 ? asin(pv.x) : PI-asin(pv.x))-ld[id].x,2.0*PI);
+	if (ang<mod(ld[id].y,2.0*PI) || ang>2.0*PI-mod(ld[id].y,2.0*PI))
+    return lc[id]/pow(1.0+length(p-lp[id]),2.0);
+	return vec3(0.0,0.0,0.0);
+}
+
+vec3 comp_l2(in int id) {
+	if (ld[id].y>0.0) {
+		if (p.y<lp[id].y) return lc[id]/(1.0+distance(p,lp[id]));
+		if (p.y>lp[id].y+ld[id].y) return lc[id]/(1.0+distance(p,vec3(lp[id].x,lp[id].y+ld[id].y,lp[id].z)));
+		return lc[id]/(1.0+distance(p.xz,lp[id].xz));
+	} else {
+		if (p.y>lp[id].y) return lc[id]/(1.0+distance(p,lp[id]));
+		if (p.y<lp[id].y+ld[id].y) return lc[id]/(1.0+distance(p,vec3(lp[id].x,lp[id].y+ld[id].y,lp[id].z)));
+		return lc[id]/(1.0+distance(p.xz,lp[id].xz));
+	}
+}
+
+vec3 comp_l3(in int id) {
+	if (ld[id].x>0.0) {
+		if (p.x<lp[id].x) return lc[id]/(1.0+distance(p,lp[id]));
+		if (p.x>lp[id].x+ld[id].x) return lc[id]/(1.0+distance(p,vec3(lp[id].x+ld[id].x,lp[id].y,lp[id].z)));
+		return lc[id]/(1.0+distance(p.yz,lp[id].yz));
+	} else {
+		if (p.x>lp[id].x) return lc[id]/(1.0+distance(p,lp[id]));
+		if (p.x<lp[id].x+ld[id].x) return lc[id]/(1.0+distance(p,vec3(lp[id].x+ld[id].x,lp[id].y,lp[id].z)));
+		return lc[id]/(1.0+distance(p.yz,lp[id].yz));
+	}
+}
+
+/*vec3 comp_l4(int id) {
+	vec3 a,n;
+	float lz=1.0;
+  vec3 col=lc[id];
+	if (lp[id].y==0.0) {
+		if (p.y<ld[id].x) return lc[id]/(1.0+length(p-vec3(-lp[id].z/lp[id].x,ld[id].x,lz)));
+		else if (p.y<=ld[id].y) {
+			a=vec3(-lp[id].z/lp[id].x,0.0,lz);
+			n=vec3(0.0,1.0,0.0);
+			return lc[id]/(1.0+length((a-p)-dot((a-p),n)*n));
+		} else {
+			return lc[id]/(1.0+length(p-vec3(-lp[id].z/lp[id].x,ld[id].y,lz)));
+		}
+	} else if (lp[id].x==0.0) {
+		a=vec3(0.0,-lp[id].z/lp[id].y,lz);
+		n=vec3(1.0,0.0,0.0);
+		return lc[id]/(1.0+length((a-p)-dot((a-p),n)*n));
+	} else {
+    vec3 xr=lc[id];
+		a=vec3(0.0,-lp[id].z/lp[id].y,lz);
+		n=normalize(vec3(1.0/lp[id].x,-1.0/lp[id].y,0.0));
+		vec3 a= lc[id]/(1.0+length((a-p)-dot((a-p),n)*n));
+    return a;
+	}
+  return vec3(0.0,0.0,0.0);
+}*/
+
+vec3 cut_light(in vec3 light) {
+	vec3 l=max(light,0.0);
+	if (l.r>1.0) l.r=1.0+(l.r-1.0)/10.0;
+	if (l.g>1.0) l.g=1.0+(l.g-1.0)/10.0;
+	if (l.b>1.0) l.b=1.0+(l.b-1.0)/10.0;
+	return l;
+}
+
+vec3 compute_lights() {
+	vec3 light=vec3(0.6,0.6,0.6);
+	for (int i=0;i<113;i++) {
+		if (lt[i]==1) light+=comp_l1(i);
+		else if (lt[i]==2) light+=comp_l2(i);
+		else if (lt[i]==3) light+=comp_l3(i);
+		//else if (lt[i]==4) light+=comp_l4(i);
+	}
+	return cut_light(light);
+}
+
+void main(void) {
+	vec4 tex_c=texture2D(tex2D,TexCoords);	if (tex_c.a<0.2) discard;
+	gl_FragColor=tex_c*vec4(compute_lights(),1.0);
+}
