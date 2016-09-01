@@ -45,6 +45,7 @@ class Controls {
 c=new Controls();
 
 window.onkeydown=function(e) {
+	if (e.keyCode in c.code) e.preventDefault();
 	c.keyDown(e.which || e.keyCode);
 };
 
