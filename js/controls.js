@@ -1,5 +1,10 @@
 //==== CONTROLS ====\\
 
+/*
+
+class handling input
+
+*/
 class Controls {
 	keyDown(c) {
 		var name=this.code[c];
@@ -21,6 +26,7 @@ class Controls {
 		var i;
 		for (i=0;i<256;i++) this.code[i]="nothing";
 		
+		//list of buttons codes
 		this.code[13]="enter";
 		this.code[16]="shift";
 		this.code[17]="ctrl";
@@ -33,6 +39,7 @@ class Controls {
 		this.code[40]="down";
 		this.code[80]="p";
 		
+		//adding buttons to dictionary
 		for (i=0;i<256;i++) if (this.code[i]!="nothing") this.act[this.code[i]]=false;
 		//for (i in this.act) console.log(i+":"+this.act[i]);
 	}
@@ -45,7 +52,7 @@ class Controls {
 c=new Controls();
 
 window.onkeydown=function(e) {
-	if (e.keyCode in c.code) e.preventDefault();
+	e.preventDefault();
 	c.keyDown(e.which || e.keyCode);
 };
 
