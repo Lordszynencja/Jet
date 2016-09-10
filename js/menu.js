@@ -74,9 +74,8 @@ class Menu {
 			menu=this.menu_c[menu][this.position][4];
 			if (menu>0) {
 				this.position=0;
-				this.stack.push(this.position);
 			} else {
-				this.position=this.stack.pop();
+				this.position=0;
 				menu=-menu;
 			}
 			if (menu==3) prepare();
@@ -85,10 +84,9 @@ class Menu {
 				menu=3;
 			} else if (menu==0) {
 				this.position=0;
-				this.stack.push(0);
 				menu=1;
 			} else {
-				this.position=this.stack.pop();
+				this.position=0;
 				menu=this.menu_c[menu][this.menu_s[menu]];
 			}
 		} else if (name=="p") pause=!pause;

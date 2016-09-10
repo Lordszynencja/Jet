@@ -1,4 +1,4 @@
-//==== CONTROLS ====\\
+//==== UPDATES ====\\
 
 class Updates {
 	update() {

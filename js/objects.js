@@ -1,4 +1,4 @@
-//==== objECTS ====\\
+//==== OBJECTS ====\\
 
 class Objects {
 	find_free() {

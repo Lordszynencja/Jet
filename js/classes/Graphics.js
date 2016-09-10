@@ -1,9 +1,6 @@
-//======== SHADER PART =========\\
-
-
+//======== GRAPHICS =========\\
 
 class Graphics {
-	
 	load_tex(id,img) {
 		this.gl.activeTexture(this.gl.TEXTURE0);
 		this.gl.bindTexture(this.gl.TEXTURE_2D,this.texture[id]);
@@ -27,7 +24,7 @@ class Graphics {
 					g.load_tex(id,img);
 				}
 			})(imgx,i);
-			imgx.src="textures/textures"+i+".png";
+			imgx.src="Jet/textures/textures"+i+".png";
 		}
 	}
 
