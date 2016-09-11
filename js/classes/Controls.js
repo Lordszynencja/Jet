@@ -1,6 +1,6 @@
 //==== CONTROLS ====\\
 
-uiButtons = [13,37,38,39,40];
+uiButtons = {13:1,27:1,37:1,38:1,39:1,40:1};
 
 /*
 
@@ -17,7 +17,9 @@ class Controls {
 		}
 		e.preventDefault();
 		c.act[name] = true;
-		if (c in uiButtons) ui.pressed[menu](name);
+		if (code in uiButtons) {
+			ui.pressed(name);
+		}
 	}
 	
 	keyUp(e) {
@@ -60,27 +62,13 @@ class Controls {
 		//adding buttons to dictionary
 		for (i=0;i<256;i++) if (this.code[i]!="nothing") this.act[this.code[i]] = false;
 		//for (i in this.act) console.log(i+":"+this.act[i]);
+
+		window.onkeydown = this.keyDown;
+		window.onkeyup = this.keyUp;
+		window.onmousemove = this.mouseMove;
 	}
 	
 	isPressed(name) {
 		return this.act[name];
 	}
 }
-
-c=new Controls();
-
-window.onkeydown=c.keyDown;
-/*function(e) {
-	e.preventDefault();
-	c.keyDown(e.which || e.keyCode);
-};*/
-
-window.onkeyup=c.keyUp;
-/*function(e) {
-	c.keyUp(e.which || e.keyCode);
-};*/
-
-window.onmousemove=c.mouseMove;
-/*function(e) {
-	c.
-}*/

@@ -1,58 +1,71 @@
 class EnemyBullet1 {
 	prepare_vertex(angle) {
 		this.v = [];
-		this.v[0] = this.size*(Math.cos(angle)-Math.sin(angle));
-		this.v[1] = this.size*(Math.sin(angle)+Math.cos(angle));
-		this.v[2] = this.size*(-Math.cos(angle)-Math.sin(angle));
-		this.v[3] = this.size*(Math.cos(angle)-Math.sin(angle));
-		this.v[4] = this.size*(Math.sin(angle)+Math.cos(angle));
-		this.v[5] = this.size*(Math.sin(angle)-Math.cos(angle));
-		this.v[6] = this.size*(Math.sin(angle)-Math.cos(angle));
-		this.v[7] = this.size*(-Math.cos(angle)-Math.sin(angle));
+		this.v[0] = [this.size*(Math.cos(angle)-Math.sin(angle)),this.size*(Math.sin(angle)+Math.cos(angle))];
+		this.v[1] = [this.size*(-Math.cos(angle)-Math.sin(angle)),this.size*(Math.cos(angle)-Math.sin(angle))];
+		this.v[2] = [this.size*(Math.sin(angle)+Math.cos(angle)),this.size*(Math.sin(angle)-Math.cos(angle))];
+		this.v[3] = [this.size*(Math.sin(angle)-Math.cos(angle)),this.size*(-Math.cos(angle)-Math.sin(angle))];
 	}
 	
 	inCollisionRange() {
 		var x = this.x - p.x;
 		var y = this.y - p.y;
-		var maxDistance = this.size+p.size;
-		return (x*x+y*y<maxDistance*maxDistance/4);
+		var maxDistance = this.size+p.ship.size;
+		this.testX = x;
+		this.testY=y;
+		this.testdist=maxDistance;
+		return (x*x+y*y<maxDistance*maxDistance);
 	}
 	
 	collide() {
-		return inCollisionRange();
+		if (this.inCollisionRange()) {
+			var i;
+			for (i in p.ship.hitbox) {
+				if (collide(this.hitbox,p.ship.hitbox[i])) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 	
 	update() {
 		this.x += this.vx;
 		this.y += this.vy;
-		if (this.collide()) {
-			p.hp -= this.damage;
+		this.hitbox = moveModel(this.rotatedHitbox,this.x,this.y);
+		if (this.x>2 || this.x<-2 || this.y>2 || this.y<-2) {
 			delete enemyMissiles[this.num];
+			return;
+		}
+		if (this.collide()) {
+			p.ship.dealDamage(this.damage);
+			delete enemyMissiles[this.num];
+			return;
 		}
 	}
 	
 	draw() {
 		var j;
 		for (j=0;j<3;j++) {
-			g.add_v(0,[this.x+this.v[2*j],this.y+this.v[2*j+1],0.001],this.tex[j]);
+			g.add_v(0,[this.x+this.v[j][0],this.y+this.v[j][1],0.001],this.tex[j]);
 		}
-		for (j=0;j<3;j++) {
-			g.add_v(0,[this.x+this.v[2*j+2],this.y+this.v[2*j+3],0.001],this.tex[j+1]);
+		for (j=1;j<4;j++) {
+			g.add_v(0,[this.x+this.v[j][0],this.y+this.v[j][1],0.001],this.tex[j]);
 		}
 	}
 	
 	constructor(x,y,angle,num) {
+		this.speed = 0.02;
+		this.size = 0.02;
+		this.damage = 1;
 		this.x = x;
 		this.y = y;
-		this.speed = 0.02;
 		this.angle = angle;
-		this.vx = 0.02*Math.sin(angle);
-		this.vy = 0.02*Math.cos(angle);
+		this.vx = 0.02*Math.cos(angle);
+		this.vy = 0.02*Math.sin(angle);
 		this.prepare_vertex(angle);
-		this.size = 0.02;
-		this.hitbox = 0;//makeCoords
-		this.damage = 1;
-		this.tex = 0;//makeCoords
+		this.rotatedHitbox = rotateModel(makeCoords2(0.02,0.01),angle);
+		this.tex = makeCoords4(255/tex_s,0,256/tex_s,511/tex_s);
 		this.num = num;
 		
 	}

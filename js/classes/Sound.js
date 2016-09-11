@@ -4,7 +4,7 @@ class Sound {
 	play(x,v) {
 		this.active_sound++;
 		var a=this.active_sound;
-		this.playing[a]=new Audio(this.sounds[x]);
+		this.playing[a]=new Audio("sounds/"+this.sounds[x]);
 		this.playing[a].onended=function() { delete s.playing[a]; };
 		this.playing[a].volume=v*this.overall_volume;
 		this.playing[a].play();
@@ -18,10 +18,8 @@ class Sound {
 	constructor() {
 		this.active_sound=0;
 		this.playing={};
-		this.sounds={shot:"music/shot3.mp3",laser:"music/laser.mp3",gameover:"music/game_over.mp3"};
+		this.sounds={shot:"shot3.mp3",laser:"laser.mp3",gameover:"game_over.mp3"};
 		this.overall_volume=1;
 		this.prepare();
 	}
 }
-
-s=new Sound();

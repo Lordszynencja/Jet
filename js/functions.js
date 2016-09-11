@@ -25,7 +25,7 @@ function dist(p1,p2) {
 	return Math.sqrt(dx*dx+dy*dy);
 }
 
-function cross(l1,l2) {
+function cross(l1,l2) {//l1 and l2 are [x1,y1][x2,y2]
 	var dx1=l1[1][0]-l1[0][0];
 	var dy1=l1[1][1]-l1[0][1];
 	var dx2=l2[1][0]-l2[0][0];
@@ -177,4 +177,19 @@ function cleanArray(arr) {
     }
   }
   return newArray;
+}
+
+function rotateModel(m = [],angle = 0) {
+	var i;
+	var newM = [];
+	for (i in m) {
+		newM[i] = [m[i][0]*Math.cos(angle)-m[i][1]*Math.sin(angle),m[i][0]*Math.sin(angle)+m[i][1]*Math.cos(angle)];
+	}
+	return newM;
+}
+
+function moveModel(m = [],x = 0,y = 0) {
+	var newM = [];
+	for (var i in m) newM[i] = [m[i][0]+x,m[i][1]+y];
+	return newM;
 }

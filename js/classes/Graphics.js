@@ -24,14 +24,14 @@ class Graphics {
 					g.load_tex(id,img);
 				}
 			})(imgx,i);
-			imgx.src="Jet/textures/textures"+i+".png";
+			imgx.src="textures/texture"+i+".png";
 		}
 	}
 
 	create_shader() {
 		this.load_textures();
 		light_max=Math.floor(this.gl.getParameter(this.gl.MAX_VERTEX_UNIFORM_VECTORS)/9);
-		console.log("uniform vectors amount="+this.gl.getParameter(this.gl.MAX_VERTEX_UNIFORM_VECTORS));
+		//console.log("uniform vectors amount="+this.gl.getParameter(this.gl.MAX_VERTEX_UNIFORM_VECTORS));
 		if (light_max*9>this.gl.getParameter(this.gl.MAX_VERTEX_UNIFORM_VECTORS)) {
 			console.log("error: max uniforms number exceeded");
 		}
@@ -229,17 +229,17 @@ void main(void) {
 	}
 
 	add_light(rgb,xyz,type,data) {
-		var l=this.find_free_light();
-		this.light_pos[3*l]=xyz[0];
-		this.light_pos[3*l+1]=xyz[1];
-		this.light_pos[3*l+2]=xyz[2];
-		this.light_c[3*l]=rgb[0];
-		this.light_c[3*l+1]=rgb[1];
-		this.light_c[3*l+2]=rgb[2];
-		this.light_t[l]=type;
-		this.light_d[2*l]=data[0];
-		this.light_d[2*l+1]=data[1];
-		this.light_time[l]=0;
+		var l = this.find_free_light();
+		this.light_pos[3*l]   = xyz[0];
+		this.light_pos[3*l+1] = xyz[1];
+		this.light_pos[3*l+2] = xyz[2];
+		this.light_c[3*l]     = rgb[0];
+		this.light_c[3*l+1]   = rgb[1];
+		this.light_c[3*l+2]   = rgb[2];
+		this.light_t[l]       = type;
+		this.light_d[2*l]     = data[0];
+		this.light_d[2*l+1]   = data[1];
+		this.light_time[l]    = 0;
 	}
 
 	add_v(t,xyz,txy) {
@@ -264,7 +264,7 @@ void main(void) {
 		}
 	}
 
-	update_light() {
+	updateLight() {
 		var i;
 		for (i=0;i<light_max;i++) {
 			if (this.light_t[i]>0) {
@@ -282,35 +282,36 @@ void main(void) {
 		}
 	}
 	
-	reset_drawing() {
-		var i;
-		for (i=0;i<16;i++) this.v[i]=0;
+	update() {
+		this.resetDrawing();
+		this.updateLight();
+	}
+	
+	resetDrawing() {
+		for (var i=0;i<16;i++) this.v[i] = 0,this.vert[i] = [];
 	}
 
 	prepare() {
 		var i;
 		for (i=0;i<light_max;i++) {
-			this.light_pos[3*i]=0;
-			this.light_pos[3*i+1]=0;
-			this.light_pos[3*i+2]=0;
-			this.light_c[3*i]=0;
-			this.light_c[3*i+1]=0;
-			this.light_c[3*i+2]=0;
-			this.light_t[i]=0;
-			this.light_d[2*i]=0;
-			this.light_d[2*i+1]=0;
-			this.light_time[i]=0;
+			this.light_pos[3*i] = 0;
+			this.light_pos[3*i+1] = 0;
+			this.light_pos[3*i+2] = 0;
+			this.light_c[3*i] = 0;
+			this.light_c[3*i+1] = 0;
+			this.light_c[3*i+2] = 0;
+			this.light_t[i] = 0;
+			this.light_d[2*i] = 0;
+			this.light_d[2*i+1] = 0;
+			this.light_time[i] = 0;
 		}
 		this.last_light=light_max-1;
-		for (i=0;i<16;i++) {
-			this.v[i]=0;
-		}
+		this.resetDrawing();
 	}
 	
 	constructor() {
 		this.canvas=document.getElementById('canv');
 		this.gl=this.canvas.getContext('experimental-webgl');
-		//if (this.gl==null) this.gl=this.canvas.getContext('webgl');
 		this.con=document.getElementById('Tcan').getContext('2d');
 		this.vert=[];
 		this.TC=[];
@@ -349,5 +350,3 @@ void main(void) {
 		}, false);*/
 	}
 }
-
-g=new Graphics();

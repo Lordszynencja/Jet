@@ -6,20 +6,27 @@ class PlayerWMachinegun1 {
 			var y = p.y+Math.sin(this.angle)*this.x+Math.cos(this.angle)*this.y;
 			playerMissiles.push(new PlayerBullet1(x,y,this.angle,playerMissiles.length));
 			this.cooldown = this.cooldownTime;
-			g.add_light([1.0,1.0,0.0],[x,y,0],1,[-this.angle+Math.PI/2,Math.PI/6]);
-			return 0.2;
+			s.play("shot",0.1);
+			this.d = true;
+			this.lx = x;
+			this. ly = y;
+			return this.heat;
 		}
+		this.d = false;
 		return 0;
 	}
 	
 	draw() {
+		if (this.d) g.add_light([1,1,0],[this.lx,this.ly,0],1,[Math.PI/2-this.angle,Math.PI/6]);
 	}
 	
-	constructor(offx,offy,angle) {
-		this.x = offx;
-		this.y = offy;
+	constructor(offx = 0,offy = 0,angle = Math.PI/2) {
+		this.d = false;
 		this.cooldown = 0;
 		this.cooldownTime = 3;
+		this.heat = 1;
+		this.x = offx;
+		this.y = offy;
 		this.angle = angle;
 	}
 }

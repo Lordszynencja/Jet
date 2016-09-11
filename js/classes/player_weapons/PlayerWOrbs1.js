@@ -6,17 +6,20 @@ class PlayerWOrbs1 {
 			var y = p.y+Math.sin(this.angle)*this.x+Math.cos(this.angle)*this.y;
 			playerMissiles.push(new PlayerOrbs1(this,playerMissiles.length));
 			this.cooldown = this.cooldownTime;
+			return this.heat;
 		}
+		return 0;
 	}
 	
 	draw() {
 	}
 	
-	constructor(offx,offy,angle) {
-		this.x = offx;
-		this.y = offy;
+	constructor(offx = 0,offy = 0,angle = Math.PI/2) {
 		this.cooldown = 0;
 		this.cooldownTime = 50;
+		this.heat = 20;
+		this.x = offx;
+		this.y = offy;
 		this.angle = angle;
 	}
 }
