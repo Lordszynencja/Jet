@@ -2,11 +2,11 @@ class PauseMenu {
 	onPress(name) {
 		if (name=='esc') {
 			delete ui.menu;
-			ui.newMenu(new Interface());
+			ui.newMenu(new Interface(this.level));
 		} else if (name=='enter') {
 			if (this.position == 0) {
 				delete ui.menu;
-				ui.newMenu(new Interface());
+				ui.newMenu(new Interface(this.level));
 			} else {
 				delete ui.menu;
 				ui.newMenu(new MainMenu());
@@ -22,26 +22,26 @@ class PauseMenu {
 	}
 	
 	drawBg() {
-		g.add_v(0,[-1,-1,0.999],[0.064,0.196]);
-		g.add_v(0,[-1,1,0.999],[0.064,0.197]);
-		g.add_v(0,[1,-1,0.999],[0.065,0.196]);
+		g.add_v(0,[-1,-1,0.999],[511/tex_s,512/tex_s]);
+		g.add_v(0,[-1,1,0.999],[511/tex_s,1023/tex_s]);
+		g.add_v(0,[1,-1,0.999],[0/tex_s,512/tex_s]);
 
-		g.add_v(0,[-1,1,0.999],[0.064,0.197]);
-		g.add_v(0,[1,-1,0.999],[0.065,0.196]);
-		g.add_v(0,[1,1,0.999],[0.065,0.197]);
+		g.add_v(0,[-1,1,0.999],[511/tex_s,1023/tex_s]);
+		g.add_v(0,[1,-1,0.999],[0,512/tex_s]);
+		g.add_v(0,[1,1,0.999],[0,1023/tex_s]);
 	}
 	
 	drawScore() {
 		var i;
 		for (i=0;i<12;i++) {//score
-			var iscore=[0,0,0,0,0,0];
-			var s=this.score;
+			var iscore = [0,0,0,0,0,0];
+			var s = this.score;
 			var j;
 			for (j=0;j<6;j++) {
-				iscore[5-j]=s%10;
-				s=Math.floor(s/10);
+				iscore[5-j] = (s%10).toString();
+				s = Math.floor(s/10);
 			}
-			g.draw_text(-0.9,-0.9,iscore,0.1);
+			g.drawText(-0.9,-0.9,iscore,0.1);
 		}
 	}
 	
@@ -119,7 +119,7 @@ class PauseMenu {
 		this.drawOptions();
 	}
 	
-	constructor() {
+	constructor(level) {
 		this.position = 0;
 		this.bgTex = makeCoords4(288/tex_s,319/tex_s,287/tex_s,256/tex_s);
 		this.heatTex = makeCoords4(256/tex_s,287/tex_s,287/tex_s,256/tex_s);
@@ -131,5 +131,7 @@ class PauseMenu {
 		for (var i=0;i<2;i++) this.optionsV[i] = makeCoords4Z(-0.2,0.2,0.25-i*0.3,0.05-i*0.3,-0.999);
 		this.optionsTex = [makeCoords4(0,127/tex_s,64/tex_s,95/tex_s),makeCoords4(0,127/tex_s,96/tex_s,127/tex_s)];
 		this.selectTex = makeCoords4(128/tex_s,255/tex_s,0/tex_s,32/tex_s);
+		
+		this.level = level;
 	}
 }

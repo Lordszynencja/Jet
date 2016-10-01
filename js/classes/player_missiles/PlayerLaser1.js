@@ -4,12 +4,12 @@ class PlayerLaser1 {
 			delete playerMissiles[this.num];
 			return;
 		}
-		this.time++;
 		for (var i in enemies) {
 			if (Math.abs(this.x-enemies[i].x)<this.size+enemies[i].size && this.y<enemies[i].y+enemies[i].size+this.size) {
 				enemies[i].dealDamage(this.damage);
 			}
 		}
+		this.time++;
 	}
 	
 	draw() {

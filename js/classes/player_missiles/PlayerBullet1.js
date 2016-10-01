@@ -1,14 +1,10 @@
 class PlayerBullet1 {
 	prepareVertex(angle) {
-		this.v = [];
-		this.v[0] = [this.size*(Math.cos(angle)-Math.sin(angle)),this.size*(Math.sin(angle)+Math.cos(angle))];
-		this.v[1] = [this.size*(-Math.cos(angle)-Math.sin(angle)),this.size*(Math.cos(angle)-Math.sin(angle))];
-		this.v[2] = [this.size*(Math.sin(angle)+Math.cos(angle)),this.size*(Math.sin(angle)-Math.cos(angle))];
-		this.v[3] = [this.size*(Math.sin(angle)-Math.cos(angle)),this.size*(-Math.cos(angle)-Math.sin(angle))];
+		this.v = rotateModel(makeCoords2(this.size,this.size),angle);
 	}
 	
 	prepareHitbox() {
-		this.defaultHitbox = makeCoords2(0.02,0.01);
+		this.defaultHitbox = makeCoords2(0.01,0.05);
 		this.rotatedHitbox = rotateModel(this.defaultHitbox,this.angle);
 		this.hitbox = [];
 	}
@@ -23,7 +19,9 @@ class PlayerBullet1 {
 	collide(enemy) {
 		if (this.inCollisionRange(enemy)) {
 			var i;
-			for (i in enemy.hitbox) if (collide(this.hitbox,enemy.hitbox[i])) return true;
+			for (i in enemy.hitbox) if (collide(this.hitbox,enemy.hitbox[i])) {
+				return true;
+			}
 		}
 		return false;
 	}
@@ -49,16 +47,16 @@ class PlayerBullet1 {
 	draw() {
 		var j;
 		for (j=0;j<3;j++) {
-			g.add_v(0,[this.x+this.v[j][0],this.y+this.v[j][1],0.001],this.tex[j]);
+			g.add_v(this.texNo,[this.x+this.v[j][0],this.y+this.v[j][1],0.001],this.tex[j]);
 		}
 		for (j=1;j<4;j++) {
-			g.add_v(0,[this.x+this.v[j][0],this.y+this.v[j][1],0.001],this.tex[j]);
+			g.add_v(this.texNo,[this.x+this.v[j][0],this.y+this.v[j][1],0.001],this.tex[j]);
 		}
 	}
 	
 	constructor(x,y,angle,num) {
-		this.size = 0.02;
-		this.speed = 0.02;
+		this.size = 0.01;
+		this.speed = 0.05;
 		this.damage = 1;
 		this.x = x;
 		this.y = y;
@@ -67,7 +65,8 @@ class PlayerBullet1 {
 		this.vy = this.speed*Math.sin(angle);
 		this.prepareVertex(this.angle);
 		this.prepareHitbox();
-		this.tex = makeCoords4(255/tex_s,0,256/tex_s,511/tex_s);
 		this.num = num;
+		this.texNo = textureC['Bullet1'][0];
+		this.tex = textureC['Bullet1'][1];
 	}
 }

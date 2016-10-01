@@ -37,17 +37,18 @@ class Ship1 {
 	draw() {
 		var j;
 		for (j=0;j<3;j++) {
-			g.add_v(0,[p.x+this.v[j][0],p.y+this.v[j][1],0],this.tex[j]);
+			g.add_v(this.texNo,[p.x+this.v[j][0],p.y+this.v[j][1],0],this.tex[j]);
 		}
 		for (j=1;j<4;j++) {
-			g.add_v(0,[p.x+this.v[j][0],p.y+this.v[j][1],0],this.tex[j]);
+			g.add_v(this.texNo,[p.x+this.v[j][0],p.y+this.v[j][1],0],this.tex[j]);
 		}
 		for (j in this.weapons) this.weapons[j].draw();
 	}
 	
 	constructor(angle) {
 		this.size = 0.15;
-		this.tex = makeCoords4(0,255/tex_s,255/tex_s,0);
+		this.texNo = textureC['Ship1'][0];
+		this.tex = textureC['Ship1'][1];
 		this.v = rotateModel(makeCoords2(0.15,0.15),angle);
 		this.angle = angle;
 		this.heat = 0;

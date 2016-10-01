@@ -1,13 +1,11 @@
-class MainMenu {
+class Options {
 	onPress(name) {
 		if (name=='enter') {
 			if (this.position == 0) {
-				delete ui.menu;
-				ui.newMenu(new Interface(new Level1()));
-				ui.prepareGame();
+				eightBitMode = !eightBitMode;
 			} else {
 				delete ui.menu;
-				ui.newMenu(new Options());
+				ui.newMenu(new MainMenu());
 			}
 		} else if (this.position == 0 && name=='down') {
 			this.position = 1;
@@ -61,7 +59,7 @@ class MainMenu {
 		this.bgTex = makeCoords4(288/tex_s,319/tex_s,287/tex_s,256/tex_s);
 		this.optionsV = [];
 		for (var i=0;i<2;i++) this.optionsV[i] = makeCoords4Z(-0.2,0.2,0.25-i*0.3,0.05-i*0.3,-0.999);
-		this.optionsTex = [textureC['Start'],textureC['Options']];
+		this.optionsTex = [textureC['8bitMode'],textureC['Exit']];
 		this.selectTex = textureC['Select'];
 	}
 }

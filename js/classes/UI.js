@@ -9,7 +9,6 @@ class UI {
 		enemyMissiles = [];
 		playerMissiles = [];
 		backgroundObjects = [];
-		enemies.push(new Enemy1(0,0,0,Math.PI*3/2,enemies.length));
 	}
 	
 	newMenu(newMenu) {

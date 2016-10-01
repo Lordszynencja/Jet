@@ -18,7 +18,7 @@ class EnemyBullet1 {
 	}
 	
 	collide() {
-		if (this.inCollisionRange()) {
+		if (!p.dead && this.inCollisionRange()) {
 			var i;
 			for (i in p.ship.hitbox) {
 				if (collide(this.hitbox,p.ship.hitbox[i])) {
@@ -47,25 +47,27 @@ class EnemyBullet1 {
 	draw() {
 		var j;
 		for (j=0;j<3;j++) {
-			g.add_v(0,[this.x+this.v[j][0],this.y+this.v[j][1],0.001],this.tex[j]);
+			g.add_v(this.texNo,[this.x+this.v[j][0],this.y+this.v[j][1],0.001],this.tex[j]);
 		}
 		for (j=1;j<4;j++) {
-			g.add_v(0,[this.x+this.v[j][0],this.y+this.v[j][1],0.001],this.tex[j]);
+			g.add_v(this.texNo,[this.x+this.v[j][0],this.y+this.v[j][1],0.001],this.tex[j]);
 		}
 	}
 	
 	constructor(x,y,angle,num) {
-		this.speed = 0.02;
-		this.size = 0.02;
+		this.speed = 0.05;
+		this.size = 0.01;
 		this.damage = 1;
 		this.x = x;
 		this.y = y;
 		this.angle = angle;
-		this.vx = 0.02*Math.cos(angle);
-		this.vy = 0.02*Math.sin(angle);
+		this.vx = this.speed*Math.cos(angle);
+		this.vy = this.speed*Math.sin(angle);
 		this.prepare_vertex(angle);
 		this.rotatedHitbox = rotateModel(makeCoords2(0.02,0.01),angle);
-		this.tex = makeCoords4(255/tex_s,0,256/tex_s,511/tex_s);
+		this.hitbox = moveModel(this.rotatedHitbox,x,y);
+		this.texNo = textureC['Bullet1'][0];
+		this.tex = textureC['Bullet1'][1];
 		this.num = num;
 		
 	}

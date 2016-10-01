@@ -35,15 +35,15 @@ class Enemy1 {
 	}
 	
 	constructor(x,y,speed,angle,num) {
-		this.hp = 50;
+		this.hp = 20;
 		this.size = 0.15;
 		this.weapons = [new EnemyWMachinegun1(0.15,0,this)];
 		this.x = x;
 		this.y = y;
 		this.speed = speed;
 		this.angle = angle;
-		this.vx = Math.sin(angle)*speed;
-		this.vy = Math.cos(angle)*speed;
+		this.vx = Math.cos(angle)*speed;
+		this.vy = Math.sin(angle)*speed;
 		this.tex = makeCoords4(256/tex_s,511/tex_s,255/tex_s,0);
 		this.v = rotateModel(makeCoords2(0.15,0.15),angle);
 		this.num = num;
