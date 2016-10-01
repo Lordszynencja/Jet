@@ -64,13 +64,9 @@ class PlayerOrbs1 {
 			var bx = x + Math.sin(this.angle+Math.PI*(this.time/50+i+0.5))*this.range;
 			var by = y + Math.cos(this.angle+Math.PI*(this.time/50+i+0.5))*this.range;
 			var j;
-			for (j=0;j<3;j++) {
-				g.add_v(0,[bx+this.v[j][0],by+this.v[j][1],0.001],this.tex[j]);
-			}
-			for (j=1;j<4;j++) {
-				g.add_v(0,[bx+this.v[j][0],by+this.v[j][1],0.001],this.tex[j]);
-			}
-			g.add_light([0.5,0.5,5.0],[bx,by,0],1,[0,Math.PI]);
+			for (j=0;j<3;j++) g.addTextureVertex(0,[bx+this.v[j][0],by+this.v[j][1]],this.tex[j]);
+			for (j=1;j<4;j++) g.addTextureVertex(0,[bx+this.v[j][0],by+this.v[j][1]],this.tex[j]);
+			g.addLight([bx,by],[0.5,0.5,5.0],1,[0,Math.PI]);
 		}
 	}
 	

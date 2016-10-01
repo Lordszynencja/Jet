@@ -53,13 +53,9 @@ class PlayerOrbs2 {
 	
 	draw() {
 		var j;
-		for (j=0;j<3;j++) {
-			g.add_v(0,[this.x+this.v[j][0],this.y+this.v[j][1],0.001],this.tex[j]);
-		}
-		for (j=1;j<4;j++) {
-			g.add_v(0,[this.x+this.v[j][0],this.y+this.v[j][1],0.001],this.tex[j]);
-		}
-		g.add_light([10,10,1],[this.x,this.y,0],1,[0,Math.PI]);
+		for (j=0;j<3;j++) g.addTextureVertex(0,[this.x+this.v[j][0],this.y+this.v[j][1]],this.tex[j]);
+		for (j=1;j<4;j++) g.addTextureVertex(0,[this.x+this.v[j][0],this.y+this.v[j][1]],this.tex[j]);
+		g.addLight([this.x,this.y],[10,10,1],1,[0,Math.PI]);
 	}
 	
 	constructor(x,y,r1,r2,angleSpeed,num) {

@@ -15,8 +15,7 @@ class PlayerLaser1 {
 	draw() {
 		var x = p.x + Math.cos(Math.PI/2)*this.x-Math.sin(Math.PI/2)*this.y;
 		var y = p.y + Math.sin(Math.PI/2)*this.x+Math.cos(Math.PI/2)*this.y;
-		g.add_light([100,40,0],[x,y,0],2,[3,3]);
-		g.add_light([100,40,0],[x,y,1],2,[3,3]);
+		g.addLight([x,y],[100,40,0],2,[3,3]);
 	}
 	
 	constructor(x,y,num) {

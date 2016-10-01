@@ -35,14 +35,13 @@ class Ship1 {
 	}
 	
 	draw() {
-		var j;
-		for (j=0;j<3;j++) {
-			g.add_v(this.texNo,[p.x+this.v[j][0],p.y+this.v[j][1],0],this.tex[j]);
+		for (var j=0;j<3;j++) {
+			g.addTextureVertex(this.texNo,[p.x+this.v[j][0],p.y+this.v[j][1]],this.tex[j]);
 		}
-		for (j=1;j<4;j++) {
-			g.add_v(this.texNo,[p.x+this.v[j][0],p.y+this.v[j][1],0],this.tex[j]);
+		for (var j=1;j<4;j++) {
+			g.addTextureVertex(this.texNo,[p.x+this.v[j][0],p.y+this.v[j][1]],this.tex[j]);
 		}
-		for (j in this.weapons) this.weapons[j].draw();
+		for (var j in this.weapons) this.weapons[j].draw();
 	}
 	
 	constructor(angle) {

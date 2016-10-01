@@ -22,88 +22,51 @@ class PauseMenu {
 	}
 	
 	drawBg() {
-		g.add_v(0,[-1,-1,0.999],[511/tex_s,512/tex_s]);
-		g.add_v(0,[-1,1,0.999],[511/tex_s,1023/tex_s]);
-		g.add_v(0,[1,-1,0.999],[0/tex_s,512/tex_s]);
+		g.addTextureVertexBackground(0,[-1,-1],[511/tex_s,512/tex_s]);
+		g.addTextureVertexBackground(0,[-1,1],[511/tex_s,1023/tex_s]);
+		g.addTextureVertexBackground(0,[1,-1],[0/tex_s,512/tex_s]);
 
-		g.add_v(0,[-1,1,0.999],[511/tex_s,1023/tex_s]);
-		g.add_v(0,[1,-1,0.999],[0,512/tex_s]);
-		g.add_v(0,[1,1,0.999],[0,1023/tex_s]);
+		g.addTextureVertexBackground(0,[-1,1],[511/tex_s,1023/tex_s]);
+		g.addTextureVertexBackground(0,[1,-1],[0,512/tex_s]);
+		g.addTextureVertexBackground(0,[1,1],[0,1023/tex_s]);
 	}
 	
 	drawScore() {
-		var i;
-		for (i=0;i<12;i++) {//score
-			var iscore = [0,0,0,0,0,0];
-			var s = this.score;
-			var j;
-			for (j=0;j<6;j++) {
-				iscore[5-j] = (s%10).toString();
-				s = Math.floor(s/10);
-			}
-			g.drawText(-0.9,-0.9,iscore,0.1);
+		var iscore = [0,0,0,0,0,0];
+		var s = this.score;
+		var j;
+		for (j=0;j<6;j++) {
+			iscore[5-j] = (s%10).toString();
+			s = Math.floor(s/10);
 		}
+		g.drawText(-0.9,-0.9,iscore,0.1);
 	}
 	
 	drawLife() {
-		var lifeV = makeCoords4Z(0.55,0.95-((100.0-p.hp)/250.0),-0.95,-0.85,-0.999);
-		var i;
-		for (i=0;i<3;i++) {
-			g.add_v(0,this.lifeBgV[i],this.bgTex[i]);
-		}
-		for (i=1;i<4;i++) {
-			g.add_v(0,this.lifeBgV[i],this.bgTex[i]);
-		}
-		for (i=0;i<3;i++) {
-			g.add_v(0,lifeV[i],this.lifeTex[i]);
-		}
-		for (i=1;i<4;i++) {
-			g.add_v(0,lifeV[i],this.lifeTex[i]);
-		}
+		var lifeV = makeCoords4(0.55,0.95-((100.0-p.hp)/250.0),-0.95,-0.85);
+		for (var i=0;i<3;i++) g.addTextureVertexGUI(0,this.lifeBgV[i],this.bgTex[i]);
+		for (var i=1;i<4;i++) g.addTextureVertexGUI(0,this.lifeBgV[i],this.bgTex[i]);
+		for (var i=0;i<3;i++) g.addTextureVertexGUI(0,lifeV[i],this.lifeTex[i]);
+		for (var i=1;i<4;i++) g.addTextureVertexGUI(0,lifeV[i],this.lifeTex[i]);
 	}
 	
 	drawHeat() {
-		var heatV = makeCoords4Z(0.1,0.5-((100.0-p.ship.heat)/250.0),-0.95,-0.85,-0.999);
-		var i;
-		for (i=0;i<3;i++) {
-			g.add_v(0,this.heatBgV[i],this.bgTex[i]);
-		}
-		for (i=1;i<4;i++) {
-			g.add_v(0,this.heatBgV[i],this.bgTex[i]);
-		}
-		for (i=0;i<3;i++) {
-			g.add_v(0,this.heatCriticalV[i],this.lifeTex[i]);
-		}
-		for (i=1;i<4;i++) {
-			g.add_v(0,this.heatCriticalV[i],this.lifeTex[i]);
-		}
-		for (i=0;i<3;i++) {
-			g.add_v(0,heatV[i],this.heatTex[i]);
-		}
-		for (i=1;i<4;i++) {
-			g.add_v(0,heatV[i],this.heatTex[i]);
-		}
+		var heatV = makeCoords4(0.1,0.5-((100.0-p.ship.heat)/250.0),-0.95,-0.85);
+		for (var i=0;i<3;i++) g.addTextureVertexGUI(0,this.heatBgV[i],this.bgTex[i]);
+		for (var i=1;i<4;i++) g.addTextureVertexGUI(0,this.heatBgV[i],this.bgTex[i]);
+		for (var i=0;i<3;i++) g.addTextureVertexGUI(0,this.heatCriticalV[i],this.lifeTex[i]);
+		for (var i=1;i<4;i++) g.addTextureVertexGUI(0,this.heatCriticalV[i],this.lifeTex[i]);
+		for (var i=0;i<3;i++) g.addTextureVertexGUI(0,heatV[i],this.heatTex[i]);
+		for (var i=1;i<4;i++) g.addTextureVertexGUI(0,heatV[i],this.heatTex[i]);
 	}
 	
 	drawOptions() {
 		for (var i in this.optionsV) {
-			var j;
-			for (j=0;j<3;j++) {
-				g.add_v(1,this.optionsV[i][j],this.optionsTex[i][j]);
-			}
-			for (j=1;j<4;j++) {
-				g.add_v(1,this.optionsV[i][j],this.optionsTex[i][j]);
-			}
+			for (var j=0;j<3;j++) g.addTextureVertexGUI(1,this.optionsV[i][j],this.optionsTex[i][j]);
+			for (var j=1;j<4;j++) g.addTextureVertexGUI(1,this.optionsV[i][j],this.optionsTex[i][j]);
 		}
-		var j;
-		for (j=0;j<3;j++) {
-			for (j=0;j<3;j++) {
-				g.add_v(1,this.optionsV[this.position][j],this.selectTex[j]);
-			}
-			for (j=1;j<4;j++) {
-				g.add_v(1,this.optionsV[this.position][j],this.selectTex[j]);
-			}
-		}
+		for (var j=0;j<3;j++) g.addTextureVertexGUI(1,this.optionsV[this.position][j],this.selectTex[j]);
+		for (var j=1;j<4;j++) g.addTextureVertexGUI(1,this.optionsV[this.position][j],this.selectTex[j]);
 	}
 	
 	draw() {
@@ -124,11 +87,11 @@ class PauseMenu {
 		this.bgTex = makeCoords4(288/tex_s,319/tex_s,287/tex_s,256/tex_s);
 		this.heatTex = makeCoords4(256/tex_s,287/tex_s,287/tex_s,256/tex_s);
 		this.lifeTex = makeCoords4(320/tex_s,351/tex_s,287/tex_s,256/tex_s);
-		this.heatBgV = makeCoords4Z(0.1,0.5,-0.95,-0.85,-0.997);
-		this.heatCriticalV = makeCoords4Z(0.4,0.5,-0.95,-0.85,-0.998);
-		this.lifeBgV = makeCoords4Z(0.55,0.95,-0.95,-0.85,-0.998);
+		this.heatBgV = makeCoords4(0.1,0.5,-0.95,-0.85,-0.997);
+		this.heatCriticalV = makeCoords4(0.4,0.5,-0.95,-0.85,-0.998);
+		this.lifeBgV = makeCoords4(0.55,0.95,-0.95,-0.85,-0.998);
 		this.optionsV = [];
-		for (var i=0;i<2;i++) this.optionsV[i] = makeCoords4Z(-0.2,0.2,0.25-i*0.3,0.05-i*0.3,-0.999);
+		for (var i=0;i<2;i++) this.optionsV[i] = makeCoords4(-0.2,0.2,0.25-i*0.3,0.05-i*0.3,-0.999);
 		this.optionsTex = [makeCoords4(0,127/tex_s,64/tex_s,95/tex_s),makeCoords4(0,127/tex_s,96/tex_s,127/tex_s)];
 		this.selectTex = makeCoords4(128/tex_s,255/tex_s,0/tex_s,32/tex_s);
 		

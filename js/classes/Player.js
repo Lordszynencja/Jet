@@ -3,15 +3,15 @@ class Player {
 		if (!this.dead) {
 			this.invincibility--;
 			if (c.isPressed("left")) {
-				this.x-=0.03;
-				if (this.x<=-0.85) this.x=-0.85;
+				this.x -= 0.03;
+				if (this.x<=-0.85) this.x = -0.85;
 			}
 			if (c.isPressed("right")) {
-				this.x+=0.03;
-				if (this.x>=0.85) this.x=0.85;
+				this.x += 0.03;
+				if (this.x>=0.85) this.x = 0.85;
 			}
 			if (c.isPressed("up")) {
-				this.y+=0.03;
+				this.y += 0.03;
 				if (this.y>=0.85) this.y = 0.85;
 			}
 			if (c.isPressed("down")) {
@@ -43,7 +43,7 @@ class Player {
 		this.dead = false;
 		this.ship = new Ship1(Math.PI/2);
 		this.ship.addWeapon(new PlayerWMachinegun1(0,0,Math.PI/2),0);
-		this.ship.addWeapon(new PlayerWMachinegun1(0,0,Math.PI/2),1);
+		//this.ship.addWeapon(new PlayerWMachinegun1(0,0,Math.PI/2),1);
 		this.ship.addWeapon(new PlayerWLaser1(0,0,Math.PI/2),2);
 		this.ship.addWeapon(new PlayerWDefenseOrbs1(0,0,Math.PI/2),3);
 		this.ship.addWeapon(new PlayerWOrbs2(0,0,Math.PI/2),1);

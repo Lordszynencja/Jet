@@ -46,14 +46,9 @@ class PlayerDefenseOrbs1 {
 	}
 	
 	draw() {
-		var j;
-		for (j=0;j<3;j++) {
-			g.add_v(0,[this.x+this.v[j][0],this.y+this.v[j][1],0.001],this.tex[j]);
-		}
-		for (j=1;j<4;j++) {
-			g.add_v(0,[this.x+this.v[j][0],this.y+this.v[j][1],0.001],this.tex[j]);
-		}
-		g.add_light([10,10,25],[this.x,this.y,0],1,[0,Math.PI]);
+		for (var j=0;j<3;j++) g.addTextureVertex(this.texNo,[this.x+this.v[j][0],this.y+this.v[j][1]],this.tex[j]);
+		for (var j=1;j<4;j++) g.addTextureVertex(this.texNo,[this.x+this.v[j][0],this.y+this.v[j][1]],this.tex[j]);
+		g.addLight([this.x,this.y],[10,10,25],1,[0,Math.PI]);
 	}
 	
 	constructor(ang,angleSpeed,r,num) {
@@ -68,7 +63,7 @@ class PlayerDefenseOrbs1 {
 		
 		this.prepareVertex();
 		this.prepareHitbox();
-		this.texno = textureC['Orb3'][0];
+		this.texNo = textureC['Orb3'][0];
 		this.tex = textureC['Orb3'][1];
 	}
 }

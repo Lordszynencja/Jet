@@ -1,5 +1,5 @@
 class EnemyBullet1 {
-	prepare_vertex(angle) {
+	prepareVertex(angle) {
 		this.v = [];
 		this.v[0] = [this.size*(Math.cos(angle)-Math.sin(angle)),this.size*(Math.sin(angle)+Math.cos(angle))];
 		this.v[1] = [this.size*(-Math.cos(angle)-Math.sin(angle)),this.size*(Math.cos(angle)-Math.sin(angle))];
@@ -45,13 +45,8 @@ class EnemyBullet1 {
 	}
 	
 	draw() {
-		var j;
-		for (j=0;j<3;j++) {
-			g.add_v(this.texNo,[this.x+this.v[j][0],this.y+this.v[j][1],0.001],this.tex[j]);
-		}
-		for (j=1;j<4;j++) {
-			g.add_v(this.texNo,[this.x+this.v[j][0],this.y+this.v[j][1],0.001],this.tex[j]);
-		}
+		for (var j=0;j<3;j++) g.addTextureVertex(this.texNo, [this.x+this.v[j][0],this.y+this.v[j][1]], this.tex[j]);
+		for (var j=1;j<4;j++) g.addTextureVertex(this.texNo, [this.x+this.v[j][0],this.y+this.v[j][1]], this.tex[j]);
 	}
 	
 	constructor(x,y,angle,num) {
@@ -63,7 +58,7 @@ class EnemyBullet1 {
 		this.angle = angle;
 		this.vx = this.speed*Math.cos(angle);
 		this.vy = this.speed*Math.sin(angle);
-		this.prepare_vertex(angle);
+		this.prepareVertex(angle);
 		this.rotatedHitbox = rotateModel(makeCoords2(0.02,0.01),angle);
 		this.hitbox = moveModel(this.rotatedHitbox,x,y);
 		this.texNo = textureC['Bullet1'][0];

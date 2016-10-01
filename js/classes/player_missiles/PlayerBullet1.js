@@ -4,7 +4,7 @@ class PlayerBullet1 {
 	}
 	
 	prepareHitbox() {
-		this.defaultHitbox = makeCoords2(0.01,0.05);
+		this.defaultHitbox = makeCoords2(this.size,this.size);
 		this.rotatedHitbox = rotateModel(this.defaultHitbox,this.angle);
 		this.hitbox = [];
 	}
@@ -29,7 +29,7 @@ class PlayerBullet1 {
 	update() {
 		this.x += this.vx;
 		this.y += this.vy;
-		this.hitbox = moveModel(this.rotatedHitbox,this.x,this.y);
+		this.hitbox = moveModel(this.rotatedHitbox, this.x, this.y);
 		
 		if (this.x>2 || this.x<-2 || this.y>2 || this.y<-2) {
 			delete playerMissiles[this.num];
@@ -45,13 +45,8 @@ class PlayerBullet1 {
 	}
 	
 	draw() {
-		var j;
-		for (j=0;j<3;j++) {
-			g.add_v(this.texNo,[this.x+this.v[j][0],this.y+this.v[j][1],0.001],this.tex[j]);
-		}
-		for (j=1;j<4;j++) {
-			g.add_v(this.texNo,[this.x+this.v[j][0],this.y+this.v[j][1],0.001],this.tex[j]);
-		}
+		for (var j=0;j<3;j++) g.addTextureVertex(this.texNo, [this.x+this.v[j][0],this.y+this.v[j][1]], this.tex[j]);
+		for (var j=1;j<4;j++) g.addTextureVertex(this.texNo, [this.x+this.v[j][0],this.y+this.v[j][1]], this.tex[j]);
 	}
 	
 	constructor(x,y,angle,num) {

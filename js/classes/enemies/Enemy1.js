@@ -25,12 +25,11 @@ class Enemy1 {
 	}
 	
 	draw() {
-		var j;
-		for (j=0;j<3;j++) {
-			g.add_v(0,[this.x+this.v[j][0],this.y+this.v[j][1],0],this.tex[j]);
+		for (var j=0;j<3;j++) {
+			g.addTextureVertex(0,[this.x+this.v[j][0],this.y+this.v[j][1]],this.tex[j]);
 		}
-		for (j=1;j<4;j++) {
-			g.add_v(0,[this.x+this.v[j][0],this.y+this.v[j][1],0],this.tex[j]);
+		for (var j=1;j<4;j++) {
+			g.addTextureVertex(0,[this.x+this.v[j][0],this.y+this.v[j][1]],this.tex[j]);
 		}
 	}
 	

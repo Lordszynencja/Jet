@@ -1,4 +1,4 @@
-class shaderEffect0 {
+class ShaderEffect0 {
 	prepareShaderCode() {
 		this.vertCode = `
 attribute vec2 position;
@@ -23,62 +23,17 @@ uniform bool eight_bit_mode;
 varying vec2 p;
 varying vec3 c;
 
-/*vec2 effect0prepare(vec2 point) {
-	point = abs(point);
-	if (point.x < point.y) point = point.yx;
-	return point;
-}
-
-vec3 effect0() {
-	vec2 myp = (p-vec2(-0.6,0.0))/0.5;
-	vec2 point = effect0prepare(myp);
-	float distance = (point.y<=0.5 ? max(abs(point.x-0.5),0.001)*100.0 : distance(point,vec2(0.5,0.5))*100.0);
-	return vector111/distance;
-}*/
-
 float effect1() {
 	vec2 point = abs(p);
 	if (point.y>point.x) point = point.yx;
 	vec3 change;
-	return (point.y<=0.8 ? 1.0/abs(point.x-0.8)/128.0 : 1.0/distance(point,vec2(0.8,0.8))/128.0);
+	return (point.y<=0.8 ? 1.0/pow(abs(point.x-0.8),2.0)/128.0 : 1.0/pow(distance(point,vec2(0.8,0.8)),2.0)/128.0);
 }
 
 void main(void) {
-	/*vec2 point = vec2(abs(p.x),abs(p.y));
-	if (point.y>point.x) point = point.yx;
-	vec3 col;
-	if (point.y<=0.2) col = c/abs(point.x-0.8)/128.0;
-	else col = c/distance(point,vec2(0.8,0.8))/128.0;*/
-	
 	vec3 col = c*effect1();
 	gl_FragColor = vec4(col,pow(max(max(col.r,col.g),max(col.b,0.0)),2.0));
 }`
-	}
-	
-	compileShaders() {
-		var vertShader = gl.createShader(gl.VERTEX_SHADER);
-		gl.shaderSource(vertShader,this.vertCode);
-		gl.compileShader(vertShader);
-		if (!gl.getShaderParameter(vertShader, gl.COMPILE_STATUS)) {
-			var error = gl.getShaderInfoLog(vertShader);
-			console.log(this.vertCode);
-			console.log("##################\nVERT SHADER ERROR\n##################\n"+error);
-		}
-		
-		var fragShader = this.gl.createShader(gl.FRAGMENT_SHADER);
-		gl.shaderSource(fragShader,this.fragCode);
-		gl.compileShader(fragShader);
-		if (!gl.getShaderParameter(fragShader, gl.COMPILE_STATUS)) {
-			var error = gl.getShaderInfoLog(fragShader);
-			console.log(this.fragCode);
-			console.log("##################\nFRAG SHADER ERROR\n##################\n"+error);
-		}
-		
-		this.shader = gl.createProgram();
-		gl.attachShader(this.shader, vertShader);
-		gl.attachShader(this.shader, fragShader);
-		gl.linkProgram(this.shader);
-		this.shader = compileShaders(this.vertCode,this.fragcode);
 	}
 	
 	prepareBuffers() {
@@ -147,17 +102,13 @@ void main(void) {
 		this.addPoint(p3,move,scale,color);
 		this.addPoint(p4,move,scale,color);
 	}
-	
-	resetDrawing() {
+
+	update() {
 		this.n = 0;
 		this.position = [];
 		this.move = [];
 		this.scale = [];
 		this.color = [];
-	}
-
-	prepare() {
-		this.resetDrawing();
 	}
 	
 	constructor() {
@@ -172,6 +123,6 @@ void main(void) {
 		this.bColor = gl.createBuffer();
 		
 		this.createShader();
-		this.prepare();
+		this.update();
 	}
 }

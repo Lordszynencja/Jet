@@ -1,30 +1,40 @@
 const spawn_chance = 0.05;
+const FPS = 50;
 const tex_s=2048;
 const maxMissiles = 256;
 const maxEnemies = 32;
-var light_max = 32;
 
 var time = 0;
 var eightBitMode = false;
 
-const gameoverV = makeCoords2Z(0.4,0.2,-0.999);
+const gameoverV = makeCoords2(0.4,0.2);
 const gameoverTex = makeCoords4(0,127/tex_s,63/tex_s,0);
 
 function drawGameover() {
 	for (var i=0;i<3;i++) {
-		g.add_v(1,gameoverV[i],gameoverTex[i]);
+		g.addTextureVertex(1,gameoverV[i],gameoverTex[i]);
 	}
 	for (var i=1;i<4;i++) {
-		g.add_v(1,gameoverV[i],gameoverTex[i]);
+		g.addTextureVertex(1,gameoverV[i],gameoverTex[i]);
 	}
 }
 
-var gl;//webgl
+var canvas = document.getElementById('canv');
+var gl = canvas.getContext('experimental-webgl', {preserveDrawingBuffer: true});
+gl.viewport(0, 0, canvas.width, canvas.height);
+gl.disable(gl.DEPTH_TEST);
+gl.enable(gl.BLEND);
+gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+var con = document.getElementById('Tcan').getContext('2d');
+const maxLights = (Math.floor(gl.getParameter(gl.MAX_VERTEX_UNIFORM_VECTORS)/9) >= 32 ? 32 : Math.floor(gl.getParameter(gl.MAX_VERTEX_UNIFORM_VECTORS)/9));
+
+var sh = [];//shaders
 var g;//graphics
 var s;//sound
 var c;//controls
 var p;//player
 var ui;//UI
+var game;//game
 
 
 var enemyMissiles = [];
@@ -50,3 +60,5 @@ var textureC = {
 	'8bitMode' : [1,makeCoords4(0,127/tex_s,192/tex_s,223/tex_s)]
 	
 }
+
+var test;
