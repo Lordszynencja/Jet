@@ -66,8 +66,8 @@ void main(void) {
 	}
 
 	draw() {
+		gl.useProgram(this.shader);
 		if (this.n>0) {
-			gl.useProgram(this.shader);
 			this.setBufferData();
 			gl.drawArrays(gl.TRIANGLES,0,this.n);
 		}

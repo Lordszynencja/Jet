@@ -195,7 +195,6 @@ void main(void) {
 		this.loadTextures();
 		this.prepareShaderCode();
 		this.shader = compileShaders(this.vertCode, this.fragCode);
-		console.log(this.shader);
 		this.prepareBuffers();
 		this.prepareUniforms();
 	}
