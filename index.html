@@ -5,23 +5,52 @@
 <html>
 	<body>
 	<center>
-		<canvas width="600" height="600" id="canv"></canvas></br>
-		<canvas id="Tcan" width="1024" height="1024" style="display: none;"></canvas>
+		<canvas width="800" height="800" id="canv"></canvas></br>
+		<canvas id="Tcan" width="2048" height="2048" style="display: none;"></canvas>
+		<!-- Global logic -->
+		<script src="js/functions.js"></script>
 		<script src="js/global.js"></script>
-		<script src="js/graphics.js"></script>
-		<script src="js/sound.js"></script>
-		<script src="js/data.js"></script>
-		<script src="js/controls.js"></script>
-		<script src="js/objects.js"></script>
-		<script src="js/enemy_missiles.js"></script>
-		<script src="js/player_missiles.js"></script>
-		<script src="js/player.js"></script>
-		<script src="js/updates.js"></script>
-		<script src="js/menu.js"></script>
-		<script src="js/game.js"></script></br>
+		<script src="js/classes/Controls.js"></script>
+		<!-- Shaders -->
+		<script src="js/classes/shaders/ShaderTextures.js"></script>
+		<script src="js/classes/shaders/ShaderEffect0.js"></script>
+		<script src="js/classes/Graphics.js"></script>
+		<!-- Sound -->
+		<script src="js/classes/Sound.js"></script>
+		<!-- Enemy Missiles -->
+		<script src="js/classes/enemy_missiles/EnemyBullet1.js"></script>
+		<!-- Enemy Weapons -->
+		<script src="js/classes/enemy_weapons/EnemyWMachinegun1.js"></script>
+		<!-- Enemies -->
+		<script src="js/classes/enemies/Enemy1.js"></script>
+		<!-- Player Missiles -->
+		<script src="js/classes/player_missiles/PlayerBullet1.js"></script>
+		<script src="js/classes/player_missiles/PlayerLaser1.js"></script>
+		<script src="js/classes/player_missiles/PlayerOrbs1.js"></script>
+		<script src="js/classes/player_missiles/PlayerOrbs2.js"></script>
+		<script src="js/classes/player_missiles/PlayerDefenseOrbs1.js"></script>
+		<!-- Player Weapons -->
+		<script src="js/classes/player_weapons/PlayerWMachinegun1.js"></script>
+		<script src="js/classes/player_weapons/PlayerWLaser1.js"></script>
+		<script src="js/classes/player_weapons/PlayerWOrbs1.js"></script>
+		<script src="js/classes/player_weapons/PlayerWOrbs2.js"></script>
+		<script src="js/classes/player_weapons/PlayerWDefenseOrbs1.js"></script>
+		<!-- Player -->
+		<script src="js/classes/player_ships/Ship1.js"></script>
+		<script src="js/classes/Player.js"></script>
+		<!-- levels -->
+		<script src="js/classes/levels/Level1.js"></script>
+		<!-- UI -->
+		<script src="js/classes/UI/Interface.js"></script>
+		<script src="js/classes/UI/PauseMenu.js"></script>
+		<script src="js/classes/UI/Options.js"></script>
+		<script src="js/classes/UI/MainMenu.js"></script>
+		<script src="js/classes/UI.js"></script>
+		<!-- Game -->
+		<script src="js/Game.js"></script>
 		SPACE - shoot</br>
 		UP,DOWN,LEFT,RIGHT - movement</br>
-		<button type="button" onclick="window.location.href='/sample/webgl_card.pdf'" >WebGL card</button>
+		<button type="button" onclick="window.location.href='../webgl_card.pdf'" >WebGL card</button>
 		<div id="imagediv">
 		</div>
 	</center>
