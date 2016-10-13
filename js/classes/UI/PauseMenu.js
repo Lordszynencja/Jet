@@ -9,7 +9,7 @@ class PauseMenu {
 				ui.newMenu(new Interface(this.level));
 			} else {
 				delete ui.menu;
-				ui.newMenu(new MainMenu());
+				ui.newMenu(new LevelSelectMenu());
 			}
 		} else if (this.position == 0 && name=='down') {
 			this.position = 1;

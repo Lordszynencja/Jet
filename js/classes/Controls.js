@@ -4,7 +4,7 @@ class Controls {
 	keyDown(e) {
 		var code = e.which || e.keyCode;
 		var name = c.code[code];
-		if (name=="nothing") {
+		if (name == "nothing") {
 			console.log("button pressed: "+code);
 			return;
 		}

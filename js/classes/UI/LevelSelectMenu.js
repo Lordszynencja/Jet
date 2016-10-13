@@ -1,18 +1,22 @@
-class MainMenu {
+class LevelSelectMenu {
 	onPress(name) {
 		if (name=='enter') {
 			if (this.position == 0) {
 				delete ui.menu;
-				ui.newMenu(new LevelSelectMenu());
+				ui.newMenu(new Interface(new Level0()));
 				ui.prepareGame();
-			} else {
+			} else if (this.position == 1) {
 				delete ui.menu;
-				ui.newMenu(new Options());
+				ui.newMenu(new Interface(new Level1()));
+				ui.prepareGame();
+			} else if (this.position == 2) {
+				delete ui.menu;
+				ui.newMenu(new MainMenu());
 			}
-		} else if (this.position == 0 && name=='down') {
-			this.position = 1;
-		} else if (this.position == 1 && name=='up') {
-			this.position = 0;
+		} else if (this.position<2 && name=='down') {
+			this.position++;
+		} else if (this.position>0 && name=='up') {
+			this.position--;
 		}
 	}
 	
@@ -45,11 +49,12 @@ class MainMenu {
 	}
 	
 	constructor() {
+		console.log("test");
 		this.position = 0;
 		this.bgTex = makeCoords4(288/tex_s,319/tex_s,287/tex_s,256/tex_s);
 		this.optionsV = [];
-		for (var i=0;i<2;i++) this.optionsV[i] = makeCoords4(-0.2,0.2,0.25-i*0.3,0.05-i*0.3);
-		this.optionsTex = [textureC['Start'],textureC['Options']];
+		for (var i=0;i<3;i++) this.optionsV[i] = makeCoords4(-0.2,0.2,0.4-i*0.3,0.2-i*0.3);
+		this.optionsTex = [textureC['Start'],textureC['Options'],textureC['Exit']];
 		this.selectTex = textureC['Select'];
 	}
 }
