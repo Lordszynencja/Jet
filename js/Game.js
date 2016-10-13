@@ -12,7 +12,7 @@ class Game {
 	}
 	
 	draw() {
-		g.addEffect0([(time%(FPS*5)-FPS*2.5)*0.01,0.0],0.2);
+		//g.addEffect0([(time%(FPS*5)-FPS*2.5)*0.01,0.0],0.2);
 		g.draw();
 		requestAnimationFrame(game.draw);
 	}

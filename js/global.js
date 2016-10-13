@@ -6,6 +6,7 @@ const maxEnemies = 32;
 
 var time = 0;
 var eightBitMode = false;
+var option_lightning = true;
 
 const gameoverV = makeCoords2(0.4,0.2);
 const gameoverTex = makeCoords4(0,127/tex_s,63/tex_s,0);

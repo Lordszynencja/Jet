@@ -10,7 +10,7 @@ class Graphics {
 	}
 
 	addLight(xy, rgb, type, data) {
-		sh['textures'].addLight(xy, rgb, type, data);
+		if (option_lightning) sh['textures'].addLight(xy, rgb, type, data);
 	}
 	
 	addEffect0(pos, size) {
