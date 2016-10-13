@@ -49,12 +49,11 @@ class LevelSelectMenu {
 	}
 	
 	constructor() {
-		console.log("test");
 		this.position = 0;
 		this.bgTex = makeCoords4(288/tex_s,319/tex_s,287/tex_s,256/tex_s);
 		this.optionsV = [];
 		for (var i=0;i<3;i++) this.optionsV[i] = makeCoords4(-0.2,0.2,0.4-i*0.3,0.2-i*0.3);
-		this.optionsTex = [textureC['Start'],textureC['Options'],textureC['Exit']];
+		this.optionsTex = [textureC['Continue'],textureC['Continue'],textureC['Exit']];
 		this.selectTex = textureC['Select'];
 	}
 }
