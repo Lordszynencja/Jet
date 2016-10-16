@@ -1,8 +1,17 @@
+var effectPos = [0.0,0.0];
+var effectsize = 0.2;
+var effectAngle = 0.0;
+
 class Game {
 	tick() {
 		ui.update();
 		g.update();
 		ui.draw();
+		//g.addEffect1([0,0],10, Math.PI*0.5, [0.1,0.1,1]);
+		/*g.addEffect1(effectPos,effectsize,effectAngle+Math.PI*time/100, [0.1,0.1,1]);
+		g.addEffect1(effectPos,effectsize,effectAngle+Math.PI*(0.5+time/100), [1,0.1,0.1]);
+		g.addEffect1(effectPos,effectsize,effectAngle+Math.PI*(1+time/100), [1,1,0.1]);
+		g.addEffect1(effectPos,effectsize,effectAngle+Math.PI*(1.5+time/100), [0.1,1,0.1]);*/
 		time++;
 	}
 	
@@ -12,7 +21,6 @@ class Game {
 	}
 	
 	draw() {
-		//g.addEffect0([(time%(FPS*5)-FPS*2.5)*0.01,0.0],0.2);
 		g.draw();
 		requestAnimationFrame(game.draw);
 	}

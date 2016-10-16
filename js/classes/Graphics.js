@@ -6,7 +6,8 @@ class Graphics {
 		gl.clear(gl.DEPTH_BUFFER_BIT);
 		gl.clear(gl.COLOR_BUFFER_BIT);
 		sh['textures'].draw();
-		sh['effect0'].draw(0);
+		sh['effect0'].draw();
+		sh['effect1'].draw();
 	}
 
 	addLight(xy, rgb, type, data) {
@@ -15,6 +16,10 @@ class Graphics {
 	
 	addEffect0(pos, size) {
 		sh['effect0'].addEffect(pos, size);
+	}
+	
+	addEffect1(start, length, angle, color) {
+		sh['effect1'].addEffectFromStartAngleLength(start, angle, length, color);
 	}
 
 	drawText(x,y,s,scale) {
@@ -74,5 +79,6 @@ class Graphics {
 	constructor() {
 		sh['textures'] = new ShaderTextures();
 		sh['effect0'] = new ShaderEffect0();
+		sh['effect1'] = new ShaderEffect1();
 	}
 }

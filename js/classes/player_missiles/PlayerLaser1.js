@@ -1,11 +1,13 @@
 class PlayerLaser1 {
 	update() {
-		if (this.time>=1) {
+		if (this.time>=this.maxTime) {
 			delete playerMissiles[this.num];
 			return;
 		}
+		var x = p.x + Math.cos(Math.PI/2)*this.x-Math.sin(Math.PI/2)*this.y;
+		var y = p.y + Math.sin(Math.PI/2)*this.x+Math.cos(Math.PI/2)*this.y;
 		for (var i in enemies) {
-			if (Math.abs(this.x-enemies[i].x)<this.size+enemies[i].size && this.y<enemies[i].y+enemies[i].size+this.size) {
+			if (Math.abs(x-enemies[i].x)<this.size+enemies[i].size && y<enemies[i].y+enemies[i].size) {
 				enemies[i].dealDamage(this.damage);
 			}
 		}
@@ -15,15 +17,17 @@ class PlayerLaser1 {
 	draw() {
 		var x = p.x + Math.cos(Math.PI/2)*this.x-Math.sin(Math.PI/2)*this.y;
 		var y = p.y + Math.sin(Math.PI/2)*this.x+Math.cos(Math.PI/2)*this.y;
-		g.addLight([x,y],[100,40,0],2,[3,3]);
+		var color = [1,0.6,0];
+		g.addEffect1([x,y],2,Math.PI*0.5,color);
 	}
 	
 	constructor(x,y,num) {
 		this.time = 0;
+		this.maxTime = 599;
 		this.x = x;
 		this.y = y;
 		this.size = 0.03;
-		this.damage = 10;
+		this.damage = 2;
 		this.num = num;
 	}
 }
