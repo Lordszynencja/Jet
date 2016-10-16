@@ -17,17 +17,17 @@ class PlayerLaser1 {
 	draw() {
 		var x = p.x + Math.cos(Math.PI/2)*this.x-Math.sin(Math.PI/2)*this.y;
 		var y = p.y + Math.sin(Math.PI/2)*this.x+Math.cos(Math.PI/2)*this.y;
-		var color = [1,0.6,0];
+		var color = [1,0.2,0.1];
 		g.addEffect1([x,y],2,Math.PI*0.5,color);
 	}
 	
 	constructor(x,y,num) {
 		this.time = 0;
-		this.maxTime = 599;
+		this.maxTime = 3;
 		this.x = x;
 		this.y = y;
 		this.size = 0.03;
-		this.damage = 2;
+		this.damage = 4;
 		this.num = num;
 	}
 }

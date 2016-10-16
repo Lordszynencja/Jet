@@ -34,7 +34,7 @@ varying vec3 c;
 
 float effect_strength() {
 	float dist = (abs(p.y)>1.0 ? distance(abs(p),vec2(0.0,1.0)) : abs(p.x));
-	return pow(1.0/(dist+1.0),4.0);
+	return pow(1.0/(dist*32.0),2.0);
 }
 
 void main(void) {
