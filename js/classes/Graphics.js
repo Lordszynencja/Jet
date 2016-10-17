@@ -5,6 +5,7 @@ class Graphics {
 		gl.clearColor(0.1,0.1,0.1,1.0);
 		gl.clear(gl.DEPTH_BUFFER_BIT);
 		gl.clear(gl.COLOR_BUFFER_BIT);
+		sh[].draw();
 		sh['textures'].draw();
 		sh['effect0'].draw();
 		sh['effect1'].draw();
@@ -57,28 +58,51 @@ class Graphics {
 		this.resetDrawing();
 	}
 	
-	addTextureVertexBackground(type, xy, txy) {
-		sh['textures'].addVertex(type, xy, txy);
-		//sh['textures_background'].addVertex(type, xy, txy);
+	drawOn(shaderName, texData, xy) {
+		for (var i=0;i<3;i++) sh[shaderName].addVertex(texData[0],xy[i],texData[1][i]);
+		for (var i=1;i<4;i++) sh[shaderName].addVertex(texData[0],xy[i],texData[1][i]);
 	}
 	
-	addTextureVertex(type, xy, txy) {
-		sh['textures'].addVertex(type, xy, txy);
+	addBackgroundTexture(tex, xy) {
+		var texData = BackgroundTextures[tex];
+		this.drawOn('tex_background', texData, xy);
 	}
 	
-	addTextureVertexNoLight(type, xy, txy) {
-		sh['textures'].addVertex(type, xy, txy);
-		//sh['textures_no_light'].addVertex(type, xy, txy);
+	addEnemyTexture(tex, xy) {
+		var texData = EnemyTextures[tex];
+		this.drawOn('tex_enemy', texData, xy);
 	}
 	
-	addTextureVertexGUI(type, xy, txy) {
-		sh['textures'].addVertex(type, xy, txy);
-		//sh['textures_gui'].addVertex(type, xy, txy);
+	addBulletTexture(tex, xy) {
+		var texData = BulletsTextures[tex];
+		this.drawOn('tex_bullet', texData, xy);
+	}
+	
+	addPlayerShipTexture(tex, xy) {
+		var texData = PlayerShipTextures[tex];
+		this.drawOn('tex_player', texData, xy);
+	}
+	
+	addGUITexture(tex, xy) {
+		var texData = GUITextures[tex];
+		this.drawOn('tex_gui', texData, xy);
+	}
+	
+	addText(tex, xy) {
+		var texData = LettersNumbersText[tex];
+		this.drawOn('tex_text', texData, xy);
 	}
 	
 	constructor() {
-		sh['textures'] = new ShaderTextures();
+		sh['tex_background'] = new ShaderTexturesBackground();
+		sh['tex_enemy'] = new ShaderTexturesEnemies();
+		sh['tex_bullet'] = new ShaderTexturesBullets();
+		sh['tex_player'] = new ShaderTexturesPlayer();
+		sh['tex_gui'] = new ShaderTexturesGUI();
+		sh['tex_text'] = new ShaderTexturesText();
+		
 		sh['effect0'] = new ShaderEffect0();
 		sh['effect1'] = new ShaderEffect1();
+		var shaders
 	}
 }

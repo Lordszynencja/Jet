@@ -1,4 +1,4 @@
-class ShaderTextures {
+class ShaderTexturesBackground {
 	prepareShaderCode() {
 		this.vertCode=`
 #define PI 3.1415926535897932384626433832795
@@ -148,33 +148,6 @@ void main(void) {
 `;
 	}
 	
-	loadTex(id, img) {
-		gl.activeTexture(gl.TEXTURE0);
-		gl.bindTexture(gl.TEXTURE_2D, this.texture[id]);
-		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-		gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
-		gl.bindTexture(gl.TEXTURE_2D, null);
-	}
-	
-	loadTextures() {
-		con.fillStyle = 'blue';
-		con.fillRect(0, 0, tex_s, tex_s);
-		var thisvar = this;
-		for (var i=0;i<2;i++) {
-			this.loadTex(i, canvas);
-			var imgx = new Image();
-			imgx.onload = (function(img, id) {
-				return function() {
-					thisvar.loadTex(id, img);
-				}
-			})(imgx, i);
-			imgx.src = "textures/texture"+i+".png";
-		}
-	}
-	
 	prepareBuffers() {
 		gl.useProgram(this.shader);
 		prepareBuffer(this.bPosition, "position", this.shader, 2);
@@ -192,7 +165,7 @@ void main(void) {
 	}
 
 	createShader() {
-		this.loadTextures();
+		loadTextures(this.texture, 'enemy', this.texturesNo);
 		this.prepareShaderCode();
 		this.shader = compileShaders(this.vertCode, this.fragCode);
 		this.prepareBuffers();
@@ -217,11 +190,10 @@ void main(void) {
 	}
 
 	draw() {
-		//console.log("draw");
 		gl.useProgram(this.shader);
 		this.setUniformData();
 		var i;
-		for (i=0;i<16;i++) {
+		for (i=0;i<this.texturesNo;i++) {
 			if (this.positionCount[i]>0) {
 				this.setBufferData(i);
 				gl.drawArrays(gl.TRIANGLES, 0, this.positionCount[i]);
@@ -251,29 +223,18 @@ void main(void) {
 
 	addVertex(t, xy, txy) {
 		var v2 = this.positionCount[t]*2;
-		this.position[t][v2] = xy[0];
-		this.position[t][v2+1] = xy[1];
-		this.texturePosition[t][v2] = txy[0];
-		this.texturePosition[t][v2+1] = txy[1];
-		this.positionCount[t]++;
-	}
-
-	drawText(x,y,s,scale) {
-		var i,j,length = 0;
-		for (i=0;i<s.length;i++) {
-			if (s[i] in this.characters) {
-			var charData = this.characters[s[i]];
-				for (j=0;j<6;j++) {
-					//this.add_v(0,[x+(dig_v[2*j]+length)*scale,y+dig_v[2*j+1]*scale,-0.999],[dig_tex[s[i]][2*j],dig_tex[s[i]][2*j+1]]);
-				}
-				//length+=dig_len[s[i]]/16;
-			}
+		for (var i=0;i<2;i++) {
+			this.position[t][v2+i] = xy[i];
+			this.texturePosition[t][v2+i] = txy[i];
 		}
+		this.positionCount[t]++;
 	}
 	
 	resetDrawing() {
-		for (var i=0;i<16;i++) this.positionCount[i] = 0;
-		for (var i=0;i<16;i++) this.position[i] = [];
+		for (var i=0;i<this.texturesNo;i++) {
+			this.positionCount[i] = 0;
+			this.position[i] = [];
+		}
 	}
 
 	updateLight() {
@@ -315,14 +276,8 @@ void main(void) {
 		this.resetDrawing();
 	}
 	
-	createCharacters() {
-		this.characters = {
-			//'0' : [],
-			//'1' : []
-		}
-	}
-	
 	constructor() {
+		this.texturesNo = texNo(EnemyTextures);
 		this.position = [];
 		this.texturePosition = [];
 		this.positionCount = [];
@@ -336,7 +291,7 @@ void main(void) {
 		this.bTexturePosition = gl.createBuffer();
 		this.texture = [];
 		
-		for (var i=0;i<16;i++) {
+		for (var i=0;i<this.texturesNo;i++) {
 			this.position[i] = [];
 			this.texturePosition[i] = [];
 			this.texture[i] = gl.createTexture();
@@ -344,6 +299,5 @@ void main(void) {
 		
 		this.createShader();
 		this.prepare();
-		this.createCharacters();
 	}
 }

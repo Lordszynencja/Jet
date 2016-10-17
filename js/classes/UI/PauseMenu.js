@@ -52,6 +52,7 @@ class PauseMenu {
 	
 	drawHeat() {
 		var heatV = makeCoords4(0.1,0.5-((100.0-p.ship.heat)/250.0),-0.95,-0.85);
+		g.addGUITexture('');
 		for (var i=0;i<3;i++) g.addTextureVertexGUI(0,this.heatBgV[i],this.bgTex[i]);
 		for (var i=1;i<4;i++) g.addTextureVertexGUI(0,this.heatBgV[i],this.bgTex[i]);
 		for (var i=0;i<3;i++) g.addTextureVertexGUI(0,this.heatCriticalV[i],this.lifeTex[i]);
@@ -62,15 +63,12 @@ class PauseMenu {
 	
 	drawOptions() {
 		for (var i in this.optionsV) {
-			for (var j=0;j<3;j++) g.addTextureVertexGUI(1,this.optionsV[i][j],this.optionsTex[i][j]);
-			for (var j=1;j<4;j++) g.addTextureVertexGUI(1,this.optionsV[i][j],this.optionsTex[i][j]);
+			g.addGUITexture(this.options[i], this.optionsV[i]);
 		}
-		for (var j=0;j<3;j++) g.addTextureVertexGUI(1,this.optionsV[this.position][j],this.selectTex[j]);
-		for (var j=1;j<4;j++) g.addTextureVertexGUI(1,this.optionsV[this.position][j],this.selectTex[j]);
+		g.addGUITexture('Select', this.optionsV[this.position]);
 	}
 	
 	draw() {
-		g.update();
 		this.drawLife();
 		this.drawHeat();
 		this.drawBg();
@@ -84,16 +82,12 @@ class PauseMenu {
 	
 	constructor(level) {
 		this.position = 0;
-		this.bgTex = makeCoords4(288/tex_s,319/tex_s,287/tex_s,256/tex_s);
-		this.heatTex = makeCoords4(256/tex_s,287/tex_s,287/tex_s,256/tex_s);
-		this.lifeTex = makeCoords4(320/tex_s,351/tex_s,287/tex_s,256/tex_s);
-		this.heatBgV = makeCoords4(0.1,0.5,-0.95,-0.85,-0.997);
-		this.heatCriticalV = makeCoords4(0.4,0.5,-0.95,-0.85,-0.998);
-		this.lifeBgV = makeCoords4(0.55,0.95,-0.95,-0.85,-0.998);
-		this.optionsV = [];
-		for (var i=0;i<2;i++) this.optionsV[i] = makeCoords4(-0.2,0.2,0.25-i*0.3,0.05-i*0.3,-0.999);
-		this.optionsTex = [makeCoords4(0,127/tex_s,64/tex_s,95/tex_s),makeCoords4(0,127/tex_s,96/tex_s,127/tex_s)];
-		this.selectTex = makeCoords4(128/tex_s,255/tex_s,0/tex_s,32/tex_s);
+		this.heatBgV = makeCoords4(0.1,0.5,-0.95,-0.85);
+		this.heatCriticalV = makeCoords4(0.4,0.5,-0.95,-0.85);
+		this.lifeBgV = makeCoords4(0.55,0.95,-0.95,-0.85);
+		
+		this.options = ['Continue','Exit'];
+		this.optionsV = prepareOptionsVertexes(this.options.length);
 		
 		this.level = level;
 	}

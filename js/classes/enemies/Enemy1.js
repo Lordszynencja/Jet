@@ -25,12 +25,7 @@ class Enemy1 {
 	}
 	
 	draw() {
-		for (var j=0;j<3;j++) {
-			g.addTextureVertex(0,[this.x+this.v[j][0],this.y+this.v[j][1]],this.tex[j]);
-		}
-		for (var j=1;j<4;j++) {
-			g.addTextureVertex(0,[this.x+this.v[j][0],this.y+this.v[j][1]],this.tex[j]);
-		}
+		g.addEnemyTexture('EnemyShip1',moveModel(this.v,this.x,this.y));
 	}
 	
 	constructor(x,y,speed,angle,num) {
@@ -43,7 +38,6 @@ class Enemy1 {
 		this.angle = angle;
 		this.vx = Math.cos(angle)*speed;
 		this.vy = Math.sin(angle)*speed;
-		this.tex = makeCoords4(256/tex_s,511/tex_s,255/tex_s,0);
 		this.v = rotateModel(makeCoords2(0.15,0.15),angle);
 		this.num = num;
 		this.prepareHitbox();

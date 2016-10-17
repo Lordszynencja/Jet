@@ -45,8 +45,7 @@ class EnemyBullet1 {
 	}
 	
 	draw() {
-		for (var j=0;j<3;j++) g.addTextureVertex(this.texNo, [this.x+this.v[j][0],this.y+this.v[j][1]], this.tex[j]);
-		for (var j=1;j<4;j++) g.addTextureVertex(this.texNo, [this.x+this.v[j][0],this.y+this.v[j][1]], this.tex[j]);
+		g.drawBullet('Bullet1', moveModel(this.v,this.x,this.y));
 	}
 	
 	constructor(x,y,angle,num) {
@@ -61,8 +60,6 @@ class EnemyBullet1 {
 		this.prepareVertex(angle);
 		this.rotatedHitbox = rotateModel(makeCoords2(0.02,0.01),angle);
 		this.hitbox = moveModel(this.rotatedHitbox,x,y);
-		this.texNo = textureC['Bullet1'][0];
-		this.tex = textureC['Bullet1'][1];
 		this.num = num;
 		
 	}

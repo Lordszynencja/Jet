@@ -52,9 +52,7 @@ class PlayerOrbs2 {
 	}
 	
 	draw() {
-		var j;
-		for (j=0;j<3;j++) g.addTextureVertex(0,[this.x+this.v[j][0],this.y+this.v[j][1]],this.tex[j]);
-		for (j=1;j<4;j++) g.addTextureVertex(0,[this.x+this.v[j][0],this.y+this.v[j][1]],this.tex[j]);
+		g.addBullet('Orbs2',moveModel(this.v,this.x,this.y);
 		g.addLight([this.x,this.y],[10,10,1],1,[0,Math.PI]);
 	}
 	
@@ -73,6 +71,5 @@ class PlayerOrbs2 {
 		
 		this.prepareVertex();
 		this.prepareHitbox();
-		this.tex = makeCoords4(63/tex_s,33/tex_s,257/tex_s,287/tex_s);
 	}
 }

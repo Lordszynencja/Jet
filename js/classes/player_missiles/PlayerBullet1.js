@@ -45,8 +45,7 @@ class PlayerBullet1 {
 	}
 	
 	draw() {
-		for (var j=0;j<3;j++) g.addTextureVertex(this.texNo, [this.x+this.v[j][0],this.y+this.v[j][1]], this.tex[j]);
-		for (var j=1;j<4;j++) g.addTextureVertex(this.texNo, [this.x+this.v[j][0],this.y+this.v[j][1]], this.tex[j]);
+		g.addBullet('Bullet1',moveModel(this.v,this.x,this.y));
 	}
 	
 	constructor(x,y,angle,num) {
@@ -61,7 +60,5 @@ class PlayerBullet1 {
 		this.prepareVertex(this.angle);
 		this.prepareHitbox();
 		this.num = num;
-		this.texNo = textureC['Bullet1'][0];
-		this.tex = textureC['Bullet1'][1];
 	}
 }

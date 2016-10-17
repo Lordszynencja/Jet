@@ -217,3 +217,9 @@ function fillBuffer(buffer, name, shader, size, data) {
 	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(data), gl.STREAM_DRAW);
 }
 
+function prepareOptionsVertexes(n) {
+	var v = [];
+	for (var i=0;i<n;i++) v[i] = makeCoords4(-0.2,0.2,0.15*n+0.1-i*0.3,0.15*n-0.1-i*0.3);
+	return v;
+}
+

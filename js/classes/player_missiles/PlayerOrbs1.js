@@ -63,9 +63,7 @@ class PlayerOrbs1 {
 		for (i=0;i<2;i++) {
 			var bx = x + Math.sin(this.angle+Math.PI*(this.time/50+i+0.5))*this.range;
 			var by = y + Math.cos(this.angle+Math.PI*(this.time/50+i+0.5))*this.range;
-			var j;
-			for (j=0;j<3;j++) g.addTextureVertex(0,[bx+this.v[j][0],by+this.v[j][1]],this.tex[j]);
-			for (j=1;j<4;j++) g.addTextureVertex(0,[bx+this.v[j][0],by+this.v[j][1]],this.tex[j]);
+			g.drawBullets('Orbs2',moveModel(this.v,bx,by));
 			g.addLight([bx,by],[0.5,0.5,5.0],1,[0,Math.PI]);
 		}
 	}
@@ -79,7 +77,6 @@ class PlayerOrbs1 {
 		this.angle = this.weapon.angle;
 		this.prepareVertex(this.angle);
 		this.prepareHitbox();
-		this.tex = makeCoords4(353/tex_s,383/tex_s,287/tex_s,256/tex_s);
 		this.num = num;
 	}
 }

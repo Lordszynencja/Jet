@@ -30,24 +30,17 @@ class Ship1 {
 		this.weapons[weaponNo].y = this.weaponOffsets[weaponNo][1];
 	}
 	
-	upgradeWeapon(wNo = 0) {
+	upgradeWeapon(wNo) {
 		if (wNo>=0 && wNo<this.weaponsNo && this.weapons[wNo]) this.weapons[wNo].upgrade();
 	}
 	
 	draw() {
-		for (var j=0;j<3;j++) {
-			g.addTextureVertex(this.texNo,[p.x+this.v[j][0],p.y+this.v[j][1]],this.tex[j]);
-		}
-		for (var j=1;j<4;j++) {
-			g.addTextureVertex(this.texNo,[p.x+this.v[j][0],p.y+this.v[j][1]],this.tex[j]);
-		}
+		g.addPlayerShipTexture('Ship1',moveModel(this.v,p.x,p.y));
 		for (var j in this.weapons) this.weapons[j].draw();
 	}
 	
 	constructor(angle) {
 		this.size = 0.15;
-		this.texNo = textureC['Ship1'][0];
-		this.tex = textureC['Ship1'][1];
 		this.v = rotateModel(makeCoords2(0.15,0.15),angle);
 		this.angle = angle;
 		this.heat = 0;
