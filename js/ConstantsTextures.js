@@ -5,6 +5,7 @@ const maxMissiles = 256;
 const maxEnemies = 64;
 
 const BackgroundTextures = {
+	'TreesBases' : [0,makeCoords4(0/tex_s, 511/tex_s, 0/tex_s, 511/tex_s)],
 	'ground' : [0,makeCoords4(0/tex_s,511/tex_s,1023/tex_s,512/tex_s)],
 	'winter' : [0,makeCoords4(512/tex_s,1023/tex_s,1023/tex_s,512/tex_s)]
 }

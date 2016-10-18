@@ -1,5 +1,3 @@
-//======== GRAPHICS =========\\
-
 class Graphics {
 	draw() {
 		gl.clearColor(0.1,0.1,0.1,1.0);
@@ -12,7 +10,7 @@ class Graphics {
 
 	addLight(xy, rgb, type, data) {
 		if (true) {
-			for (var s in this.shadersEnum) {
+			for (var s in this.lightningEnum) {
 				if (this.lightningEnum[s]) sh[s].addLight(xy, rgb, type, data);
 			}
 		}
@@ -45,16 +43,7 @@ class Graphics {
 
 	prepare() {
 		var i;
-		for (i=0;i<light_max;i++) {
-			for (var j=0;j<3;j++) {
-				this.light_pos[3*i+j] = 0;
-				this.light_c[3*i+j] = 0;
-			}
-			for (var j=0;j<2;j++) this.light_d[2*i+j] = 0;
-			this.light_t[i] = 0;
-			this.light_time[i] = 0;
-		}
-		this.lastLight = light_max-1;
+		for (var s in sh) sh.prepare();
 		this.resetDrawing();
 	}
 	
@@ -66,6 +55,10 @@ class Graphics {
 	addBackgroundTexture(tex, xy) {
 		var texData = BackgroundTextures[tex];
 		this.drawOn('tex_background', texData, xy);
+	}
+	
+	moveBackground(y) {
+		sh['tex_background'].bgPosition += y;
 	}
 	
 	addEnemyTexture(tex, xy) {

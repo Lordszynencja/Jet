@@ -1,9 +1,6 @@
 class ShaderTexturesText {
 	prepareShaderCode() {
-		this.vertCode=`
-#define PI 3.1415926535897932384626433832795
-#define PI2 6.283185307
-
+		this.vertCode = `
 attribute vec2 position;
 attribute vec2 texture_position;
 
@@ -13,16 +10,10 @@ varying vec2 tp;
 void main(void) {
 	p = position;
 	tp = texture_position;
-	gl_Position = vec4(position,0.0,1.0);
+	gl_Position = vec4(position, 0.0, 1.0);
 }
 `;
-		this.fragCode=`
-precision highp float;
-
-#define PI 3.1415926535897932384626433832795
-#define PI2 6.283185307
-#define stepsNo 4
-#define stepsNoFloat float(stepsNo)
+		this.fragCode = shDefines + `
 
 uniform float time;
 uniform bool eight_bit_mode;
@@ -31,44 +22,19 @@ uniform sampler2D texture;
 
 varying vec2 p;
 varying vec2 tp;
-
-///////////////////////
-// FUNCTIONS         //
-///////////////////////
-
-float to_angle(vec2 vect) {
-	return mod((vect.y>0.0 ? 2.0*PI + acos(vect.x) : 2.0*PI-acos(vect.x)),2.0*PI);
-}
-
-float angle_between(float ang1, float ang2) {
-	return min(mod(ang1-ang2,PI2),mod(ang2-ang1,PI2));
-}
-
-///////////////////////
-// EFFECTS           //
-///////////////////////
-
-vec3 toEightBit(vec3 actualColor) {
-	vec3 endColor = vec3(0.0,0.0,0.0);
-	float step = 1.0/(stepsNoFloat-1.0);
-	vec3 col = actualColor;
-	for (int i=0;i<stepsNo;i++) {
-		endColor.r = (col.r>=(float(i)-0.49)*step-0.01 ? float(i)*step : endColor.r);
-		endColor.g = (col.g>=(float(i)-0.49)*step-0.01 ? float(i)*step : endColor.g);
-		endColor.b = (col.b>=(float(i)-0.49)*step-0.01 ? float(i)*step : endColor.b);
-	}
-	return endColor;
-}
-
+` +
+shFunctions +
+shEffects +
+`
 ///////////////////////
 //  MAIN             //
 ///////////////////////
 
 void main(void) {
-	vec4 texture_color = texture2D(texture,tp);
+	vec4 texture_color = texture2D(texture, tp);
 	if (texture_color.a<0.01) discard;
 	gl_FragColor = texture_color;
-	if (eight_bit_mode) gl_FragColor = vec4(toEightBit(gl_FragColor.rgb),gl_FragColor.a);
+	if (eight_bit_mode) gl_FragColor = vec4(toEightBit(gl_FragColor.rgb), gl_FragColor.a);
 }
 `;
 	}

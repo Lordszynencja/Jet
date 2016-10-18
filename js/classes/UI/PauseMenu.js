@@ -53,7 +53,7 @@ class PauseMenu {
 	}
 	
 	draw() {
-		g.addBackgroundTexture('ground', makeCoords2(1,1));
+		g.addBackgroundTexture(this.level.texture, makeCoords2(1,1));
 		p.draw();
 		for (var i in enemies) enemies[i].draw();
 		for (var i in playerMissiles) playerMissiles[i].draw();

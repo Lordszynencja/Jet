@@ -7,14 +7,15 @@ class Interface {
 	
 	update() {
 		this.level.update();
+		g.moveBackground(-0.001);
 		for (var i in enemies) enemies[i].update();
 		for (var i in playerMissiles) playerMissiles[i].update();
 		for (var i in enemyMissiles) enemyMissiles[i].update();
 		p.update();
 		
-		if (playerMissiles.length>256) playerMissiles = cleanArray(playerMissiles);
-		if (enemyMissiles.length>256) playerMissiles = cleanArray(playerMissiles);
-		if (enemies.length>128) enemies = cleanArray(enemies);
+		if (playerMissiles.length>maxMissiles) playerMissiles = cleanArray(playerMissiles);
+		if (enemyMissiles.length>maxMissiles) playerMissiles = cleanArray(playerMissiles);
+		if (enemies.length>maxEnemies) enemies = cleanArray(enemies);
 		//if (Math.random()<0.01) enemies.push(new Enemy1(Math.random()*2-1,Math.random()*2+1,Math.random()*0.01+0.01,Math.PI*(3/2+Math.random()*0.25-0.125),enemies.length));
 	}
 	
@@ -43,7 +44,7 @@ class Interface {
 	}
 	
 	draw() {
-		g.addBackgroundTexture('ground', makeCoords2(1,1));
+		g.addBackgroundTexture(this.level.texture, makeCoords2(1,1));
 		for (var i in enemyMissiles) enemyMissiles[i].draw();
 		for (var i in enemies) enemies[i].draw();
 		for (var i in playerMissiles) playerMissiles[i].draw();

@@ -176,10 +176,17 @@ function moveModel(m = [],x = 0,y = 0) {
 	return newM;
 }
 
+function logCode(code) {
+	var lines = code.split('\n');
+	var s = '';
+	for (var i in lines) if (i>0) s += (i-1)+':'+lines[i]+'\n';
+	console.log(s);
+}
+
 function checkShaderCompileErrors(code,shader) {
 	if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
 		var error = gl.getShaderInfoLog(shader);
-		console.log(code);
+		logCode(code);
 		console.log("##################\nSHADER ERROR\n##################\n"+error+"##################\nSHADER ERROR\n##################\n");
 	}
 }
