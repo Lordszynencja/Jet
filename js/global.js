@@ -1,11 +1,11 @@
 var time = 0;
 var eightBitMode = false;
-var option_lightning = true;
+var useLightning = true;
 
 const gameoverV = makeCoords2(0.4,0.2);
 
 function drawGameover() {
-	g.addText('gameOver', gameoverV);
+	g.addGUITexture('GameOver', gameoverV);
 }
 
 var con = document.getElementById('Tcan').getContext('2d');

@@ -45,7 +45,7 @@ class PlayerBullet1 {
 	}
 	
 	draw() {
-		g.addBullet('Bullet1',moveModel(this.v,this.x,this.y));
+		g.addBulletTexture('Bullet1',moveModel(this.v,this.x,this.y));
 	}
 	
 	constructor(x,y,angle,num) {

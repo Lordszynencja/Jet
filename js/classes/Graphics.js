@@ -5,14 +5,17 @@ class Graphics {
 		gl.clearColor(0.1,0.1,0.1,1.0);
 		gl.clear(gl.DEPTH_BUFFER_BIT);
 		gl.clear(gl.COLOR_BUFFER_BIT);
-		sh[].draw();
-		sh['textures'].draw();
-		sh['effect0'].draw();
-		sh['effect1'].draw();
+		for (var i=0;i<this.shadersEnum.length;i++) {
+			sh[this.shadersEnum[i]].draw();
+		}
 	}
 
 	addLight(xy, rgb, type, data) {
-		if (option_lightning) sh['textures'].addLight(xy, rgb, type, data);
+		if (true) {
+			for (var s in this.shadersEnum) {
+				if (this.lightningEnum[s]) sh[s].addLight(xy, rgb, type, data);
+			}
+		}
 	}
 	
 	addEffect0(pos, size) {
@@ -43,15 +46,12 @@ class Graphics {
 	prepare() {
 		var i;
 		for (i=0;i<light_max;i++) {
-			this.light_pos[3*i] = 0;
-			this.light_pos[3*i+1] = 0;
-			this.light_pos[3*i+2] = 0;
-			this.light_c[3*i] = 0;
-			this.light_c[3*i+1] = 0;
-			this.light_c[3*i+2] = 0;
+			for (var j=0;j<3;j++) {
+				this.light_pos[3*i+j] = 0;
+				this.light_c[3*i+j] = 0;
+			}
+			for (var j=0;j<2;j++) this.light_d[2*i+j] = 0;
 			this.light_t[i] = 0;
-			this.light_d[2*i] = 0;
-			this.light_d[2*i+1] = 0;
 			this.light_time[i] = 0;
 		}
 		this.lastLight = light_max-1;
@@ -89,7 +89,8 @@ class Graphics {
 	}
 	
 	addText(tex, xy) {
-		var texData = LettersNumbersText[tex];
+		console.log(tex);
+		var texData = LettersNumbers[tex];
 		this.drawOn('tex_text', texData, xy);
 	}
 	
@@ -103,6 +104,24 @@ class Graphics {
 		
 		sh['effect0'] = new ShaderEffect0();
 		sh['effect1'] = new ShaderEffect1();
-		var shaders
+		this.shadersEnum = [
+			'tex_background',
+			'tex_enemy',
+			'tex_player',
+			'tex_bullet',
+			'tex_gui',
+			'tex_text',
+			'effect0',
+			'effect1'];
+		this.lightningEnum = {
+			'tex_background' : true,
+			'tex_enemy' : true,
+			'tex_player' : true,
+			'tex_bullet' : true,
+			'tex_gui' : false,
+			'tex_text' : false,
+			'effect0' : false,
+			'effect1' : false,
+		};
 	}
 }

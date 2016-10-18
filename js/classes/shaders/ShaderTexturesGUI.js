@@ -1,4 +1,4 @@
-class ShaderTexturesBackground {
+class ShaderTexturesGUI {
 	prepareShaderCode() {
 		this.vertCode=`
 #define PI 3.1415926535897932384626433832795
@@ -23,16 +23,11 @@ precision highp float;
 #define PI2 6.283185307
 #define stepsNo 4
 #define stepsNoFloat float(stepsNo)
-#define l_no ` + maxLights + `
-#define basic_light 0.75
 
 uniform float time;
 uniform bool eight_bit_mode;
+
 uniform sampler2D texture;
-uniform vec2 lp[l_no];
-uniform vec3 lc[l_no];
-uniform int lt[l_no];
-uniform vec2 ld[l_no];
 
 varying vec2 p;
 varying vec2 tp;
@@ -85,10 +80,6 @@ void main(void) {
 	}
 	
 	prepareUniforms() {
-		this.uLp = gl.getUniformLocation(this.shader, "lp");
-		this.uLc = gl.getUniformLocation(this.shader, "lc");
-		this.uLt = gl.getUniformLocation(this.shader, "lt");
-		this.uLd = gl.getUniformLocation(this.shader, "ld");
 		this.uTime = gl.getUniformLocation(this.shader, "time");
 		this.uEightBitMode = gl.getUniformLocation(this.shader, "eight_bit_mode");
 		this.uTexture = gl.getUniformLocation(this.shader, "texture");
@@ -103,10 +94,6 @@ void main(void) {
 	}
 
 	setUniformData() {
-		gl.uniform2fv(this.uLp, this.lp);
-		gl.uniform3fv(this.uLc, this.lc);
-		gl.uniform1iv(this.uLt, this.lt);
-		gl.uniform2fv(this.uLd, this.ld);
 		gl.uniform1f(this.uTime, time);
 		gl.uniform1f(this.uEightBitMode, eightBitMode);
 	}
@@ -131,24 +118,7 @@ void main(void) {
 		}
 	}
 
-	findFreeLight() {
-		var i = (this.lastLight+1)%maxLights;
-		while (this.lt[i]!=0 && i!=this.lastLight) i = (i+1)%maxLights;
-		if (i==this.lastLight) i = (i+1)%maxLights;
-		return i;
-	}
-
 	addLight(xy, rgb, type, data) {
-		var l = this.findFreeLight();
-		this.lp[2*l] = xy[0];
-		this.lp[2*l+1] = xy[1];
-		this.lc[3*l] = rgb[0];
-		this.lc[3*l+1] = rgb[1];
-		this.lc[3*l+2] = rgb[2];
-		this.lt[l] = type;
-		this.ld[2*l] = data[0];
-		this.ld[2*l+1] = data[1];
-		this.lightTime[l] = 0;
 	}
 
 	addVertex(t, xy, txy) {
@@ -168,41 +138,13 @@ void main(void) {
 	}
 
 	updateLight() {
-		for (var i=0;i<maxLights;i++) {
-			if (this.lt[i]>0) {
-				this.lightTime[i]++;
-				if (this.lt[i]==1) {
-					if (this.lightTime[i]>1) this.lt[i] = 0;
-				} else if (this.lt[i]==2) {
-					if (this.lightTime[i]>1) this.lt[i] = 0;
-				} else if (this.lt[i]==3) {
-					if (this.lightTime[i]>1) this.lt[i] = 0;
-				} else if (this.lt[i]==4) {
-					if (this.lightTime[i]>1) this.lt[i] = 0;
-				}
-			}
-		}
 	}
 	
 	update() {
 		this.resetDrawing();
-		this.updateLight();
 	}
 
 	prepare() {
-		for (var i=0;i<maxLights;i++) {
-			this.lp[3*i] = 0;
-			this.lp[3*i+1] = 0;
-			this.lp[3*i+2] = 0;
-			this.lc[3*i] = 0;
-			this.lc[3*i+1] = 0;
-			this.lc[3*i+2] = 0;
-			this.lt[i] = 0;
-			this.ld[2*i] = 0;
-			this.ld[2*i+1] = 0;
-			this.lightTime[i] = 0;
-		}
-		this.lastLight = maxLights-1;
 		this.resetDrawing();
 	}
 	
@@ -211,11 +153,6 @@ void main(void) {
 		this.position = [];
 		this.texturePosition = [];
 		this.positionCount = [];
-		this.lp = [];
-		this.lc = [];
-		this.lt = [];
-		this.ld = [];
-		this.lightTime = [];
 
 		this.bPosition = gl.createBuffer();
 		this.bTexturePosition = gl.createBuffer();

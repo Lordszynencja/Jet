@@ -46,7 +46,7 @@ class PlayerDefenseOrbs1 {
 	}
 	
 	draw() {
-		g.addBullet('Orb3',moveModel(this.v,this.x,this.y));
+		g.addBulletTexture('Orb3',moveModel(this.v,this.x,this.y));
 		g.addLight([this.x,this.y],[10,10,25],1,[0,Math.PI]);
 	}
 	

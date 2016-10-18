@@ -1,4 +1,4 @@
-class ShaderTexturesBackground {
+class ShaderTexturesText {
 	prepareShaderCode() {
 		this.vertCode=`
 #define PI 3.1415926535897932384626433832795
@@ -26,6 +26,7 @@ precision highp float;
 
 uniform float time;
 uniform bool eight_bit_mode;
+
 uniform sampler2D texture;
 
 varying vec2 p;
@@ -142,15 +143,10 @@ void main(void) {
 	}
 	
 	constructor() {
-		this.texturesNo = texNo(LettersNumbersText);
+		this.texturesNo = texNo(LettersNumbers);
 		this.position = [];
 		this.texturePosition = [];
 		this.positionCount = [];
-		this.lp = [];
-		this.lc = [];
-		this.lt = [];
-		this.ld = [];
-		this.lightTime = [];
 
 		this.bPosition = gl.createBuffer();
 		this.bTexturePosition = gl.createBuffer();

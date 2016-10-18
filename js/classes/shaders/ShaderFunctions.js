@@ -9,12 +9,12 @@ function loadTex(texs, id, img) {
 	gl.bindTexture(gl.TEXTURE_2D, null);
 }
 
-function loadTextures(tex, name, texturesNo) {
+function loadTextures(texs, name, texturesNo) {
 	con.fillStyle = 'blue';
 	con.fillRect(0, 0, tex_s, tex_s);
 	
 	for (var i=0;i<texturesNo;i++) {
-		loadTex(tex, i, canvas);
+		loadTex(texs, i, canvas);
 		var imgx = new Image();
 		imgx.onload = (function(texs, id, img) {
 			return function() {

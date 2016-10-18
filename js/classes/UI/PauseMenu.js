@@ -11,24 +11,14 @@ class PauseMenu {
 				delete ui.menu;
 				ui.newMenu(new LevelSelectMenu());
 			}
-		} else if (this.position == 0 && name=='down') {
-			this.position = 1;
-		} else if (this.position == 1 && name=='up') {
-			this.position = 0;
+		} else if (this.position<this.options.length-1 && name=='down') {
+			this.position++;
+		} else if (this.position>0&& name=='up') {
+			this.position--;
 		}
 	}
 	
 	update() {
-	}
-	
-	drawBg() {
-		g.addTextureVertexBackground(0,[-1,-1],[511/tex_s,512/tex_s]);
-		g.addTextureVertexBackground(0,[-1,1],[511/tex_s,1023/tex_s]);
-		g.addTextureVertexBackground(0,[1,-1],[0/tex_s,512/tex_s]);
-
-		g.addTextureVertexBackground(0,[-1,1],[511/tex_s,1023/tex_s]);
-		g.addTextureVertexBackground(0,[1,-1],[0,512/tex_s]);
-		g.addTextureVertexBackground(0,[1,1],[0,1023/tex_s]);
 	}
 	
 	drawScore() {
@@ -44,21 +34,15 @@ class PauseMenu {
 	
 	drawLife() {
 		var lifeV = makeCoords4(0.55,0.95-((100.0-p.hp)/250.0),-0.95,-0.85);
-		for (var i=0;i<3;i++) g.addTextureVertexGUI(0,this.lifeBgV[i],this.bgTex[i]);
-		for (var i=1;i<4;i++) g.addTextureVertexGUI(0,this.lifeBgV[i],this.bgTex[i]);
-		for (var i=0;i<3;i++) g.addTextureVertexGUI(0,lifeV[i],this.lifeTex[i]);
-		for (var i=1;i<4;i++) g.addTextureVertexGUI(0,lifeV[i],this.lifeTex[i]);
+		g.addGUITexture('HealthBg', this.lifeBgV);
+		g.addGUITexture('Health', lifeV);
 	}
 	
 	drawHeat() {
 		var heatV = makeCoords4(0.1,0.5-((100.0-p.ship.heat)/250.0),-0.95,-0.85);
-		g.addGUITexture('');
-		for (var i=0;i<3;i++) g.addTextureVertexGUI(0,this.heatBgV[i],this.bgTex[i]);
-		for (var i=1;i<4;i++) g.addTextureVertexGUI(0,this.heatBgV[i],this.bgTex[i]);
-		for (var i=0;i<3;i++) g.addTextureVertexGUI(0,this.heatCriticalV[i],this.lifeTex[i]);
-		for (var i=1;i<4;i++) g.addTextureVertexGUI(0,this.heatCriticalV[i],this.lifeTex[i]);
-		for (var i=0;i<3;i++) g.addTextureVertexGUI(0,heatV[i],this.heatTex[i]);
-		for (var i=1;i<4;i++) g.addTextureVertexGUI(0,heatV[i],this.heatTex[i]);
+		g.addGUITexture('HealthBg', this.heatBgV);
+		g.addGUITexture('Health', this.heatCriticalV);
+		g.addGUITexture('Heat', heatV);
 	}
 	
 	drawOptions() {
@@ -69,13 +53,13 @@ class PauseMenu {
 	}
 	
 	draw() {
-		this.drawLife();
-		this.drawHeat();
-		this.drawBg();
+		g.addBackgroundTexture('ground', makeCoords2(1,1));
 		p.draw();
 		for (var i in enemies) enemies[i].draw();
 		for (var i in playerMissiles) playerMissiles[i].draw();
 		for (var i in enemyMissiles) enemyMissiles[i].draw();
+		this.drawLife();
+		this.drawHeat();
 		this.drawScore();
 		this.drawOptions();
 	}

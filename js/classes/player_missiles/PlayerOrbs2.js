@@ -52,7 +52,7 @@ class PlayerOrbs2 {
 	}
 	
 	draw() {
-		g.addBullet('Orbs2',moveModel(this.v,this.x,this.y);
+		g.addBulletTexture('Orb2',moveModel(this.v,this.x,this.y));
 		g.addLight([this.x,this.y],[10,10,1],1,[0,Math.PI]);
 	}
 	

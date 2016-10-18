@@ -63,7 +63,7 @@ class PlayerOrbs1 {
 		for (i=0;i<2;i++) {
 			var bx = x + Math.sin(this.angle+Math.PI*(this.time/50+i+0.5))*this.range;
 			var by = y + Math.cos(this.angle+Math.PI*(this.time/50+i+0.5))*this.range;
-			g.drawBullets('Orbs2',moveModel(this.v,bx,by));
+			g.addBulletTexture('Orbs2',moveModel(this.v,bx,by));
 			g.addLight([bx,by],[0.5,0.5,5.0],1,[0,Math.PI]);
 		}
 	}

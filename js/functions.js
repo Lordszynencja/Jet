@@ -140,14 +140,14 @@ function collide(v1,v2) {//v1 & v2 must be convex hulls with vertices in order
 	return true;
 }
 
-function makeCoords2(x,y) {
-	if (y) return [[-x,-y], [x,-y], [-x,y], [x,y]];
-	return [[-x1[0],-x1[1]], [x1[0],-x1[1]], [-x1[0],x1[1]], [x1[0],x1[1]]];
-}
-
 function makeCoords4(x1,x2,y1,y2) {
 	if (x2) return [[x1,y1], [x2,y1], [x1,y2], [x2,y2]];
 	return [[x1[0],x1[2]], [x1[1],x1[2]], [x1[0],x1[3]], [x1[1],x1[3]]];
+}
+
+function makeCoords2(x,y) {
+	if (y) return makeCoords4(-x,x,y,-y);
+	return makeCoords4(-x1[0],x1[0],x1[1],-x1[1]);
 }
 
 function cleanArray(arr) {

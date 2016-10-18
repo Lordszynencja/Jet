@@ -25,9 +25,12 @@ precision highp float;
 #define stepsNoFloat float(stepsNo)
 #define l_no ` + maxLights + `
 #define basic_light 0.75
+#define vec111 vec3(1.0,1.0,1.0)
 
 uniform float time;
 uniform bool eight_bit_mode;
+uniform bool use_lightning;
+
 uniform sampler2D texture;
 uniform vec2 lp[l_no];
 uniform vec3 lc[l_no];
@@ -148,33 +151,6 @@ void main(void) {
 `;
 	}
 	
-	loadTex(id, img) {
-		gl.activeTexture(gl.TEXTURE0);
-		gl.bindTexture(gl.TEXTURE_2D, this.texture[id]);
-		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-		gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
-		gl.bindTexture(gl.TEXTURE_2D, null);
-	}
-	
-	loadTextures() {
-		con.fillStyle = 'blue';
-		con.fillRect(0, 0, tex_s, tex_s);
-		var thisvar = this;
-		for (var i=0;i<this.texturesNo;i++) {
-			this.loadTex(i, canvas);
-			var imgx = new Image();
-			imgx.onload = (function(img, id) {
-				return function() {
-					thisvar.loadTex(id, img);
-				}
-			})(imgx, i);
-			imgx.src = "textures/texture"+i+".png";
-		}
-	}
-	
 	prepareBuffers() {
 		gl.useProgram(this.shader);
 		prepareBuffer(this.bPosition, "position", this.shader, 2);
@@ -188,6 +164,7 @@ void main(void) {
 		this.uLd = gl.getUniformLocation(this.shader, "ld");
 		this.uTime = gl.getUniformLocation(this.shader, "time");
 		this.uEightBitMode = gl.getUniformLocation(this.shader, "eight_bit_mode");
+		this.uUseLightning = gl.getUniformLocation(this.shader, "use_lightning");
 		this.uTexture = gl.getUniformLocation(this.shader, "texture");
 	}
 
@@ -206,6 +183,7 @@ void main(void) {
 		gl.uniform2fv(this.uLd, this.ld);
 		gl.uniform1f(this.uTime, time);
 		gl.uniform1f(this.uEightBitMode, eightBitMode);
+		gl.uniform1f(this.uUseLightning, useLightning);
 	}
 	
 	setBufferData(i) {
@@ -237,14 +215,14 @@ void main(void) {
 
 	addLight(xy, rgb, type, data) {
 		var l = this.findFreeLight();
-		this.lp[2*l] = xy[0];
-		this.lp[2*l+1] = xy[1];
-		this.lc[3*l] = rgb[0];
-		this.lc[3*l+1] = rgb[1];
-		this.lc[3*l+2] = rgb[2];
+		for (var i=0;i<3;i++) {
+			this.lc[3*l+i] = rgb[i];
+		}
+		for (var i=0;i<2;i++) {
+			this.lp[2*l+i] = xy[i];
+			this.ld[2*l+i] = data[i];
+		}
 		this.lt[l] = type;
-		this.ld[2*l] = data[0];
-		this.ld[2*l+1] = data[1];
 		this.lightTime[l] = 0;
 	}
 
@@ -288,15 +266,14 @@ void main(void) {
 
 	prepare() {
 		for (var i=0;i<maxLights;i++) {
-			this.lp[3*i] = 0;
-			this.lp[3*i+1] = 0;
-			this.lp[3*i+2] = 0;
-			this.lc[3*i] = 0;
-			this.lc[3*i+1] = 0;
-			this.lc[3*i+2] = 0;
+			for (var j=0;j<3;j++) {
+				this.lc[3*i+j] = 0;
+			}
+			for (var j=0;j<2;j++) {
+				this.lp[2*i+j] = 0;
+				this.ld[2*i+j] = 0;
+			}
 			this.lt[i] = 0;
-			this.ld[2*i] = 0;
-			this.ld[2*i+1] = 0;
 			this.lightTime[i] = 0;
 		}
 		this.lastLight = maxLights-1;
