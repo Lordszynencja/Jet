@@ -1,11 +1,11 @@
 class PlayerBullet1 {
 	prepareVertex(angle) {
-		this.v = rotateModel(makeCoords2(this.size,this.size),angle);
+		this.v = rotateModel(makeCoords2(this.size, this.size), angle);
 	}
 	
 	prepareHitbox() {
-		this.defaultHitbox = makeCoords2(this.size,this.size);
-		this.rotatedHitbox = rotateModel(this.defaultHitbox,this.angle);
+		this.defaultHitbox = makeCoords2(this.size, this.size);
+		this.rotatedHitbox = rotateModel(this.defaultHitbox, this.angle);
 		this.hitbox = [];
 	}
 	
@@ -19,7 +19,7 @@ class PlayerBullet1 {
 	collide(enemy) {
 		if (this.inCollisionRange(enemy)) {
 			var i;
-			for (i in enemy.hitbox) if (collide(this.hitbox,enemy.hitbox[i])) {
+			for (i in enemy.hitbox) if (collide(this.hitbox, enemy.hitbox[i])) {
 				return true;
 			}
 		}
@@ -45,7 +45,7 @@ class PlayerBullet1 {
 	}
 	
 	draw() {
-		g.addBulletTexture('Bullet1',moveModel(this.v,this.x,this.y));
+		g.addBulletTexture('Bullet0', moveModel(this.v, this.x, this.y));
 	}
 	
 	constructor(x,y,angle,num) {

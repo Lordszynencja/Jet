@@ -31,6 +31,20 @@ function texNo(texts) {
 	return no;
 }
 
+var heatdrawn = false;
+
+function drawStandardHp() {
+	var angle = p.hp/100*indAngleMax + (1-p.hp/100)*indAngleMin;
+	g.addGUITexture('HealthBg', moveModel(makeCoords1(indLength+0.02), hpPosition[0], hpPosition[1]))
+	g.addEffect1(hpPosition, indLength, angle, hpColor);
+}
+
+function drawStandardHeat() {
+	var angle = p.ship.heat/100*indAngleMax + (1-p.ship.heat/100)*indAngleMin;
+	g.addGUITexture('HeatBg', moveModel(makeCoords1(indLength+0.02), heatPosition[0], heatPosition[1]))
+	g.addEffect1(heatPosition, indLength, angle, heatColor);
+}
+
 //////////////////////
 // SHADER FUNCTIONS //
 //////////////////////
@@ -42,11 +56,7 @@ const shDefines =
 #define PI2 6.283185307
 #define vec111 vec3(1.0,1.0,1.0)
 #define vec000 vec3(0.0,0.0,0.0)
-#define stepsNo 4
-#define stepsNoFloat 4.0
-#define l_no ` + maxLights + `
-#define basic_light 0.75
-#define p3 vec3(p,0.0)`;
+`;
 
 const shFunctions = `
 ///////////////
@@ -67,6 +77,9 @@ const shEffects = `
 // EFFECTS //
 /////////////
 
+#define stepsNo 4
+#define stepsNoFloat 4.0
+
 vec3 toEightBit(vec3 actualColor) {
 	vec3 endColor = vec3(0.0,0.0,0.0);
 	float step = 1.0/(stepsNoFloat-1.0);
@@ -85,15 +98,26 @@ const shLightFunctions = `
 // LIGHT //
 ///////////
 
+#define l_no ` + maxLights + `
+#define basic_light 0.75
+#define p3 vec3(p,h)
+
+uniform bool use_lightning;
+
+uniform vec2 lp[l_no];
+uniform vec3 lc[l_no];
+uniform int lt[l_no];
+uniform vec2 ld[l_no];
+
 vec3 ls(in vec3 l_c, in float dist) {
 	if (dist==0.0) dist = 0.001;
-	return l_c/pow(dist*128.0,2.0);
+	return l_c/pow(dist*128.0, 2.0);
 }
 
 vec3 comp_l1(in vec3 l_p, in vec3 l_c, in vec2 l_d) {
-  vec2 pv = normalize(p.xy-l_p.xy);
-	float ang = mod((pv.y>0.0 ? asin(pv.x) : PI-asin(pv.x))-l_d.x, PI2);
-	if (ang<mod(l_d.y, PI2) || ang>2.0*PI-mod(l_d.y, PI2)) return ls(l_c, distance(p3, l_p));
+	vec2 pv = normalize(p.xy-l_p.xy);
+	float ang = mod(to_angle(pv)-l_d.x,PI2);//mod((pv.x>0.0 ? asin(pv.y) : PI-asin(pv.y))-l_d.y, PI2);
+	if (ang<l_d.y || ang>PI2-l_d.y) return ls(l_c, distance(p3, l_p));
 	return vec000;
 }
 
@@ -121,21 +145,21 @@ vec3 comp_l3(in vec3 l_p, in vec3 l_c, in vec2 l_d) {//horizontal line light l_d
 	}
 }
 
-vec3 comp_l4(in vec3 l_p, in vec3 l_c, in vec2 l_d) {//line light
-	if (l_p.x==0.0 && l_p.y==0.0) return comp_l1(vec3(0.0, 0.0, 0.0), l_c, vec2(0.0, PI));
+vec3 comp_l4(in vec3 l_p, in vec3 l_c, in vec2 l_d) {//line light l_d.x = 
+	if (l_p.x==0.0 && l_p.y==0.0) return ls(l_c, distance(p3, l_p));
 	if (l_p.y==0.0) return comp_l2(vec3(-l_d.x/l_p.x, -2.0, 0.0), l_c, vec2(0.0, 4.0));
 	if (l_p.x==0.0) return comp_l3(vec3(-2.0, -l_d.x/l_p.y, 0.0), l_c, vec2(4.0, 0.0));
 	
-	vec3 a = vec3(0.0, -l_d.x/l_p.y, l_p.z);
-	vec3 n = normalize(vec3(1.0/l_p.x, -1.0/l_p.y, l_p.z));
+	vec3 a = vec3(0.0, -l_d.x/l_p.y, 0.0);
+	vec3 n = normalize(vec3(1.0/l_p.x, -1.0/l_p.y, 0.0));
 	return ls(l_c, distance((a-p3), dot((a-p3), n)*n));
 }
 
 vec3 cut_light(in vec3 light) {
 	vec3 l = max(light, 0.0);
-	if (l.r>1.0) l.r = 1.0+(l.r-1.0)/10.0;
-	if (l.g>1.0) l.g = 1.0+(l.g-1.0)/10.0;
-	if (l.b>1.0) l.b = 1.0+(l.b-1.0)/10.0;
+	if (l.r>1.0) l.r = 1.0+(l.r-1.0)/4.0;
+	if (l.g>1.0) l.g = 1.0+(l.g-1.0)/4.0;
+	if (l.b>1.0) l.b = 1.0+(l.b-1.0)/4.0;
 	return l;
 }
 

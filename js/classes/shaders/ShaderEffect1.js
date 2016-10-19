@@ -13,7 +13,6 @@ varying vec3 c;
 
 void main(void) {
 	p = (position-move)*scale;
-	p.x*=2.0;
 	c = color;
 	
 	float s = sin(rotation_angle);

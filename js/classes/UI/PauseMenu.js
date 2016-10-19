@@ -32,19 +32,6 @@ class PauseMenu {
 		g.drawText(-0.9,-0.9,iscore,0.1);
 	}
 	
-	drawLife() {
-		var lifeV = makeCoords4(0.55,0.95-((100.0-p.hp)/250.0),-0.95,-0.85);
-		g.addGUITexture('HealthBg', this.lifeBgV);
-		g.addGUITexture('Health', lifeV);
-	}
-	
-	drawHeat() {
-		var heatV = makeCoords4(0.1,0.5-((100.0-p.ship.heat)/250.0),-0.95,-0.85);
-		g.addGUITexture('HealthBg', this.heatBgV);
-		g.addGUITexture('Health', this.heatCriticalV);
-		g.addGUITexture('Heat', heatV);
-	}
-	
 	drawOptions() {
 		for (var i in this.optionsV) {
 			g.addGUITexture(this.options[i], this.optionsV[i]);
@@ -58,8 +45,8 @@ class PauseMenu {
 		for (var i in enemies) enemies[i].draw();
 		for (var i in playerMissiles) playerMissiles[i].draw();
 		for (var i in enemyMissiles) enemyMissiles[i].draw();
-		this.drawLife();
-		this.drawHeat();
+		drawStandardHp();
+		drawStandardHeat();
 		this.drawScore();
 		this.drawOptions();
 	}

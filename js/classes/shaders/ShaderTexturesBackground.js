@@ -14,17 +14,11 @@ void main(void) {
 }
 `;
 		this.fragCode = shDefines + `
-#define h -0.5
+#define h -0.0
 
 uniform float time;
 uniform bool eight_bit_mode;
-uniform bool use_lightning;
-
 uniform sampler2D texture;
-uniform vec2 lp[l_no];
-uniform vec3 lc[l_no];
-uniform int lt[l_no];
-uniform vec2 ld[l_no];
 uniform float bg_position;
 
 varying vec2 p;

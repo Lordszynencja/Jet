@@ -25,7 +25,7 @@ class Enemy1 {
 	}
 	
 	draw() {
-		g.addEnemyTexture('EnemyShip1',moveModel(this.v,this.x,this.y));
+		g.addEnemyTexture('EnemyShip0',moveModel(this.v,this.x,this.y));
 	}
 	
 	constructor(x,y,speed,angle,num) {

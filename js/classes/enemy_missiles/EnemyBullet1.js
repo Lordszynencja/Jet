@@ -45,7 +45,7 @@ class EnemyBullet1 {
 	}
 	
 	draw() {
-		g.addBulletTexture('Bullet1', moveModel(this.v,this.x,this.y));
+		g.addBulletTexture('Bullet0', moveModel(this.v,this.x,this.y));
 	}
 	
 	constructor(x,y,angle,num) {

@@ -39,6 +39,7 @@ class Graphics {
 	
 	update() {
 		for (var i in sh) sh[i].update();
+		//g.addLight([1,-1], [1000,20,10], 4, [0, 0]);
 	}
 
 	prepare() {
@@ -118,3 +119,15 @@ class Graphics {
 		};
 	}
 }
+
+/*
+LIGHTS:
+	0 - no light
+	1 - point light ([x, y], [r, g, b], 1, [facing angle, light cone angle/2])
+	2 - | vertical line light ([start x, start y], [r, g, b], 2, [0, height])
+	3 - - horizontal line light ([start x, start y], [r, g, b], 2, [width, 0])
+	4 - / line light ([px, py], [r, g, b], 2, [x1, 0]) if possible, light on line px*x + py*y + x1 = 0
+*/
+	
+	
+	

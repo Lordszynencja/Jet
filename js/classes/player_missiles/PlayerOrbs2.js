@@ -1,6 +1,6 @@
 class PlayerOrbs2 {
 	prepareVertex() {
-		this.v = [[-this.size,-this.size],[-this.size,this.size],[this.size,-this.size],[this.size,this.size]];
+		this.v = makeCoords1(this.size);
 	}
 	
 	prepareHitbox() {
@@ -42,7 +42,7 @@ class PlayerOrbs2 {
 		this.angle += (cos*cos-0.5)*Math.PI/10*this.angleSpeed;
 		this.x = this.center[0]+Math.cos(this.angle)*r;
 		this.y = this.center[1]+Math.sin(this.angle)*r;
-		this.hitbox = moveModel(this.rotatedHitbox,this.x,this.y);
+		this.hitbox = moveModel(this.rotatedHitbox, this.x, this.y);
 		for (var i in enemies) {
 			if (this.collide(enemies[i])) {
 				enemies[i].dealDamage(this.damage);
@@ -52,8 +52,8 @@ class PlayerOrbs2 {
 	}
 	
 	draw() {
-		g.addBulletTexture('Orb2',moveModel(this.v,this.x,this.y));
-		g.addLight([this.x,this.y],[10,10,1],1,[0,Math.PI]);
+		g.addBulletTexture('Orb0', moveModel(this.v, this.x, this.y));
+		g.addLight([this.x, this.y], [10, 10, 1], 1, [0, Math.PI]);
 	}
 	
 	constructor(x,y,r1,r2,angleSpeed,num) {

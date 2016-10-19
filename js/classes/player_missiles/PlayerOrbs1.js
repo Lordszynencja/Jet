@@ -1,10 +1,6 @@
 class PlayerOrbs1 {
-	prepareVertex(angle) {
-		this.v = [];
-		this.v[0] = [this.size*(Math.cos(angle)-Math.sin(angle)),this.size*(Math.sin(angle)+Math.cos(angle))];
-		this.v[1] = [this.size*(-Math.cos(angle)-Math.sin(angle)),this.size*(Math.cos(angle)-Math.sin(angle))];
-		this.v[2] = [this.size*(Math.sin(angle)+Math.cos(angle)),this.size*(Math.sin(angle)-Math.cos(angle))];
-		this.v[3] = [this.size*(Math.sin(angle)-Math.cos(angle)),this.size*(-Math.cos(angle)-Math.sin(angle))];
+	prepareVertex() {
+		this.v = makeCoords1(this.size);
 	}
 	
 	prepareHitbox() {
@@ -63,8 +59,8 @@ class PlayerOrbs1 {
 		for (i=0;i<2;i++) {
 			var bx = x + Math.sin(this.angle+Math.PI*(this.time/50+i+0.5))*this.range;
 			var by = y + Math.cos(this.angle+Math.PI*(this.time/50+i+0.5))*this.range;
-			g.addBulletTexture('Orbs2',moveModel(this.v,bx,by));
-			g.addLight([bx,by],[0.5,0.5,5.0],1,[0,Math.PI]);
+			g.addBulletTexture('Orb0', moveModel(this.v, bx, by));
+			g.addLight([bx, by], [0.5, 0.5, 5.0], 1, [0, Math.PI]);
 		}
 	}
 	

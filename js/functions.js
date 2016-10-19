@@ -150,6 +150,14 @@ function makeCoords2(x,y) {
 	return makeCoords4(-x1[0],x1[0],x1[1],-x1[1]);
 }
 
+function makeCoords1(x) {
+	return makeCoords4(-x,x,x,-x);
+}
+
+function makeTexCoords(x1, x2, y1, y2) {
+	return makeCoords4(x1/tex_s, x2/tex_s, y1/tex_s, y2/tex_s);
+}
+
 function cleanArray(arr) {
   var newArray = new Array();
   for (var i = 0; i < arr.length; i++) {
@@ -226,7 +234,7 @@ function fillBuffer(buffer, name, shader, size, data) {
 
 function prepareOptionsVertexes(n) {
 	var v = [];
-	for (var i=0;i<n;i++) v[i] = makeCoords4(-0.2,0.2,0.15*n+0.1-i*0.3,0.15*n-0.1-i*0.3);
+	for (var i=0;i<n;i++) v[i] = makeCoords4(-0.2,0.2,0.15*n-0.05-i*0.3,0.15*n-0.25-i*0.3);
 	return v;
 }
 

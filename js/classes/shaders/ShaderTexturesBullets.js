@@ -18,13 +18,7 @@ void main(void) {
 
 uniform float time;
 uniform bool eight_bit_mode;
-uniform bool use_lightning;
-
 uniform sampler2D texture;
-uniform vec2 lp[l_no];
-uniform vec3 lc[l_no];
-uniform int lt[l_no];
-uniform vec2 ld[l_no];
 
 varying vec2 p;
 varying vec2 tp;
@@ -176,7 +170,7 @@ void main(void) {
 	}
 	
 	constructor() {
-		this.texturesNo = 2;
+		this.texturesNo = texNo(BulletsTextures);
 		this.position = [];
 		this.texturePosition = [];
 		this.positionCount = [];
