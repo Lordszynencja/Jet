@@ -11,15 +11,12 @@ class Enemy1 {
 	update() {
 		this.x += this.vx;
 		this.y += this.vy;
-		for (var i in this.rotatedHitbox) this.hitbox[i] = moveModel(this.rotatedHitbox[i], this.x, this.y);
-		for (var i in this.weapons) this.weapons[i].update(true);
+		standardEnemyUpdate(this);
 	}
 	
 	dealDamage(damage) {
-		this.hp -= damage;
-		if (this.hp<=0) {
-			delete enemies[this.num];
-			p.score += 100;
+		if (standardDealDamage(this, damage)) {
+			standardEnemyDestroy(this);
 		}
 	}
 	
@@ -29,6 +26,8 @@ class Enemy1 {
 	
 	constructor(xy, movement, num, data) {
 		this.hp = 20;
+		this.points = 100;
+		this.money = 10;
 		this.size = 0.15;
 		this.weapons = [new EnemyWMachinegun1(0.15,0,this)];
 		this.x = xy[0];
