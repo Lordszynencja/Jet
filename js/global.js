@@ -1,6 +1,17 @@
 var time = 0;
-var eightBitMode = false;
-var useLightning = true;
+var loaded = false;
+
+var conf = {
+	eightBitMode: false,
+	useLightning: true
+};
+
+var stats = {
+	money: 0,
+	level: 0,
+	shotsFired: 0,
+	enemiesDefeated: 0
+};
 
 const gameoverV = makeCoords2(0.4,0.2);
 

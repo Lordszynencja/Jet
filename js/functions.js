@@ -238,3 +238,14 @@ function prepareOptionsVertexes(n) {
 	return v;
 }
 
+function save(name, object) {
+	localStorage[name] = JSON.stringify(object);
+}
+
+function load(name) {
+	var objectJSON = localStorage[name];
+	if (objectJSON) {
+		return JSON.parse(objectJSON);
+	}
+	return undefined;
+}

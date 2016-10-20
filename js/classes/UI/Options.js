@@ -2,9 +2,9 @@ class Options {
 	onPress(name) {
 		if (name=='enter') {
 			if (this.position == 0) {
-				eightBitMode = !eightBitMode;
+				conf.eightBitMode = !conf.eightBitMode;
 			} else if (this.position == 1) {
-				useLightning = !useLightning;
+				conf.useLightning = !conf.useLightning;
 			} else {
 				delete ui.menu;
 				ui.newMenu(new MainMenu());
@@ -25,6 +25,7 @@ class Options {
 			g.addGUITexture(this.options[i], this.optionsV[i]);
 		}
 		g.addGUITexture('Select', this.optionsV[this.position]);
+		g.addLight([0, this.optionsV[1][0][1]-0.1], [8, 8, 8], 1, [0, Math.PI]);
 	}
 	
 	constructor() {

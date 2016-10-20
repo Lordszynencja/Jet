@@ -61,7 +61,7 @@ void main(void) {
 
 	setUniformData() {
 		gl.uniform1f(this.uTime, time);
-		gl.uniform1f(this.uEightBitMode, eightBitMode);
+		gl.uniform1f(this.uEightBitMode, conf.eightBitMode);
 	}
 	
 	setBufferData(i) {

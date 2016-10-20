@@ -58,7 +58,7 @@ void main(void) {
 	}
 
 	createShader() {
-		loadTextures(this.texture,'bullets',this.texturesNo);
+		loadTextures(this.texture, 'bullets', this.texturesNo);
 		this.prepareShaderCode();
 		this.shader = compileShaders(this.vertCode, this.fragCode);
 		this.prepareBuffers();
@@ -71,8 +71,8 @@ void main(void) {
 		gl.uniform1iv(this.uLt, this.lt);
 		gl.uniform2fv(this.uLd, this.ld);
 		gl.uniform1f(this.uTime, time);
-		gl.uniform1f(this.uEightBitMode, eightBitMode);
-		gl.uniform1f(this.uUseLightning, useLightning);
+		gl.uniform1f(this.uEightBitMode, conf.eightBitMode);
+		gl.uniform1f(this.uUseLightning, conf.useLightning);
 	}
 	
 	setBufferData(i) {

@@ -6,6 +6,7 @@ class LevelSelectMenu {
 				ui.newMenu(new Interface(new Level0()));
 				ui.prepareGame();
 			} else if (this.position == 1) {
+				if (stats.level>=1)
 				delete ui.menu;
 				ui.newMenu(new Interface(new Level1()));
 				ui.prepareGame();

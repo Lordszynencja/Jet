@@ -38,27 +38,27 @@ void main(void) {
 	
 	prepareBuffers() {
 		gl.useProgram(this.shader);
-		this.bPosition = prepareBuffer(this.bPosition,"position",this.shader,2);
-		this.bMove = prepareBuffer(this.bMove,"move",this.shader,2);
-		this.bScale = prepareBuffer(this.bScale,"scale",this.shader,1);
-		this.bColor = prepareBuffer(this.bColor,"color",this.shader,3);
+		this.bPosition = prepareBuffer(this.bPosition, "position", this.shader, 2);
+		this.bMove = prepareBuffer(this.bMove, "move", this.shader, 2);
+		this.bScale = prepareBuffer(this.bScale, "scale", this.shader, 1);
+		this.bColor = prepareBuffer(this.bColor, "color", this.shader, 3);
 	}
 	
 	prepareUniforms() {
-		this.uTime = gl.getUniformLocation(this.shader,"time");
-		this.uEightBitMode = gl.getUniformLocation(this.shader,"eight_bit_mode");
+		this.uTime = gl.getUniformLocation(this.shader, "time");
+		this.uEightBitMode = gl.getUniformLocation(this.shader, "eight_bit_mode");
 	}
 
 	createShader() {
 		this.prepareShaderCode();
-		this.shader = compileShaders(this.vertCode,this.fragCode);
+		this.shader = compileShaders(this.vertCode, this.fragCode);
 		this.prepareBuffers();
 		this.prepareUniforms();
 	}
 
 	setBufferData() {
-		gl.uniform1f(this.uTime,time);
-		gl.uniform1f(this.uEightBitMode,eightBitMode);
+		gl.uniform1f(this.uTime, time);
+		gl.uniform1f(this.uEightBitMode, conf.eightBitMode);
 		fillBuffer(this.bPosition, "position", this.shader, 2, this.position);
 		fillBuffer(this.bMove, "move", this.shader, 2,  this.move);
 		fillBuffer(this.bScale, "scale", this.shader, 1,  this.scale);
@@ -69,7 +69,7 @@ void main(void) {
 		gl.useProgram(this.shader);
 		if (this.n>0) {
 			this.setBufferData();
-			gl.drawArrays(gl.TRIANGLES,0,this.n);
+			gl.drawArrays(gl.TRIANGLES, 0, this.n);
 		}
 	}
 	
@@ -94,13 +94,13 @@ void main(void) {
 		var p4 = [pos[0]+size,pos[1]+size];
 		var move = pos;
 		var scale = 1/size;
-		var color = [1,0.3,0.1];
-		this.addPoint(p1,move,scale,color);
-		this.addPoint(p2,move,scale,color);
-		this.addPoint(p3,move,scale,color);
-		this.addPoint(p2,move,scale,color);
-		this.addPoint(p3,move,scale,color);
-		this.addPoint(p4,move,scale,color);
+		var color = [1, 0.3, 0.1];
+		this.addPoint(p1, move, scale, color);
+		this.addPoint(p2, move, scale, color);
+		this.addPoint(p3, move, scale, color);
+		this.addPoint(p2, move, scale, color);
+		this.addPoint(p3, move, scale, color);
+		this.addPoint(p4, move, scale, color);
 	}
 
 	update() {

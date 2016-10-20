@@ -21,7 +21,7 @@ void main(void) {
 	vec2 p2 = vec2(p1.x*c+p1.y*(-s), p1.x*s+p1.y*c);
 	vec2 p3 = p2+rotation_center;
 	
-	gl_Position = vec4(p3.x,p3.y,0.0,1.0);
+	gl_Position = vec4(p3.x, p3.y, 0.0, 1.0);
 }`
 		this.fragCode = `
 precision mediump float;
@@ -32,41 +32,41 @@ varying vec2 p;
 varying vec3 c;
 
 float effect_strength() {
-	float dist = (abs(p.y)>1.0 ? distance(abs(p),vec2(0.0,1.0)) : abs(p.x));
-	return pow(1.0/(dist*32.0),2.0);
+	float dist = (abs(p.y)>1.0 ? distance(abs(p), vec2(0.0,1.0)) : abs(p.x));
+	return pow(1.0/(dist*32.0), 2.0);
 }
 
 void main(void) {
 	vec3 col = c*effect_strength();
-	gl_FragColor = vec4(col,pow(max(max(col.r,col.g),max(col.b,0.0)),4.0));
+	gl_FragColor = vec4(col, pow(max(max(col.r, col.g), max(col.b, 0.0)), 4.0));
 }`
 	}
 	
 	prepareBuffers() {
 		gl.useProgram(this.shader);
-		this.bPosition = prepareBuffer(this.bPosition,"position",this.shader,2);
-		this.bMove = prepareBuffer(this.bMove,"move",this.shader,2);
-		this.bScale = prepareBuffer(this.bScale,"scale",this.shader,1);
-		this.bColor = prepareBuffer(this.bColor,"color",this.shader,3);
+		this.bPosition = prepareBuffer(this.bPosition, "position", this.shader,2);
+		this.bMove = prepareBuffer(this.bMove, "move", this.shader, 2);
+		this.bScale = prepareBuffer(this.bScale, "scale", this.shader, 1);
+		this.bColor = prepareBuffer(this.bColor, "color", this.shader, 3);
 		this.bRotationAngle = prepareBuffer(this.bRotationAngle, "rotation_angle", this.shader, 1);
 		this.bRotationCenter = prepareBuffer(this.bRotationCenter, "rotation_center", this.shader, 2);
 	}
 	
 	prepareUniforms() {
-		this.uTime = gl.getUniformLocation(this.shader,"time");
-		this.uEightBitMode = gl.getUniformLocation(this.shader,"eight_bit_mode");
+		this.uTime = gl.getUniformLocation(this.shader, "time");
+		this.uEightBitMode = gl.getUniformLocation(this.shader, "eight_bit_mode");
 	}
 
 	createShader() {
 		this.prepareShaderCode();
-		this.shader = compileShaders(this.vertCode,this.fragCode);
+		this.shader = compileShaders(this.vertCode, this.fragCode);
 		this.prepareBuffers();
 		this.prepareUniforms();
 	}
 
 	setBufferData() {
-		gl.uniform1f(this.uTime,time);
-		gl.uniform1f(this.uEightBitMode,eightBitMode);
+		gl.uniform1f(this.uTime, time);
+		gl.uniform1f(this.uEightBitMode, conf.eightBitMode);
 		fillBuffer(this.bPosition, "position", this.shader, 2, this.position);
 		fillBuffer(this.bMove, "move", this.shader, 2,  this.move);
 		fillBuffer(this.bScale, "scale", this.shader, 1,  this.scale);
@@ -96,19 +96,19 @@ void main(void) {
 	}
 	
 	addEffect(pos, size, angle, color) {
-		var p1 = [pos[0]-size*0.5,pos[1]-size*1.5];
-		var p2 = [pos[0]-size*0.5,pos[1]+size*1.5];
-		var p3 = [pos[0]+size*0.5,pos[1]-size*1.5];
-		var p4 = [pos[0]+size*0.5,pos[1]+size*1.5];
+		var p1 = [pos[0]-size*0.5, pos[1]-size*1.5];
+		var p2 = [pos[0]-size*0.5, pos[1]+size*1.5];
+		var p3 = [pos[0]+size*0.5, pos[1]-size*1.5];
+		var p4 = [pos[0]+size*0.5, pos[1]+size*1.5];
 		var move = pos;
 		var scale = 1/size;
 		
-		this.addPoint(p1,move,scale,color,angle,pos);
-		this.addPoint(p2,move,scale,color,angle,pos);
-		this.addPoint(p3,move,scale,color,angle,pos);
-		this.addPoint(p2,move,scale,color,angle,pos);
-		this.addPoint(p3,move,scale,color,angle,pos);
-		this.addPoint(p4,move,scale,color,angle,pos);
+		this.addPoint(p1, move, scale, color, angle, pos);
+		this.addPoint(p2, move, scale, color, angle, pos);
+		this.addPoint(p3, move, scale, color, angle, pos);
+		this.addPoint(p2, move, scale, color, angle, pos);
+		this.addPoint(p3, move, scale, color, angle, pos);
+		this.addPoint(p4, move, scale, color, angle, pos);
 	}
 	
 	addEffectFromStartAngleLength(p, angle, length, color) {
