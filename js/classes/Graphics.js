@@ -16,6 +16,10 @@ class Graphics {
 		}
 	}
 	
+	addJetEngineEffect(pos, color) {
+		sh['effect_jet'].addEffect(pos, color);
+	}
+	
 	addEffect0(pos, size) {
 		sh['effect0'].addEffect(pos, size);
 	}
@@ -39,7 +43,6 @@ class Graphics {
 	
 	update() {
 		for (var i in sh) sh[i].update();
-		//g.addLight([1,-1], [1000,20,10], 4, [0, 0]);
 	}
 
 	prepare() {
@@ -90,6 +93,7 @@ class Graphics {
 	
 	constructor() {
 		sh['tex_background'] = new ShaderTexturesBackground();
+		sh['effect_jet'] = new ShaderJetEngineEffect();
 		sh['tex_enemy'] = new ShaderTexturesEnemies();
 		sh['tex_bullet'] = new ShaderTexturesBullets();
 		sh['tex_player'] = new ShaderTexturesPlayer();
@@ -100,6 +104,7 @@ class Graphics {
 		sh['effect1'] = new ShaderEffect1();
 		this.shadersEnum = [
 			'tex_background',
+			'effect_jet',
 			'tex_enemy',
 			'tex_player',
 			'tex_bullet',
@@ -109,6 +114,7 @@ class Graphics {
 			'effect1'];
 		this.lightningEnum = {
 			'tex_background' : true,
+			'effect_jet' : false,
 			'tex_enemy' : true,
 			'tex_player' : true,
 			'tex_bullet' : true,

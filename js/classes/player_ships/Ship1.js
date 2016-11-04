@@ -1,15 +1,15 @@
 class Ship1 {
 	update() {
-		var i;
 		var canShoot = c.isPressed("space") && !this.overheat;
-		for (i in this.weapons) {
+		for (var i in this.weapons) {
 			this.heat += this.weapons[i].update(canShoot);
 		}
 		this.heat -= this.cooling;
 		if (this.heat>=100) this.heat = 100, this.overheat = true;
 		if (this.overheat && this.heat<=75) this.overheat = false;
 		if (this.heat<0) this.heat = 0;
-		for (var i in this.rotatedHitbox) this.hitbox[i] = moveModel(this.rotatedHitbox[i],p.x,p.y);
+		for (var i in this.rotatedHitbox) this.hitbox[i] = moveModel(this.rotatedHitbox[i], p.x, p.y);
+		for (var i in this.jetEngines) this.jetEngines[i].update();
 	}
 	
 	dealDamage(damage) {
@@ -35,20 +35,21 @@ class Ship1 {
 	}
 	
 	draw() {
-		g.addPlayerShipTexture('Ship1',moveModel(this.v,p.x,p.y));
+		g.addPlayerShipTexture('Ship1',moveModel(this.v, p.x, p.y));
 		for (var j in this.weapons) this.weapons[j].draw();
+		for (var i in this.jetEngines) this.jetEngines[i].draw();
 	}
 	
-	constructor(angle) {
+	constructor(angle, x, y) {
 		this.size = 0.15;
-		this.v = rotateModel(makeCoords2(0.15,0.15),angle);
+		this.v = rotateModel(makeCoords2(0.15,0.15), angle);
 		this.angle = angle;
 		this.heat = 0;
 		this.overheat = false;
 		this.weapons = [];
 		this.weaponsNo = 4;
 		this.weaponOffsets = [[-0.05,-0.15],[-0.05,0.15],[0.15,-0.01],[0.15,0.01]];
-		var i;
+		this.jetEngines = [new JetEngine([0, -0.1], angle, 0.03, 0.6, 0.5, [0.1, 0.7, 2.5])];
 		this.cooling = 1;
 		this.prepareHitbox();
 	}
