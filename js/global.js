@@ -41,5 +41,6 @@ var enemyMissiles = [];
 var playerMissiles = [];
 var enemies = [];
 var backgroundObjects = [];
+var effects = [];
 
 var test;
