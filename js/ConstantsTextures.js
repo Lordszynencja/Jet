@@ -33,15 +33,20 @@ const PlayerShipTextures = {
 }
 
 const GUITextures = {
-	'GameOver' : [0, makeTexCoords(0, 127, 0, 63)],
+	'Select' : [0, makeTexCoords(0, 127, 224, 255)],
 	'Start' : [0, makeTexCoords(0, 127, 64, 95)],
 	'Continue' : [0, makeTexCoords(0, 127, 96, 127)],
 	'Options' : [0, makeTexCoords(0, 127, 128, 159)],
 	'Exit' : [0, makeTexCoords(0, 127, 160, 191)],
-	'8bitMode' : [0, makeTexCoords(0, 127, 192, 223)],
-	'Select' : [0, makeTexCoords(0, 127, 224, 255)],
-	'HeatBg' : [0, makeTexCoords(0, 63, 256, 319)],
 	
+	// Options menu
+	'8bitMode' : [0, makeTexCoords(0, 127, 192, 223)],
+	'Light' : [0, makeTexCoords(0, 127, 96, 127)],
+	'Sound' : [0, makeTexCoords(0, 127, 96, 127)],
+	
+	// Game GUI
+	'GameOver' : [0, makeTexCoords(0, 127, 0, 63)],
+	'HeatBg' : [0, makeTexCoords(0, 63, 256, 319)],
 	'HealthBg' : [0, makeTexCoords(288, 319, 256, 287)]
 }
 

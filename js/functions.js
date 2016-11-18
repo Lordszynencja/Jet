@@ -1,3 +1,7 @@
+function prettyDatesDifference(d1, d2) {
+	console.log(((d2 - d1)/1000).toFixed(3) + " seconds");
+}
+
 function shadow(xy,tan) {
 	return xy[0]-tan*xy[1];
 }

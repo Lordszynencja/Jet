@@ -41,7 +41,7 @@ class Player {
 		this.score = 0;
 		this.angle = Math.PI/2;
 		this.dead = false;
-		this.ship = new Ship1(Math.PI/2, this.x, this.y);
+		this.ship = new Ship1(this, Math.PI/2);
 		this.ship.addWeapon(new PlayerWMachinegun1(0,0,Math.PI/2),0);
 		//this.ship.addWeapon(new PlayerWMachinegun1(0,0,Math.PI/2),1);
 		this.ship.addWeapon(new PlayerWLaser1(0,0,Math.PI/2),2);

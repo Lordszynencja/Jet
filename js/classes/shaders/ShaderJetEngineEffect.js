@@ -13,12 +13,14 @@ void main(void) {
 		this.fragCode = `
 precision mediump float;
 uniform bool eight_bit_mode;
-
+` +
+shEffects +
+`
 varying vec3 c;
 
 void main(void) {
-	
-	gl_FragColor = vec4(c, pow(max(max(c.r, c.g), c.b), 2.0));
+	vec3 color = (eight_bit_mode ? toEightBit(c) : c);
+	gl_FragColor = vec4(color, pow(max(max(color.r, color.g), color.b), 2.0));
 }`
 	}
 	
@@ -41,7 +43,7 @@ void main(void) {
 
 	setBufferData() {
 		gl.uniform1f(this.uTime, time);
-		gl.uniform1f(this.uEightBitMode, eightBitMode);
+		gl.uniform1f(this.uEightBitMode, conf.eightBitMode);
 		fillBuffer(this.bPosition, "position", this.shader, 2, this.position);
 		fillBuffer(this.bColor, "color", this.shader, 3,  this.color);
 	}

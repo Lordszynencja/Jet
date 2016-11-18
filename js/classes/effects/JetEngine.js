@@ -8,7 +8,7 @@ class JetEngine {
 	}
 	
 	update() {
-		this.pos = [p.x+this.offset[0], p.y+this.offset[1]];
+		this.pos = [this.ship.x+this.offset[0], this.ship.y+this.offset[1]];
 		for (var i=0;i<this.maxN;i++) {
 			this.r[i] = [];
 			this.v[i] = [];
@@ -92,7 +92,8 @@ class JetEngine {
 		}
 	}
 	
-	constructor(pos, angle, sizex, sizey, randomness, color) {
+	constructor(ship, pos, angle, sizex, sizey, randomness, color) {
+		this.ship = ship;
 		this.maxN = 16;
 		this.details = 8;
 		this.angle = angle+Math.PI*0.5;

@@ -5,6 +5,8 @@ class Options {
 				conf.eightBitMode = !conf.eightBitMode;
 			} else if (this.position == 1) {
 				conf.useLightning = !conf.useLightning;
+			} else if (this.position == 2) {
+				conf.sound = !conf.sound;
 			} else {
 				delete ui.menu;
 				ui.newMenu(new MainMenu());
@@ -30,7 +32,7 @@ class Options {
 	
 	constructor() {
 		this.position = 0;
-		this.options = ['8bitMode','Continue','Exit'];
+		this.options = ['8bitMode', 'Light', 'Sound', 'Exit'];
 		this.optionsV = prepareOptionsVertexes(this.options.length);
 	}
 }

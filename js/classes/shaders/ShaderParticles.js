@@ -27,7 +27,7 @@ shEffects +
 varying vec4 c;
 
 void main(void) {
-	gl_FragColor = multiply(c);
+	gl_FragColor = (eight_bit_mode ? vec4(toEightBit(c.rgb), c.a) : c);
 }`
 	}
 	
@@ -67,8 +67,8 @@ void main(void) {
 	addEffect(pos, color, size) {
 		var n2 = this.n*2;
 		var n4 = this.n*4;
-		this.position[n2] = position[0];
-		this.position[n2+1] = position[1];
+		this.position[n2] = pos[0];
+		this.position[n2+1] = pos[1];
 		this.color[n4] = color[0];
 		this.color[n4+1] = color[1];
 		this.color[n4+2] = color[2];

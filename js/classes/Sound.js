@@ -1,11 +1,13 @@
 class Sound {
-	play(x,v) {
-		this.active_sound++;
-		var a = this.active_sound;
-		this.playing[a] = new Audio("sounds/"+this.sounds[x]);
-		this.playing[a].onended = function() { delete s.playing[a]; };
-		this.playing[a].volume = v*this.overall_volume;
-		this.playing[a].play();
+	play(x, volume) {
+		if (conf.sound) {
+			this.active_sound++;
+			var a = this.active_sound;
+			this.playing[a] = new Audio("sounds/"+this.sounds[x]);
+			this.playing[a].onended = function() { delete s.playing[a]; };
+			this.playing[a].volume = volume*this.overall_volume;
+			this.playing[a].play();
+		}
 	}
 
 	prepare() {
@@ -18,9 +20,9 @@ class Sound {
 		this.overall_volume = 1;
 		this.prepare();
 		this.sounds = {
-			shot:"shot3.mp3",
-			laser:"laser.mp3",
-			gameover:"game_over.mp3"
+			shot: "shot3.mp3",
+			laser: "laser.mp3",
+			gameover: "game_over.mp3"
 		};
 	}
 }

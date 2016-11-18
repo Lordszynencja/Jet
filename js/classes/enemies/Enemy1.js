@@ -12,6 +12,7 @@ class Enemy1 {
 		this.x += this.vx;
 		this.y += this.vy;
 		standardEnemyUpdate(this);
+		for (var i in this.jetEngines) this.jetEngines[i].update();
 	}
 	
 	dealDamage(damage) {
@@ -22,6 +23,7 @@ class Enemy1 {
 	
 	draw() {
 		g.addEnemyTexture('EnemyShip0', moveModel(this.v, this.x, this.y));
+		for (var i in this.jetEngines) this.jetEngines[i].draw();
 	}
 	
 	constructor(xy, movement, num, data) {
@@ -39,5 +41,6 @@ class Enemy1 {
 		this.v = rotateModel(makeCoords2(0.15,0.15), this.angle);
 		this.num = num;
 		this.prepareHitbox();
+		this.jetEngines = [new JetEngine(this, [0, +0.09], this.angle, 0.02, 0.8, 1, [2, -0.1, -0.1])];
 	}
 }

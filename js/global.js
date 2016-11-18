@@ -3,7 +3,8 @@ var loaded = false;
 
 var conf = {
 	eightBitMode: false,
-	useLightning: true
+	useLightning: true,
+	sound: true
 };
 
 var stats = {
