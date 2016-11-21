@@ -59,7 +59,7 @@ class Ship1 {
 		this.weapons = [];
 		this.weaponsNo = 4;
 		this.weaponOffsets = [[0,-0.15],[-0.05,0.15],[0.15,-0.01],[0.15,0.01]];
-		this.jetEngines = [new JetEngine(this, [0, -0.1], angle, 0.03, 0.6, 0.5, [0.1, 0.7, 2.5])];
+		this.jetEngines = [new JetEngine(this, [-0.1, -0], angle, 0.03, 0.6, 0.5, [0.1, 0.7, 2.5])];
 		this.cooling = 1;
 		this.prepareHitbox();
 	}

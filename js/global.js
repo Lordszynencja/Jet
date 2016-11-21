@@ -4,7 +4,8 @@ var loaded = false;
 var conf = {
 	eightBitMode: false,
 	useLightning: true,
-	sound: true
+	sound: true,
+	particles: true
 };
 
 var stats = {

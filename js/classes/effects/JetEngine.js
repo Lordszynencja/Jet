@@ -13,21 +13,21 @@ class JetEngine {
 			this.r[i] = [];
 			this.v[i] = [];
 			for (var j=0;j<this.details;j++) {
-				var x = this.width*j/(this.details-1);
-				var y = this.calculateHeight(x, i);
-				this.r[i][j] = Math.random()*y*this.randomness;
+				var y = this.width*j/(this.details-1);
+				var x = -this.calculateHeight(y, i);
+				this.r[i][j] = Math.random()*x*this.randomness;
 				if (i>1) this.r[i][j] += this.r[i-1][j];
-				y += this.r[i][j];
+				x += this.r[i][j];
 				var x1 = this.cos*x - this.sin*y;
 				var y1 = this.sin*x + this.cos*y;
 				this.v[i].push([this.pos[0]+x1, this.pos[1]+y1]);
 			}
 			for (var j=1;j<this.details;j++) {
-				var x = -this.width*j/(this.details-1);
-				var y = this.calculateHeight(x, i);
-				this.r[i][j+this.details-1] = Math.random()*y*this.randomness;
+				var y = -this.width*j/(this.details-1);
+				var x = -this.calculateHeight(y, i);
+				this.r[i][j+this.details-1] = Math.random()*x*this.randomness;
 				if (i>1) this.r[i][j+this.details-1] += this.r[i-1][j+this.details-1];
-				y += this.r[i][j+this.details-1];
+				x += this.r[i][j+this.details-1];
 				var x1 = this.cos*x - this.sin*y;
 				var y1 = this.sin*x + this.cos*y;
 				this.v[i].push([this.pos[0]+x1, this.pos[1]+y1]);
@@ -96,15 +96,15 @@ class JetEngine {
 		this.ship = ship;
 		this.maxN = 16;
 		this.details = 8;
-		this.angle = angle+Math.PI*0.5;
-		this.cos = Math.cos(angle+Math.PI*0.5);
-		this.sin = Math.sin(angle+Math.PI*0.5);
+		this.angle = angle;
+		this.cos = Math.cos(angle);
+		this.sin = Math.sin(angle);
 		this.v = [];
 		this.r = [];
 		for (var i=0;i<this.maxN;i++) this.v[i] = [];
 		for (var i=0;i<this.maxN;i++) this.r[i] = [];
-		this.pos = pos;
-		this.offset = pos;
+		this.offset = [pos[0]*this.cos-pos[1]*this.sin, pos[0]*this.sin+pos[1]*this.cos];
+		this.pos = [this.ship.x+this.offset[0], this.ship.y+this.offset[1]];
 		this.width = sizex;
 		this.height = sizey;
 		this.color = color;

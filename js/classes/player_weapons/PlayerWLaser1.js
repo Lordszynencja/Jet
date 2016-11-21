@@ -7,6 +7,7 @@ class PlayerWLaser1 {
 			playerMissiles.push(new PlayerLaser1(this.x,this.y,playerMissiles.length));
 			this.cooldown = this.cooldownTime;
 			s.play("laser",0.05);
+			stats.shotsFired++;
 			return this.heat;
 		}
 		return 0;

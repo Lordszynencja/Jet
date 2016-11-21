@@ -4,13 +4,14 @@ class PlayerWOrbs2 {
 		if (shoot && this.cooldown<=0) {
 			var x = p.x+Math.cos(this.angle)*this.x-Math.sin(this.angle)*this.y;
 			var y = p.y+Math.sin(this.angle)*this.x+Math.cos(this.angle)*this.y;
-			playerMissiles.push(new PlayerOrbs2(p.x,p.y,0.2,0.3,1,playerMissiles.length));
-			playerMissiles.push(new PlayerOrbs2(p.x,p.y,-0.2,-0.3,-1,playerMissiles.length));
-			playerMissiles.push(new PlayerOrbs2(p.x,p.y,0.2,0.3,0.5,playerMissiles.length));
-			playerMissiles.push(new PlayerOrbs2(p.x,p.y,-0.2,-0.3,-0.5,playerMissiles.length));
-			playerMissiles.push(new PlayerOrbs2(p.x,p.y,0.2,0.3,2,playerMissiles.length));
-			playerMissiles.push(new PlayerOrbs2(p.x,p.y,-0.2,-0.3,-2,playerMissiles.length));
+			playerMissiles.push(new PlayerOrbs2(p.x, p.y, 0.2, 0.3, 1, playerMissiles.length));
+			playerMissiles.push(new PlayerOrbs2(p.x, p.y, -0.2, -0.3, -1, playerMissiles.length));
+			playerMissiles.push(new PlayerOrbs2(p.x, p.y, 0.2, 0.3, 0.5, playerMissiles.length));
+			playerMissiles.push(new PlayerOrbs2(p.x, p.y, -0.2, -0.3, -0.5, playerMissiles.length));
+			playerMissiles.push(new PlayerOrbs2(p.x, p.y, 0.2, 0.3, 2, playerMissiles.length));
+			playerMissiles.push(new PlayerOrbs2(p.x, p.y, -0.2, -0.3, -2, playerMissiles.length));
 			this.cooldown = this.cooldownTime;
+			stats.shotsFired += 6;
 			return this.heat;
 		}
 		return 0;

@@ -1,7 +1,4 @@
 class PlayerBullet1 {
-	prepareVertex(angle) {
-		this.v = rotateModel(makeCoords2(this.size, this.size), angle);
-	}
 	
 	prepareHitbox() {
 		this.defaultHitbox = makeCoords2(this.size, this.size);
@@ -38,6 +35,18 @@ class PlayerBullet1 {
 		for (var i in enemies) {
 			if (this.collide(enemies[i])) {
 				enemies[i].dealDamage(this.damage);
+				if (conf.particles) {
+					var particlesNumber = Math.random()*1-0.5;
+					for (var i=0;i<particlesNumber;i++) {
+						effects.push(new Particle([this.x, this.y], this.angle+(Math.random()-0.5)*0.2, this.speed*(0.1+Math.random()*0.9),
+							FPS*Math.random()*0.4, [Math.random()*0.4+0.6, Math.random()*0.7+0.3, 0.1, 0.5+Math.random()*0.5], 2, effects.length));
+					}
+					var particlesNumber = Math.random()*5;
+					for (var i=0;i<particlesNumber;i++) {
+						effects.push(new Particle([this.x, this.y], this.angle+(Math.random()-0.5)*0.2, this.speed*(0.1+Math.random()*0.9),
+							FPS*Math.random()*0.4, [Math.random()*0.2+0.8, Math.random()*0.2+0.5, 0.1, 0.5+Math.random()*0.5], 1, effects.length));
+					}
+				}
 				delete playerMissiles[this.num];
 				return;
 			}
@@ -57,7 +66,7 @@ class PlayerBullet1 {
 		this.angle = angle;
 		this.vx = this.speed*Math.cos(angle);
 		this.vy = this.speed*Math.sin(angle);
-		this.prepareVertex(this.angle);
+		this.v = rotateModel(makeCoords2(this.size, this.size), angle);
 		this.prepareHitbox();
 		this.num = num;
 	}

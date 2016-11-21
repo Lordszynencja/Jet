@@ -14,12 +14,12 @@ const heatColor = [0, 0, 16];
 
 const BackgroundTextures = {
 	'TreesBases' : [0, makeTexCoords(0, 511, 0, 511)],
-	'ground' : [0, makeTexCoords(0, 511, 1023, 511)],
-	'winter' : [0, makeTexCoords(512, 1023, 1023, 512)]
+	'ground' : [0, makeTexCoords(0, 511, 512, 1023)],
+	'winter' : [0, makeTexCoords(512, 1023, 512, 1023)]
 }
 
 const EnemyTextures = {
-	'EnemyShip0' : [0, makeTexCoords(0, 255, 255, 0)]
+	'EnemyShip0' : [0, makeTexCoords(0, 255, 0, 255)]
 }
 
 const BulletsTextures = {
@@ -29,7 +29,7 @@ const BulletsTextures = {
 }
 
 const PlayerShipTextures = {
-	'Ship1' : [0, makeTexCoords(0, 255, 255,0)]
+	'Ship1' : [0, makeTexCoords(0, 255, 0, 255)]
 }
 
 const GUITextures = {

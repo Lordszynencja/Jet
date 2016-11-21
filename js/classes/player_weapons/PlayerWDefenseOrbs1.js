@@ -3,9 +3,10 @@ class PlayerWDefenseOrbs1 {
 		this.cooldown--;
 		if (shoot && this.cooldown<=0) {
 			for (var i=0;i<this.orbNo;i++) {
-				playerMissiles.push(new PlayerDefenseOrbs1(i*Math.PI*2/this.orbNo,1,0.2,playerMissiles.length));
+				playerMissiles.push(new PlayerDefenseOrbs1(i*Math.PI*2/this.orbNo, 1, 0.2, playerMissiles.length));
 			}
 			this.cooldown = this.cooldownTime;
+			stats.shotsFired += this.orbNo;
 			return this.heat;
 		}
 		return 0;

@@ -4,7 +4,7 @@ class EnemyWMachinegun1 {
 		if (shoot && this.cooldown<=0) {
 			var x = this.enemy.x+Math.cos(this.enemy.angle)*this.x-Math.sin(this.enemy.angle)*this.y;
 			var y = this.enemy.y+Math.sin(this.enemy.angle)*this.x+Math.cos(this.enemy.angle)*this.y;
-			enemyMissiles.push(new EnemyBullet1(x,y,this.enemy.angle,enemyMissiles.length));
+			enemyMissiles.push(new EnemyBullet1(x, y, this.enemy.angle, enemyMissiles.length));
 			this.cooldown = this.cooldownTime;
 			g.addLight([x, y], [1, 1, 0], 1, [this.enemy.angle, Math.PI/6]);
 		}
