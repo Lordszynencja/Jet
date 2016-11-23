@@ -4,8 +4,9 @@ class PlayerWOrbs1 {
 		if (shoot && this.cooldown<=0) {
 			var x = p.x+Math.cos(this.angle)*this.x-Math.sin(this.angle)*this.y;
 			var y = p.y+Math.sin(this.angle)*this.x+Math.cos(this.angle)*this.y;
-			playerMissiles.push(new PlayerOrbs1(this,playerMissiles.length));
+			playerMissiles.push(new PlayerOrbs1(this, playerMissiles.length));
 			this.cooldown = this.cooldownTime;
+			stats.shotsFired += 2;
 			return this.heat;
 		}
 		return 0;

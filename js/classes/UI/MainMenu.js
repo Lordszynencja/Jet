@@ -20,7 +20,7 @@ class MainMenu {
 	}
 	
 	draw() {
-		g.addBackgroundTexture('ground', makeCoords2(1,1));
+		g.addBackgroundTexture(this.bg, makeCoords2(1,1));
 		for (var i in this.optionsV) {
 			g.addGUITexture(this.options[i], this.optionsV[i]);
 		}
@@ -28,6 +28,7 @@ class MainMenu {
 	}
 	
 	constructor() {
+		this.bg = 'ground';
 		this.position = 0;
 		this.options = ['Start', 'Options'];
 		this.optionsV = prepareOptionsVertexes(this.options.length);

@@ -3,7 +3,9 @@ var loaded = false;
 
 var conf = {
 	eightBitMode: false,
-	useLightning: true
+	useLightning: true,
+	sound: true,
+	particles: true
 };
 
 var stats = {
@@ -41,5 +43,6 @@ var enemyMissiles = [];
 var playerMissiles = [];
 var enemies = [];
 var backgroundObjects = [];
+var effects = [];
 
 var test;

@@ -91,6 +91,10 @@ class Graphics {
 		this.drawOn('tex_text', texData, xy);
 	}
 	
+	addParticle(xy, color, size) {
+		sh['particles'].addEffect(xy, color, size);
+	}
+	
 	constructor() {
 		sh['tex_background'] = new ShaderTexturesBackground();
 		sh['effect_jet'] = new ShaderJetEngineEffect();
@@ -102,6 +106,8 @@ class Graphics {
 		
 		sh['effect0'] = new ShaderEffect0();
 		sh['effect1'] = new ShaderEffect1();
+		sh['particles'] = new ShaderParticles();
+		
 		this.shadersEnum = [
 			'tex_background',
 			'effect_jet',
@@ -111,7 +117,9 @@ class Graphics {
 			'tex_gui',
 			'tex_text',
 			'effect0',
-			'effect1'];
+			'effect1',
+			'particles'];
+			
 		this.lightningEnum = {
 			'tex_background' : true,
 			'effect_jet' : false,
@@ -122,6 +130,7 @@ class Graphics {
 			'tex_text' : false,
 			'effect0' : false,
 			'effect1' : false,
+			'particles' : false
 		};
 	}
 }

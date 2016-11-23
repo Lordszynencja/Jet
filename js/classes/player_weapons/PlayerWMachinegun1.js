@@ -10,6 +10,7 @@ class PlayerWMachinegun1 {
 			this.d = true;
 			this.lx = x;
 			this. ly = y;
+			stats.shotsFired++;
 			return this.heat;
 		}
 		this.d = false;

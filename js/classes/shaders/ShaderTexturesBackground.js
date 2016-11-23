@@ -14,7 +14,7 @@ void main(void) {
 }
 `;
 		this.fragCode = shDefines + `
-#define h -0.0
+#define h 0.0
 
 uniform float time;
 uniform bool eight_bit_mode;
@@ -33,7 +33,9 @@ shLightFunctions +
 ///////////////////////
 
 void main(void) {
-	vec2 tex_pos = vec2(tp.x, tp.y-mod(tp.y, 0.25) + mod(tp.y+bg_position, 0.25));
+	float base_y = tp.y-mod(tp.y, 0.25);
+	float y = mod(tp.y+bg_position, 0.25);
+	vec2 tex_pos = vec2(tp.x, base_y + y);
 	vec4 texture_color = texture2D(texture, tex_pos);
 	if (texture_color.a<0.01) discard;
 	gl_FragColor = texture_color*vec4((use_lightning ? compute_lights() : vec111*basic_light), 1.0);

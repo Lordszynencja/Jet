@@ -13,6 +13,9 @@
 		<script src="js/ConstantsTextures.js"></script>
 		<script src="js/global.js"></script>
 		<script src="js/classes/Controls.js"></script>
+		<!-- Effects -->
+		<script src="js/classes/effects/Particle.js"></script>
+		<script src="js/classes/effects/JetEngine.js"></script>
 		<!-- Shaders -->
 		<script src="js/classes/shaders/ShaderFunctions.js"></script>
 		<script src="js/classes/shaders/ShaderTexturesBackground.js"></script>
@@ -24,6 +27,7 @@
 		<script src="js/classes/shaders/ShaderTexturesText.js"></script>
 		<script src="js/classes/shaders/ShaderEffect0.js"></script>
 		<script src="js/classes/shaders/ShaderEffect1.js"></script>
+		<script src="js/classes/shaders/ShaderParticles.js"></script>
 		<script src="js/classes/Graphics.js"></script>
 		<!-- Sound -->
 		<script src="js/classes/Sound.js"></script>
@@ -32,7 +36,7 @@
 		<!-- Enemy Weapons -->
 		<script src="js/classes/enemy_weapons/EnemyWMachinegun1.js"></script>
 		<!-- Enemies -->
-		<script src="js/classes/enemies/EnemyFunctions.js"></script>
+		<script src="js/classes/enemies/EnemiesFunctions.js"></script>
 		<script src="js/classes/enemies/Enemy1.js"></script>
 		<!-- Player Missiles -->
 		<script src="js/classes/player_missiles/PlayerBullet1.js"></script>
@@ -47,7 +51,6 @@
 		<script src="js/classes/player_weapons/PlayerWOrbs2.js"></script>
 		<script src="js/classes/player_weapons/PlayerWDefenseOrbs1.js"></script>
 		<!-- Player -->
-		<script src="js/classes/player_ships/JetEngine.js"></script>
 		<script src="js/classes/player_ships/Ship1.js"></script>
 		<script src="js/classes/Player.js"></script>
 		<!-- levels -->
@@ -68,6 +71,11 @@
 		<button type="button" onclick="window.location.href='../webgl_card.pdf'" >WebGL card</button>
 		<div id="imagediv">
 		</div>
+		<audio>
+			<source src="sounds/shot3.mp3" type="audio/mpeg">
+			<source src="sounds/laser.mp3" type="audio/mpeg">
+			<source src="sounds/game_over.mp3" type="audio/mpeg">
+		</audio> 
 	</center>
 	</body>
 </html>

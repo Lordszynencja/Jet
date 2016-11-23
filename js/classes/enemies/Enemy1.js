@@ -1,8 +1,8 @@
 class Enemy1 {
 	prepareHitbox() {
 		this.defaultHitbox = [
-		[[-0.06328, 0.15000],[-0.08437, 0.15000],[-0.13593, 0.06093],[-0.13593,-0.06093],[-0.08437,-0.15000],[-0.06328,-0.15000]],
-		[[-0.06328, 0.05859],[-0.06328,-0.05859],[-0.02812,-0.05859],[ 0.15000, 0.00000],[-0.02812, 0.05859]]];
+		[[-0.025, 0.15], [-0.047, 0.15], [-0.098, 0.06], [-0.098, -0.06], [-0.047, -0.15], [-0.025, -0.15]],
+		[[-0.021, 0.055], [-0.021, -0.055], [0.004, -0.055], [0.15, -0.014], [0.15, 0.01], [0.004, 0.055]]];
 		this.rotatedHitbox = [];
 		for (var i in this.defaultHitbox) this.rotatedHitbox[i] = rotateModel(this.defaultHitbox[i], this.angle);
 		this.hitbox = [];
@@ -12,6 +12,7 @@ class Enemy1 {
 		this.x += this.vx;
 		this.y += this.vy;
 		standardEnemyUpdate(this);
+		for (var i in this.jetEngines) this.jetEngines[i].update();
 	}
 	
 	dealDamage(damage) {
@@ -22,9 +23,19 @@ class Enemy1 {
 	
 	draw() {
 		g.addEnemyTexture('EnemyShip0', moveModel(this.v, this.x, this.y));
+		for (var i in this.jetEngines) this.jetEngines[i].draw();
+		var mod1 = moveModel(this.rotatedHitbox[0], this.x, this.y);
+		for (var i in mod1) {
+			g.addParticle(mod1[i], [1,1,1,1], 2);
+		}
+		var mod2 = moveModel(this.rotatedHitbox[1], this.x, this.y);
+		for (var i in mod2) {
+			g.addParticle(mod2[i], [1,1,1,1], 2);
+		}
 	}
 	
 	constructor(xy, movement, num, data) {
+		this.logged=false;
 		this.hp = 20;
 		this.points = 100;
 		this.money = 10;
@@ -39,5 +50,8 @@ class Enemy1 {
 		this.v = rotateModel(makeCoords2(0.15,0.15), this.angle);
 		this.num = num;
 		this.prepareHitbox();
+		var c = Math.cos(angle);
+		var s = Math.sin(angle);
+		this.jetEngines = [new JetEngine(this, [-0.09, 0], this.angle, 0.02, 0.8, 1, [2, -0.1, -0.1])];
 	}
 }

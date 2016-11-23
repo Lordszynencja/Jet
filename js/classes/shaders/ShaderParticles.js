@@ -1,33 +1,41 @@
-class ShaderJetEngineEffect {//jet engine
+class ShaderParticles {
 	prepareShaderCode() {
 		this.vertCode = `
 attribute vec2 position;
-attribute vec3 color;
+attribute vec4 color;
+attribute float size;
 
-varying vec3 c;
+varying vec4 c;
 
 void main(void) {
 	c = color;
+	gl_PointSize = size;
 	gl_Position = vec4(position, 0.0, 1.0);
 }`
 		this.fragCode = `
 precision mediump float;
+
+vec4 multiply(vec4 color) {
+	return color*1.1;
+}
+
 uniform bool eight_bit_mode;
 ` +
 shEffects +
 `
-varying vec3 c;
+
+varying vec4 c;
 
 void main(void) {
-	vec3 color = (eight_bit_mode ? toEightBit(c) : c);
-	gl_FragColor = vec4(color, pow(max(max(color.r, color.g), color.b), 2.0));
+	gl_FragColor = (eight_bit_mode ? vec4(toEightBit(c.rgb), c.a) : c);
 }`
 	}
 	
 	prepareBuffers() {
 		gl.useProgram(this.shader);
 		this.bPosition = prepareBuffer(this.bPosition, "position", this.shader, 2);
-		this.bColor = prepareBuffer(this.bColor, "color", this.shader, 3);
+		this.bColor = prepareBuffer(this.bColor, "color", this.shader, 4);
+		this.bSize = prepareBuffer(this.bSize, "size", this.shader, 1);
 	}
 	
 	prepareUniforms() {
@@ -42,25 +50,30 @@ void main(void) {
 	}
 
 	setBufferData() {
-		gl.uniform1f(this.uTime, time);
 		gl.uniform1f(this.uEightBitMode, conf.eightBitMode);
 		fillBuffer(this.bPosition, "position", this.shader, 2, this.position);
-		fillBuffer(this.bColor, "color", this.shader, 3,  this.color);
+		fillBuffer(this.bColor, "color", this.shader, 4,  this.color);
+		fillBuffer(this.bSize, "size", this.shader, 1,  this.size);
 	}
 
 	draw() {
 		gl.useProgram(this.shader);
 		if (this.n>0) {
 			this.setBufferData();
-			gl.drawArrays(gl.TRIANGLES, 0, this.n);
+			gl.drawArrays(gl.POINTS, 0, this.n);
 		}
 	}
 	
-	addEffect(pos, color) {
-		var n2 = 2*this.n;
-		var n3 = 3*this.n;
-		for (var i=0;i<2;i++) this.position[n2+i] = pos[i];
-		for (var i=0;i<3;i++) this.color[n3+i] = color[i];
+	addEffect(pos, color, size) {
+		var n2 = this.n*2;
+		var n4 = this.n*4;
+		this.position[n2] = pos[0];
+		this.position[n2+1] = pos[1];
+		this.color[n4] = color[0];
+		this.color[n4+1] = color[1];
+		this.color[n4+2] = color[2];
+		this.color[n4+3] = color[3];
+		this.size[this.n] = size;
 		this.n++;
 	}
 
@@ -68,13 +81,17 @@ void main(void) {
 		this.n = 0;
 		this.position = [];
 		this.color = [];
+		this.size = [];
 	}
 	
 	constructor() {
-		this.update();
+		this.position = [];
+		this.color = [];
+		this.size = [];
 
 		this.bPosition = gl.createBuffer();
 		this.bColor = gl.createBuffer();
+		this.bSize = gl.createBuffer();
 		
 		this.createShader();
 		this.update();
