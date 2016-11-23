@@ -5,7 +5,10 @@ var conf = {
 	eightBitMode: false,
 	useLightning: true,
 	sound: true,
-	particles: true
+	particles: true,
+	overallVolume: 1,
+	musicVolume: 1,
+	effectsVolume: 1
 };
 
 var stats = {

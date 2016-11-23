@@ -1,15 +1,17 @@
 class LevelSelectMenu {
+	toLevel(level) {
+		delete ui.menu;
+		ui.newMenu(new Interface(level));
+		s.changeMusic(level.music);
+		ui.prepareGame();
+	}
+	
 	onPress(name) {
 		if (name=='enter') {
 			if (this.position == 0) {
-				delete ui.menu;
-				ui.newMenu(new Interface(new Level0()));
-				ui.prepareGame();
+				this.toLevel(new Level0());
 			} else if (this.position == 1) {
-				if (stats.level>=1)
-				delete ui.menu;
-				ui.newMenu(new Interface(new Level1()));
-				ui.prepareGame();
+				if (stats.level >= 1) this.toLevel(new Level1());
 			} else if (this.position == 2) {
 				delete ui.menu;
 				ui.newMenu(new MainMenu());

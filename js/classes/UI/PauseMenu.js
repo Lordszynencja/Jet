@@ -7,9 +7,11 @@ class PauseMenu {
 			if (this.position == 0) {
 				delete ui.menu;
 				ui.newMenu(new Interface(this.level));
+				s.setMusicVolume(1);
 			} else {
 				delete ui.menu;
 				ui.newMenu(new LevelSelectMenu());
+				s.changeMusic('menu');
 			}
 		} else if (this.position<this.options.length-1 && name=='down') {
 			this.position++;

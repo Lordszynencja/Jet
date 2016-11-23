@@ -30,6 +30,7 @@ class Player {
 		}
 		if (this.dead && time-this.dead_timer>250) {
 			ui.newMenu(new MainMenu());
+			s.changeMusic('menu');
 		}
 	}
 	

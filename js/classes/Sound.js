@@ -10,35 +10,65 @@ class Sound {
 		var a = this.active_sound;
 		this.playing[a] = new Audio("sounds/" + this.sounds[name]);
 		this.playing[a].onended = this.defaultOnEnded(a);
-		this.playing[a].volume = volume*conf.overallVolume;
+		this.playing[a].volume = volume*conf.overallVolume*conf.effectsVolume;
 		this.playing[a].play();
 	}
 	
 	playMusic(music) {
-		if (this.music == null) {
-			this.music = new Audio("music/" + this.musics[music]);
-			this.music.volume = conf.musicVolume*this.overallVolume;
-			this.music.loop = true;
+		if (this.music) {
+			this.music.pause();
+			delete this.music;
+		}
+		this.music = new Audio("music/" + this.musics[music]);
+		this.music.volume = this.musicVolume*conf.musicVolume*conf.overallVolume;
+		this.music.loop = true;
+		this.music.play();
+		this.changingMusic = false;
+	}
+	
+	changeMusic(music, fadetime = 1) {
+		var thisvar = this;
+		if (this.changingMusic) {
+			return;
+		} else if (this.music == null) {
+			this.changingMusic = true;
+			this.playMusic(music);
 		} else {
-			for (var i=0;i<100;i++) {
-				document.setTimeout((function(volume) {return function() {s.setMusicVolume(volume)}})(1-i/100), 10*i);
+			this.changingMusic = true;
+			var musicVolume = this.musicVolume;
+			var fadetimeScaled = fadetime*100;
+			for (var i=0;i<fadetimeScaled;i++) {
+				window.setTimeout((function(volume) {
+						return function() {
+							thisvar.setMusicVolume(volume);
+						}
+					})((1-i/fadetimeScaled)*musicVolume), 10*i);
 			}
-			document.setTimeout(function() {s.music.stop(); delete s.music; s.music = null; s.playMusic(music)}, 1000);
+			window.setTimeout(function() {
+					thisvar.playMusic(music);
+					thisvar.setMusicVolume(1);
+				}, fadetimeScaled*10);
 		}
 	}
 	
 	setMusicVolume(volume) {
-		this.music.volume = colume*conf.overallVolume*conf.musicVolume;
+		this.musicVolume = volume;
+		if (this.music) this.music.volume = volume*conf.overallVolume*conf.musicVolume;
 	}
 
 	prepare() {
-		for (var i in this.playing) this.playing[i].stop(), delete this.playing[i];
+		for (var i in this.playing) this.playing[i].pause(), delete this.playing[i];
+		if (this.music) {
+			this.music.pause();
+			delete this.music;
+		}
 	}
 
 	constructor() {
+		this.musicVolume = 1;
+		this.changingMusic = false;
 		this.active_sound = 0;
 		this.playing = {};
-		this.overallVolume = 1;
 		this.prepare();
 		this.sounds = {
 			shot: "shot3.mp3",
@@ -47,8 +77,8 @@ class Sound {
 		};
 		
 		this.musics = {
-			menu: "machinae_supremacy-shopmusic",
-			level1: "machinae_supremacy-megascorcher"
+			menu: "machinae_supremacy-shopmusic.mp3",
+			level1: "machinae_supremacy-megascorcher.mp3"
 		}
 		
 		this.music = null;

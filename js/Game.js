@@ -20,6 +20,7 @@ class Game {
 	start() {
 		window.setInterval(this.tick, 1000/FPS);
 		requestAnimationFrame(game.draw);
+		s.changeMusic('menu', 0);
 	}
 	
 	saveConfig() {
