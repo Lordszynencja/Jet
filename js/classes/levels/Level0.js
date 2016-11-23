@@ -9,6 +9,7 @@ class Level0 {
 		this.levelLength = 500;
 		this.number = 0;
 		this.texture = 'TreesBases';
+		this.music = 'level1';
 		this.enemies = [
 		[50, Enemy1, [0, 0.5], [0.01, Math.PI*3/2], []],
 		[100, Enemy1, [-0.5, 1.5], [0.01, Math.PI*3/2], []],

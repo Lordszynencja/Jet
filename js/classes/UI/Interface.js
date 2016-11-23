@@ -2,6 +2,7 @@ class Interface {
 	onPress(name) {
 		if (name=='esc') {
 			ui.newMenu(new PauseMenu(this.level));
+			s.setMusicVolume(0.5);
 		}
 	}
 	
