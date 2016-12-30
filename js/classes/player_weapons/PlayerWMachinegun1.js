@@ -18,7 +18,7 @@ class PlayerWMachinegun1 {
 	}
 	
 	draw() {
-		if (this.d) g.addLight([this.lx,this.ly],[1,1,0],1,[Math.PI/2-this.angle,Math.PI/6]);
+		if (this.d) g.addLight([this.lx, this.ly], [1,1,0], 1, [this.angle, Math.PI/6]);
 	}
 	
 	constructor(offx = 0,offy = 0,angle = Math.PI/2) {

@@ -25,3 +25,12 @@ function standardEnemyDraw(enemy, damage) {
 		stats.money += enemy.money;
 	}
 }
+
+function drawHitbox(enemy) {
+	for (var i in enemy.rotatedHitbox) {
+		var hitbox = moveModel(enemy.rotatedHitbox[i], enemy.x, enemy.y);
+		for (var j in hitbox) {
+			g.addParticle(hitbox[j], [1,1,1,1], 2);
+		}
+	}
+}

@@ -36,7 +36,7 @@ class LevelSelectMenu {
 	
 	constructor() {
 		this.position = 0;
-		this.options = ['Continue', 'Continue', 'Exit'];
+		this.options = ['Level1', 'Level2', 'Exit'];
 		this.optionsV = prepareOptionsVertexes(this.options.length);
 	}
 }

@@ -6,6 +6,7 @@ var conf = {
 	useLightning: true,
 	sound: true,
 	particles: true,
+	debug: false,
 	overallVolume: 1,
 	musicVolume: 1,
 	effectsVolume: 1
@@ -18,10 +19,18 @@ var stats = {
 	enemiesDefeated: 0
 };
 
-const gameoverV = makeCoords2(0.4,0.2);
+const gameoverV = makeCoords2(0.4, 0.2);
 
 function drawGameover() {
 	g.addGUITexture('GameOver', gameoverV);
+}
+
+function drawFinish() {
+	g.addGUITexture('LevelFinished', gameoverV);
+}
+
+function drawInfo(name, x = 0, y = 0, scale = 1) {
+	g.addGUITexture(name, moveModel(scaleModel(gameoverV, scale), x, y));
 }
 
 var con = document.getElementById('Tcan').getContext('2d');

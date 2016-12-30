@@ -4,8 +4,8 @@ var effectAngle = 0.0;
 
 class Game {
 	tick() {
-		ui.update();
 		g.update();
+		ui.update();
 		ui.draw();
 		if (time%FPS*2) game.saveGame();
 		//effects.push(new Particle([0, 0], Math.PI/2 + Math.random()*0.2, Math.random()*0.01, FPS*0.5, [1,0.5,0,1], 1, effects.length));
@@ -60,7 +60,7 @@ class Game {
 			loaded = true;
 			g = new Graphics();
 			s = new Sound();
-			c = new Controls;
+			c = new Controls();
 			ui = new UI();
 		}
 		this.saveName = 'gameSave';

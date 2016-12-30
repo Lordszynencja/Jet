@@ -7,6 +7,8 @@ class Options {
 				conf.useLightning = !conf.useLightning;
 			} else if (this.position == 2) {
 				conf.sound = !conf.sound;
+				if (!conf.sound) s.stopAll();
+				s.changeMusic('menu', 0);
 			} else {
 				delete ui.menu;
 				ui.newMenu(new MainMenu());

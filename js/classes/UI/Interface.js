@@ -43,6 +43,7 @@ class Interface {
 		drawStandardHp();
 		drawStandardHeat();
 		this.drawScore();
+		this.level.draw();
 	}
 	
 	constructor(level) {

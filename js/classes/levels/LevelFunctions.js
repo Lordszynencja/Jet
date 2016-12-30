@@ -6,9 +6,8 @@ function standardLevelUpdate(level) {
 	}
 	if (level.time==level.levelLength && !p.dead) {
 		if (conf.level<level.number+1) conf.level = level.number+1;
-		s.play("gameover", 1);
-		p.dead = true;
-		p.dead_timer = time;
+		p.finished = true;
+		p.finish_timer = time;
 	}
 	level.time++;
 }

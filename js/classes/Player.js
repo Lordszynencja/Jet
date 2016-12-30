@@ -1,6 +1,6 @@
 class Player {
 	update() {
-		if (!this.dead) {
+		if (!this.dead && !this.finished) {
 			this.invincibility--;
 			if (c.isPressed("left")) {
 				this.x -= 0.03;
@@ -28,7 +28,10 @@ class Player {
 				this.dead_timer = time;
 			}
 		}
-		if (this.dead && time-this.dead_timer>250) {
+		if (this.finished && time-this.finish_timer>250) {
+			ui.newMenu(new MainMenu());
+			s.changeMusic('menu');
+		} else if (this.dead && time-this.dead_timer>250) {
 			ui.newMenu(new MainMenu());
 			s.changeMusic('menu');
 		}
@@ -51,8 +54,9 @@ class Player {
 	}
 	
 	draw() {
-		if (!this.dead) this.ship.draw();
-		else drawGameover();
+		if (this.dead) drawGameover();
+		else if (this.finished) drawFinish();
+		else this.ship.draw();
 	}
 	
 	constructor() {

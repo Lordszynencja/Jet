@@ -46,7 +46,6 @@ class Graphics {
 	}
 
 	prepare() {
-		var i;
 		for (var s in sh) sh.prepare();
 		this.resetDrawing();
 	}

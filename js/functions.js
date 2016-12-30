@@ -188,6 +188,12 @@ function moveModel(m = [],x = 0,y = 0) {
 	return newM;
 }
 
+function scaleModel(m = [], scale = 1) {
+	var newM = [];
+	for (var i in m) newM[i] = [m[i][0]*scale,m[i][1]*scale];
+	return newM;
+}
+
 function logCode(code) {
 	var lines = code.split('\n');
 	var s = '';
@@ -238,7 +244,7 @@ function fillBuffer(buffer, name, shader, size, data) {
 
 function prepareOptionsVertexes(n) {
 	var v = [];
-	for (var i=0;i<n;i++) v[i] = makeCoords4(-0.2,0.2,0.15*n-0.05-i*0.3,0.15*n-0.25-i*0.3);
+	for (var i=0;i<n;i++) v[i] = makeCoords4(-0.2, 0.2, 0.15*n-0.05-i*0.3, 0.15*n-0.25-i*0.3);
 	return v;
 }
 

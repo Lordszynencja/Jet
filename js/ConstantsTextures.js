@@ -39,15 +39,23 @@ const GUITextures = {
 	'Options' : [0, makeTexCoords(0, 127, 128, 159)],
 	'Exit' : [0, makeTexCoords(0, 127, 160, 191)],
 	
+	//Levels
+	'Level1' : [0, makeTexCoords(128, 255, 128, 159)],
+	'Level2' : [0, makeTexCoords(128, 255, 160, 191)],
+	
 	// Options menu
 	'8bitMode' : [0, makeTexCoords(0, 127, 192, 223)],
-	'Light' : [0, makeTexCoords(0, 127, 96, 127)],
-	'Sound' : [0, makeTexCoords(0, 127, 96, 127)],
+	'Light' : [0, makeTexCoords(128, 255, 64, 95)],
+	'Sound' : [0, makeTexCoords(128, 255, 96, 127)],
 	
 	// Game GUI
-	'GameOver' : [0, makeTexCoords(0, 127, 0, 63)],
+	'LevelFinished' : [0, makeTexCoords(128, 255, 0, 63)],
+	'GameOver' : [0, makeTexCoords(128, 255, 0, 63)],
 	'HeatBg' : [0, makeTexCoords(0, 63, 256, 319)],
-	'HealthBg' : [0, makeTexCoords(288, 319, 256, 287)]
+	'HealthBg' : [0, makeTexCoords(288, 319, 256, 287)],
+	'ShootTip' : [0, makeTexCoords(256, 383, 0, 63)],
+	'MoveTip' : [0, makeTexCoords(256, 383, 64, 127)],
+	'IndicatorsTip' : [0, makeTexCoords(256, 383, 128, 195)]
 }
 
 const LettersNumbers = {

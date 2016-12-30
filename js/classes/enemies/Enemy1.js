@@ -24,14 +24,7 @@ class Enemy1 {
 	draw() {
 		g.addEnemyTexture('EnemyShip0', moveModel(this.v, this.x, this.y));
 		for (var i in this.jetEngines) this.jetEngines[i].draw();
-		var mod1 = moveModel(this.rotatedHitbox[0], this.x, this.y);
-		for (var i in mod1) {
-			g.addParticle(mod1[i], [1,1,1,1], 2);
-		}
-		var mod2 = moveModel(this.rotatedHitbox[1], this.x, this.y);
-		for (var i in mod2) {
-			g.addParticle(mod2[i], [1,1,1,1], 2);
-		}
+		if (conf.debug) drawHitbox(this);
 	}
 	
 	constructor(xy, movement, num, data) {
