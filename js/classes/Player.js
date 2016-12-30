@@ -19,7 +19,7 @@ class Player {
 				if (this.y<=-0.85) this.y = -0.85;
 			}
 			this.ship.update();
-		}
+		} else if (this.finished) this.y += (time-this.finish_timer)*0.001;
 		if (this.hp<0) {
 			this.hp = 0;
 			if (!this.dead) {
@@ -54,8 +54,8 @@ class Player {
 	}
 	
 	draw() {
+		if (this.finished) drawFinish();
 		if (this.dead) drawGameover();
-		else if (this.finished) drawFinish();
 		else this.ship.draw();
 	}
 	

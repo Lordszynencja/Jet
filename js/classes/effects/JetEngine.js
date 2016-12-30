@@ -8,31 +8,6 @@ class JetEngine {
 	}
 	
 	update() {
-		this.pos = [this.ship.x+this.offset[0], this.ship.y+this.offset[1]];
-		for (var i=0;i<this.maxN;i++) {
-			this.r[i] = [];
-			this.v[i] = [];
-			for (var j=0;j<this.details;j++) {
-				var y = this.width*j/(this.details-1);
-				var x = -this.calculateHeight(y, i);
-				this.r[i][j] = Math.random()*x*this.randomness;
-				if (i>1) this.r[i][j] += this.r[i-1][j];
-				x += this.r[i][j];
-				var x1 = this.cos*x - this.sin*y;
-				var y1 = this.sin*x + this.cos*y;
-				this.v[i].push([this.pos[0]+x1, this.pos[1]+y1]);
-			}
-			for (var j=1;j<this.details;j++) {
-				var y = -this.width*j/(this.details-1);
-				var x = -this.calculateHeight(y, i);
-				this.r[i][j+this.details-1] = Math.random()*x*this.randomness;
-				if (i>1) this.r[i][j+this.details-1] += this.r[i-1][j+this.details-1];
-				x += this.r[i][j+this.details-1];
-				var x1 = this.cos*x - this.sin*y;
-				var y1 = this.sin*x + this.cos*y;
-				this.v[i].push([this.pos[0]+x1, this.pos[1]+y1]);
-			}
-		}
 	}
 	
 	drawBottom() {
@@ -86,6 +61,31 @@ class JetEngine {
 	}
 	
 	draw() {
+		this.pos = [this.ship.x+this.offset[0], this.ship.y+this.offset[1]];
+		for (var i=0;i<this.maxN;i++) {
+			this.r[i] = [];
+			this.v[i] = [];
+			for (var j=0;j<this.details;j++) {
+				var y = this.width*j/(this.details-1);
+				var x = -this.calculateHeight(y, i);
+				this.r[i][j] = Math.random()*x*this.randomness;
+				if (i>1) this.r[i][j] += this.r[i-1][j];
+				x += this.r[i][j];
+				var x1 = this.cos*x - this.sin*y;
+				var y1 = this.sin*x + this.cos*y;
+				this.v[i].push([this.pos[0]+x1, this.pos[1]+y1]);
+			}
+			for (var j=1;j<this.details;j++) {
+				var y = -this.width*j/(this.details-1);
+				var x = -this.calculateHeight(y, i);
+				this.r[i][j+this.details-1] = Math.random()*x*this.randomness;
+				if (i>1) this.r[i][j+this.details-1] += this.r[i-1][j+this.details-1];
+				x += this.r[i][j+this.details-1];
+				var x1 = this.cos*x - this.sin*y;
+				var y1 = this.sin*x + this.cos*y;
+				this.v[i].push([this.pos[0]+x1, this.pos[1]+y1]);
+			}
+		}
 		this.drawBottom();
 		for (var i=1;i<this.maxN;i++) {
 			this.drawLevel(i);

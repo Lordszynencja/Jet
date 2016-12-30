@@ -41,7 +41,7 @@ gl.disable(gl.DEPTH_TEST);
 gl.enable(gl.BLEND);
 gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 
-const maxLights = (Math.floor(gl.getParameter(gl.MAX_VERTEX_UNIFORM_VECTORS)/9) >= 32 ? 32 : Math.floor(gl.getParameter(gl.MAX_VERTEX_UNIFORM_VECTORS)/9));
+const maxLights = (Math.floor(gl.getParameter(gl.MAX_VERTEX_UNIFORM_VECTORS)/20)>64 ? 64 : Math.floor(gl.getParameter(gl.MAX_VERTEX_UNIFORM_VECTORS)/20));
 
 var sh = [];//shaders
 var g;//graphics
