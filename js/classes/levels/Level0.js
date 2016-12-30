@@ -17,7 +17,7 @@ class Level0 {
 		this.texture = 'TreesBases';
 		this.music = 'level1';
 		this.enemies = [
-		[100, Enemy1, [0, 1.5], [0.005, Math.PI*3/2], []],
+		[100, Enemy1, [0, 1.1], [0.005, Math.PI*3/2], []],
 		[300, Enemy1, [0.75, 1.5], [0.005, Math.PI*3/2], []],
 		[500, Enemy1, [0, 1.5], [0.01, Math.PI*3/2], []],
 		[550, Enemy1, [-0.5, 1.5], [0.01, Math.PI*3/2], []],
