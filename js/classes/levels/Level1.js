@@ -3,6 +3,9 @@ class Level1 {
 		standardLevelUpdate(this);
 	}
 	
+	draw() {
+	}
+	
 	constructor() {
 		this.time = 0;
 		this.nextEnemy = 0;
