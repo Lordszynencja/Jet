@@ -20,6 +20,9 @@ class Options {
 		}
 	}
 	
+	anyKey() {
+	}
+	
 	update() {
 	}
 	

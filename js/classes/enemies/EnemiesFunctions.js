@@ -17,15 +17,6 @@ function standardDealDamage(enemy, damage) {
 	}
 }
 
-function standardEnemyDraw(enemy, damage) {
-	enemy.hp -= damage;
-	if (enemy.hp<=0) {
-		delete enemies[enemy.num];
-		stats.score += enemy.score;
-		stats.money += enemy.money;
-	}
-}
-
 function drawHitbox(enemy) {
 	for (var i in enemy.rotatedHitbox) {
 		var hitbox = moveModel(enemy.rotatedHitbox[i], enemy.x, enemy.y);

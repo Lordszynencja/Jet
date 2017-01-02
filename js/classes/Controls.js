@@ -13,6 +13,7 @@ class Controls {
 		if (code in uiButtons) {
 			ui.pressed(name);
 		}
+		ui.anyKey();
 	}
 	
 	keyUp(e) {

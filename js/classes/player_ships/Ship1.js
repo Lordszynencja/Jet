@@ -7,7 +7,7 @@ class Ship1 {
 		for (var i in this.weapons) {
 			this.heat += this.weapons[i].update(canShoot);
 		}
-		this.heat -= this.cooling;
+		this.heat -= this.cooling[this.coolingLevel];
 		if (this.heat>=100) this.heat = 100, this.overheat = true;
 		if (this.overheat && this.heat<=0) this.overheat = false;
 		if (this.heat<0) this.heat = 0;
@@ -41,6 +41,25 @@ class Ship1 {
 		if (wNo>=0 && wNo<this.weaponsNo && this.weapons[wNo]) this.weapons[wNo].downgrade();
 	}
 	
+	resetWeapons() {
+		for (var i=0;i<this.weaponsNo;i++) {
+			delete this.weapons[i];
+			this.weapons[i] = new PlayerWEmpty();
+		}
+	}
+	
+	prepareCooling() {
+		this.cooling = [1, 1.5, 2, 3, 4, 5, 6];
+	}
+	
+	upgradeCooling() {
+		if (this.coolingLevel<this.cooling.length-1) this.coolingLevel++;
+	}
+	
+	downgradeCooling() {
+		if (this.coolingLevel>0) this.coolingLevel--;
+	}
+	
 	draw() {
 		this.x = this.player.x;
 		this.y = this.player.y;
@@ -50,6 +69,7 @@ class Ship1 {
 	}
 	
 	constructor(player, angle) {
+		this.prepareCooling();
 		this.player = player;
 		this.size = 0.15;
 		this.x = player.x;
@@ -62,7 +82,7 @@ class Ship1 {
 		this.weaponsNo = 4;
 		this.weaponOffsets = [[-0.03,-0.15],[-0.03,0.15],[0.15,-0.01],[0.15,0.01]];
 		this.jetEngines = [new JetEngine(this, [-0.1, -0], angle, 0.03, 0.6, 0.5, [0.1, 0.7, 2.5])];
-		this.cooling = 1;
+		this.coolingLevel = 0;
 		this.prepareHitbox();
 	}
 }

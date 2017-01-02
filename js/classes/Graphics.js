@@ -28,17 +28,14 @@ class Graphics {
 		sh['effect1'].addEffectFromStartAngleLength(start, angle, length, color);
 	}
 
-	drawText(x,y,s,scale) {
-		var i,j,length=0;
-		/*for (i=0;i<s.length;i++) {
-			var textData = this.characters[s[i]];
-			if (s[i] in this.characters) {
-				for (j=0;j<6;j++) {
-					//this.add_v(0,[x+(dig_v[2*j]+length)*scale,y+dig_v[2*j+1]*scale,-0.999],[dig_tex[s[i]][2*j],dig_tex[s[i]][2*j+1]]);
-				}
-				//length+=dig_len[s[i]]/16;
+	drawText(x, y, s, scale, color) {
+		var i, j, length = 0;
+		for (i=0;i<s.length;i++) {
+			if (s[i] in LettersNumbers) {
+				this.addText(s[i], makeCoords4(x+length, x+length+scale, y, y-scale*2), color);
+				length += scale;
 			}
-		}*/
+		}
 	}
 	
 	update() {
@@ -51,8 +48,8 @@ class Graphics {
 	}
 	
 	drawOn(shaderName, texData, xy) {
-		for (var i=0;i<3;i++) sh[shaderName].addVertex(texData[0],xy[i],texData[1][i]);
-		for (var i=1;i<4;i++) sh[shaderName].addVertex(texData[0],xy[i],texData[1][i]);
+		for (var i=0;i<3;i++) sh[shaderName].addVertex(texData[0], xy[i], texData[1][i]);
+		for (var i=1;i<4;i++) sh[shaderName].addVertex(texData[0], xy[i], texData[1][i]);
 	}
 	
 	addBackgroundTexture(tex, xy) {
@@ -84,10 +81,11 @@ class Graphics {
 		this.drawOn('tex_gui', texData, xy);
 	}
 	
-	addText(tex, xy) {
-		console.log(tex);
+	addText(tex, xy, color) {
+		//console.log(tex);
 		var texData = LettersNumbers[tex];
-		this.drawOn('tex_text', texData, xy);
+		for (var i=0;i<3;i++) sh['tex_text'].addVertex(texData[0], xy[i], texData[1][i], color);
+		for (var i=1;i<4;i++) sh['tex_text'].addVertex(texData[0], xy[i], texData[1][i], color);
 	}
 	
 	addParticle(xy, color, size) {

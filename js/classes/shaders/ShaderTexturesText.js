@@ -3,13 +3,16 @@ class ShaderTexturesText {
 		this.vertCode = `
 attribute vec2 position;
 attribute vec2 texture_position;
+attribute vec4 color;
 
 varying vec2 p;
 varying vec2 tp;
+varying vec4 c;
 
 void main(void) {
 	p = position;
 	tp = texture_position;
+	c = color;
 	gl_Position = vec4(position, 0.0, 1.0);
 }
 `;
@@ -20,6 +23,7 @@ uniform bool eight_bit_mode;
 
 uniform sampler2D texture;
 
+varying vec4 c;
 varying vec2 p;
 varying vec2 tp;
 ` +
@@ -33,7 +37,7 @@ shEffects +
 void main(void) {
 	vec4 texture_color = texture2D(texture, tp);
 	if (texture_color.a<0.01) discard;
-	gl_FragColor = texture_color;
+	gl_FragColor = texture_color*c;
 	if (eight_bit_mode) gl_FragColor = vec4(toEightBit(gl_FragColor.rgb), gl_FragColor.a);
 }
 `;
@@ -43,6 +47,7 @@ void main(void) {
 		gl.useProgram(this.shader);
 		prepareBuffer(this.bPosition, "position", this.shader, 2);
 		prepareBuffer(this.bTexturePosition, "texture_position", this.shader, 2);
+		prepareBuffer(this.bColor, "color", this.shader, 4);
 	}
 	
 	prepareUniforms() {
@@ -67,6 +72,7 @@ void main(void) {
 	setBufferData(i) {
 		fillBuffer(this.bPosition, "position", this.shader, 2, this.position[i]);
 		fillBuffer(this.bTexturePosition, "texture_position", this.shader, 2, this.texturePosition[i]);
+		fillBuffer(this.bColor, "color", this.shader, 4, this.color[i]);
 		gl.activeTexture(gl.TEXTURE0);
 		gl.bindTexture(gl.TEXTURE_2D, this.texture[i]);
 		gl.uniform1i(gl.getUniformLocation(this.shader, "texture"), 0);
@@ -75,8 +81,7 @@ void main(void) {
 	draw() {
 		gl.useProgram(this.shader);
 		this.setUniformData();
-		var i;
-		for (i=0;i<this.texturesNo;i++) {
+		for (var i=0;i<this.texturesNo;i++) {
 			if (this.positionCount[i]>0) {
 				this.setBufferData(i);
 				gl.drawArrays(gl.TRIANGLES, 0, this.positionCount[i]);
@@ -84,12 +89,14 @@ void main(void) {
 		}
 	}
 
-	addVertex(t, xy, txy) {
+	addVertex(t, xy, txy, color) {
 		var v2 = this.positionCount[t]*2;
+		var v4 = v2*2;
 		for (var i=0;i<2;i++) {
 			this.position[t][v2+i] = xy[i];
 			this.texturePosition[t][v2+i] = txy[i];
 		}
+		for (var i=0;i<4;i++) this.color[t][v4+i] = color[i];
 		this.positionCount[t]++;
 	}
 	
@@ -97,6 +104,7 @@ void main(void) {
 		for (var i=0;i<this.texturesNo;i++) {
 			this.positionCount[i] = 0;
 			this.position[i] = [];
+			this.color[i] = [];
 		}
 	}
 	
@@ -112,15 +120,18 @@ void main(void) {
 		this.texturesNo = texNo(LettersNumbers);
 		this.position = [];
 		this.texturePosition = [];
+		this.color = [];
 		this.positionCount = [];
 
 		this.bPosition = gl.createBuffer();
 		this.bTexturePosition = gl.createBuffer();
+		this.bColor = gl.createBuffer();
 		this.texture = [];
 		
 		for (var i=0;i<this.texturesNo;i++) {
 			this.position[i] = [];
 			this.texturePosition[i] = [];
+			this.color[i] = [];
 			this.texture[i] = gl.createTexture();
 		}
 		

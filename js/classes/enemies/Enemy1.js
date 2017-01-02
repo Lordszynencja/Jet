@@ -11,6 +11,7 @@ class Enemy1 {
 	update() {
 		this.x += this.vx;
 		this.y += this.vy;
+		if (this.x>4 || this.x<-4 || this.y>4 || this.y<-4) standardEnemyDestroy(this);
 		standardEnemyUpdate(this);
 		for (var i in this.jetEngines) this.jetEngines[i].update();
 	}

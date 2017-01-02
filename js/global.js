@@ -16,7 +16,8 @@ var stats = {
 	money: 0,
 	level: 0,
 	shotsFired: 0,
-	enemiesDefeated: 0
+	enemiesDefeated: 0,
+	bossesDefeated: 0
 };
 
 const gameoverV = makeCoords2(0.4, 0.2);
@@ -27,10 +28,6 @@ function drawGameover() {
 
 function drawFinish() {
 	g.addGUITexture('LevelFinished', gameoverV);
-}
-
-function drawInfo(name, x = 0, y = 0, scale = 1) {
-	g.addGUITexture(name, moveModel(scaleModel(gameoverV, scale), x, y));
 }
 
 var con = document.getElementById('Tcan').getContext('2d');

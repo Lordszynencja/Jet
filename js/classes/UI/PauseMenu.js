@@ -20,18 +20,10 @@ class PauseMenu {
 		}
 	}
 	
-	update() {
+	anyKey() {
 	}
 	
-	drawScore() {
-		var iscore = [0,0,0,0,0,0];
-		var s = this.score;
-		var j;
-		for (j=0;j<6;j++) {
-			iscore[5-j] = (s%10).toString();
-			s = Math.floor(s/10);
-		}
-		g.drawText(-0.9,-0.9,iscore,0.1);
+	update() {
 	}
 	
 	drawOptions() {
@@ -50,7 +42,7 @@ class PauseMenu {
 		for (var i in enemyMissiles) enemyMissiles[i].draw();
 		drawStandardHp();
 		drawStandardHeat();
-		this.drawScore();
+		g.drawText(-0.96, -0.8, stats.score.toString(), 0.1, [0.1, 0.1, 0.1, 1]);
 		this.drawOptions();
 	}
 	

@@ -6,6 +6,9 @@ class Interface {
 		}
 	}
 	
+	anyKey() {
+	}
+	
 	update() {
 		this.level.update();
 		g.moveBackground(-0.001);
@@ -22,17 +25,6 @@ class Interface {
 		//if (Math.random()<0.01) enemies.push(new Enemy1(Math.random()*2-1,Math.random()*2+1,Math.random()*0.01+0.01,Math.PI*(3/2+Math.random()*0.25-0.125),enemies.length));
 	}
 	
-	drawScore() {
-		var iscore = [0,0,0,0,0,0];
-		var s = p.score;
-		var j;
-		for (j=0;j<6;j++) {
-			iscore[5-j] = s%10;
-			s = Math.floor(s/10);
-		}
-		g.drawText(-0.9,-0.9,iscore,0.1);
-	}
-	
 	draw() {
 		g.addBackgroundTexture(this.level.texture, makeCoords2(1,1));
 		for (var i in effects) effects[i].draw();
@@ -42,7 +34,7 @@ class Interface {
 		p.draw();
 		drawStandardHp();
 		drawStandardHeat();
-		this.drawScore();
+		g.drawText(-0.96, -0.8, stats.score.toString(), 0.1, [0.1, 0.1, 0.1, 1]);
 		this.level.draw();
 	}
 	

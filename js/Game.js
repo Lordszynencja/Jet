@@ -1,12 +1,15 @@
 var effectPos = [0.0,0.0];
 var effectsize = 0.2;
 var effectAngle = 0.0;
+var textScale = 0.1;
+var textS = 'My Text';
 
 class Game {
 	tick() {
 		g.update();
 		ui.update();
 		ui.draw();
+		//g.addEffect1(effectPos,effectsize,effectAngle+Math.PI*(0.5+time/100), [1,0.1,0.1]);
 		if (time%FPS*2) game.saveGame();
 		//effects.push(new Particle([0, 0], Math.PI/2 + Math.random()*0.2, Math.random()*0.01, FPS*0.5, [1,0.5,0,1], 1, effects.length));
 		//g.addEffect1([0,0],10, Math.PI*0.5, [0.1,0.1,1]);

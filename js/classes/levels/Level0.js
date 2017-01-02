@@ -4,9 +4,19 @@ class Level0 {
 	}
 	
 	draw() {
-		if (this.time<200) drawInfo('ShootTip');
-		if (this.time>200 && this.time<400) drawInfo('MoveTip', 0.5);
-		if (this.time>400 && this.time<800) drawInfo('IndicatorsTip', 0.7, -0.7, 0.7);
+	}
+	
+	preparePlayer(player) {
+		player.ship = new Ship1(player, Math.PI/2);
+		player.ship.resetWeapons();
+		player.ship.addWeapon(new PlayerWMachinegun1(0, 0, Math.PI/2), 0);
+		player.ship.addWeapon(new PlayerWMachinegun1(0, 0, Math.PI/2), 1);
+		player.ship.addWeapon(new PlayerWDefenseOrbs1(0, 0, Math.PI/2), 3);
+		//this.ship.addWeapon(new PlayerWMachinegun1(0,0,Math.PI/2),0);
+		//this.ship.addWeapon(new PlayerWMachinegun1(0,0,Math.PI/2),1);
+		//this.ship.addWeapon(new PlayerWLaser1(0,0,Math.PI/2),2);
+		//this.ship.addWeapon(new PlayerWDefenseOrbs1(0,0,Math.PI/2),3);
+		//this.ship.addWeapon(new PlayerWOrbs2(0,0,Math.PI/2),1);
 	}
 	
 	constructor() {
@@ -14,6 +24,7 @@ class Level0 {
 		this.nextEnemy = 0;
 		this.levelLength = 2000;
 		this.number = 0;
+		this.boss = null;
 		this.texture = 'TreesBases';
 		this.music = 'level1';
 		this.enemies = [

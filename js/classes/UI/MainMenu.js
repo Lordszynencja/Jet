@@ -16,6 +16,9 @@ class MainMenu {
 		}
 	}
 	
+	anyKey() {
+	}
+	
 	update() {
 	}
 	

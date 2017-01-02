@@ -20,6 +20,10 @@ class UI {
 		this.menu.onPress(name);
 	}
 	
+	anyKey() {
+		this.menu.anyKey();
+	}
+	
 	update() {
 		this.menu.update();
 	}

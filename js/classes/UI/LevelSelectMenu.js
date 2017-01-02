@@ -9,7 +9,10 @@ class LevelSelectMenu {
 	onPress(name) {
 		if (name=='enter') {
 			if (this.position == 0) {
-				this.toLevel(new Level0());
+				delete ui.menu;
+				var level = new Level0();
+				s.changeMusic(level.music);
+				ui.newMenu(new Help(level));
 			} else if (this.position == 1) {
 				if (stats.level >= 1) this.toLevel(new Level1());
 			} else if (this.position == 2) {
@@ -21,6 +24,9 @@ class LevelSelectMenu {
 		} else if (this.position>0 && name=='up') {
 			this.position--;
 		}
+	}
+	
+	anyKey() {
 	}
 	
 	update() {

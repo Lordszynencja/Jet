@@ -1,0 +1,74 @@
+class Boss1 {
+	prepareHitbox() {
+		this.defaultHitbox = [
+		[[-0.025, 0.15], [-0.047, 0.15], [-0.098, 0.06], [-0.098, -0.06], [-0.047, -0.15], [-0.025, -0.15]],
+		[[-0.021, 0.055], [-0.021, -0.055], [0.004, -0.055], [0.15, -0.014], [0.15, 0.01], [0.004, 0.055]]];
+		for (var i in this.defaultHitbox) {
+			for (var j in this.defaultHitbox[i]) this.defaultHitbox[i][j][0] *= 3, this.defaultHitbox[i][j][1] *= 3;
+		}
+		this.rotatedHitbox = [];
+		for (var i in this.defaultHitbox) this.rotatedHitbox[i] = rotateModel(this.defaultHitbox[i], this.angle);
+		this.hitbox = [];
+	}
+	
+	move() {
+		if (this.time<FPS/2) this.vy -= 0.0007;
+		else if (this.time>FPS && this.time<1.5*FPS) this.vy += 0.0007;
+		else if (this.time == 1.5*FPS) this.vy = 0;
+		if (this.time/FPS<1) this.vx -= 0.0003;
+		if (this.x>0.7) this.vx -= 0.0003;
+		else if (this.x<-0.7) this.vx += 0.0003;
+		this.x += this.vx;
+		this.y += this.vy;
+	}
+	
+	update() {
+		this.move();
+		for (var i in this.rotatedHitbox) this.hitbox[i] = moveModel(this.rotatedHitbox[i], this.x, this.y);
+		if (this.time%(6*FPS)<3*FPS) {
+			for (var i in this.weapons) this.weapons[i].update(true);
+		}
+		for (var i in this.jetEngines) this.jetEngines[i].update();
+		this.time++;
+	}
+	
+	dealDamage(damage) {
+		if (standardDealDamage(this, damage)) {
+			delete enemies[this.num];
+			stats.money += this.money;
+			stats.score += this.points;
+			stats.bossesDefeated++;
+			if (stats.level<2) stats.level = 2;
+			p.finished = true;
+			p.finish_timer = time;
+		}
+	}
+	
+	draw() {
+		g.addEnemyTexture('EnemyShip0', moveModel(this.v, this.x, this.y));
+		for (var i in this.jetEngines) this.jetEngines[i].draw();
+		if (conf.debug) drawHitbox(this);
+	}
+	
+	constructor(num) {
+		this.time = 0;
+		this.hp = 500;
+		this.points = 10000;
+		this.money = 200;
+		this.size = 0.45;
+		this.x = 0;
+		this.y = 1.5;
+		this.vx = 0;
+		this.vy = 0;
+		this.angle = Math.PI*1.5;
+		this.weapons = [new EnemyWMachinegun1(0.15, -0.05, this),
+		new EnemyWMachinegun1(0.15, 0, this),
+		new EnemyWMachinegun1(0.15, 0.05, this)];
+		this.v = rotateModel(makeCoords2(0.45, 0.45), this.angle);
+		this.num = num;
+		this.prepareHitbox();
+		this.jetEngines = [new JetEngine(this, [-0.27, 0], this.angle, 0.08, 0.5, 1, [2, -0.1, -0.1]),
+		new JetEngine(this, [-0.27, 0.1], this.angle, 0.03, 0.5, 1, [2, -0.1, -0.1]),
+		new JetEngine(this, [-0.27, -0.1], this.angle, 0.03, 0.5, 1, [2, -0.1, -0.1])];
+	}
+}

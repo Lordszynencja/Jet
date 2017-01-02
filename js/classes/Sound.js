@@ -22,6 +22,7 @@ class Sound {
 				this.music.pause();
 				delete this.music;
 			}
+			this.musicToSet = music;
 			this.music = new Audio("music/" + this.musics[music]);
 			this.music.volume = this.musicVolume*conf.musicVolume*conf.overallVolume;
 			this.music.loop = true;
@@ -32,6 +33,7 @@ class Sound {
 	
 	changeMusic(music, fadetime = 1) {
 		if (conf.sound) {
+			this.musicToSet = music;
 			var thisvar = this;
 			if (this.changingMusic) {
 				return;
@@ -50,7 +52,7 @@ class Sound {
 						})((1-i/fadetimeScaled)*musicVolume), 10*i);
 				}
 				window.setTimeout(function() {
-						thisvar.playMusic(music);
+						thisvar.playMusic(thisvar.musicToSet);
 						thisvar.setMusicVolume(1);
 					}, fadetimeScaled*10);
 			}
@@ -81,6 +83,7 @@ class Sound {
 	constructor() {
 		this.musicVolume = 1;
 		this.changingMusic = false;
+		this.musicToSet = '';
 		this.activeSound = 0;
 		this.playing = {};
 		this.prepare();

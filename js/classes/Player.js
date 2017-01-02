@@ -23,16 +23,17 @@ class Player {
 		if (this.hp<0) {
 			this.hp = 0;
 			if (!this.dead) {
-				s.play("gameover",1);
+				s.play("gameover", 1);
 				this.dead = true;
 				this.dead_timer = time;
 			}
 		}
 		if (this.finished && time-this.finish_timer>250) {
-			ui.newMenu(new MainMenu());
+			ui.newMenu(new LevelSelectMenu());
 			s.changeMusic('menu');
 		} else if (this.dead && time-this.dead_timer>250) {
-			ui.newMenu(new MainMenu());
+			stats.score = 0;
+			ui.newMenu(new LevelSelectMenu());
 			s.changeMusic('menu');
 		}
 	}
@@ -45,12 +46,7 @@ class Player {
 		this.score = 0;
 		this.angle = Math.PI/2;
 		this.dead = false;
-		this.ship = new Ship1(this, Math.PI/2);
-		this.ship.addWeapon(new PlayerWMachinegun1(0,0,Math.PI/2),0);
-		//this.ship.addWeapon(new PlayerWMachinegun1(0,0,Math.PI/2),1);
-		this.ship.addWeapon(new PlayerWLaser1(0,0,Math.PI/2),2);
-		this.ship.addWeapon(new PlayerWDefenseOrbs1(0,0,Math.PI/2),3);
-		this.ship.addWeapon(new PlayerWOrbs2(0,0,Math.PI/2),1);
+		if (ui != undefined && ui.menu != undefined && ui.menu.level != undefined) ui.menu.level.preparePlayer(this);
 	}
 	
 	draw() {
