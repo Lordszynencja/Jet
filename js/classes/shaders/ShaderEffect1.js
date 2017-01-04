@@ -30,15 +30,18 @@ uniform bool eight_bit_mode;
 
 varying vec2 p;
 varying vec3 c;
-
+` +
+shInvertion +
+`
 float effect_strength() {
-	float dist = (abs(p.y)>1.0 ? distance(abs(p), vec2(0.0,1.0)) : abs(p.x));
+	float dist = (abs(p.y)>1.0 ? distance(abs(p), vec2(0.0, 1.0)) : abs(p.x));
 	return pow(1.0/(dist*32.0), 2.0);
 }
 
 void main(void) {
 	vec3 col = c*effect_strength();
 	gl_FragColor = vec4(col, pow(max(max(col.r, col.g), max(col.b, 0.0)), 4.0));
+	gl_FragColor = computeInvertion(gl_FragColor);
 }`
 	}
 	
@@ -55,6 +58,8 @@ void main(void) {
 	prepareUniforms() {
 		this.uTime = gl.getUniformLocation(this.shader, "time");
 		this.uEightBitMode = gl.getUniformLocation(this.shader, "eight_bit_mode");
+		this.uInvertionPoint = gl.getUniformLocation(this.shader, "invertion_point");
+		this.uInvertionRange = gl.getUniformLocation(this.shader, "invertion_range");
 	}
 
 	createShader() {
@@ -67,6 +72,8 @@ void main(void) {
 	setBufferData() {
 		gl.uniform1f(this.uTime, time);
 		gl.uniform1f(this.uEightBitMode, conf.eightBitMode);
+		gl.uniform2fv(this.uInvertionPoint, this.invertionPoint);
+		gl.uniform1f(this.uInvertionRange, this.invertionRange);
 		fillBuffer(this.bPosition, "position", this.shader, 2, this.position);
 		fillBuffer(this.bMove, "move", this.shader, 2,  this.move);
 		fillBuffer(this.bScale, "scale", this.shader, 1,  this.scale);
@@ -127,7 +134,14 @@ void main(void) {
 		this.rotationCenter = [];
 	}
 	
+	setInvertion(xy, range) {
+		this.invertionPoint = xy;
+		this.invertionRange = range;
+	}
+	
 	constructor() {
+		this.invertionPoint = [0, 0];
+		this.invertionRange = 0;
 		this.update();
 
 		this.bPosition = gl.createBuffer();

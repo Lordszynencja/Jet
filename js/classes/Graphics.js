@@ -1,6 +1,6 @@
 class Graphics {
 	draw() {
-		gl.clearColor(0.1,0.1,0.1,1.0);
+		gl.clearColor(0, 0, 0, 1);
 		gl.clear(gl.DEPTH_BUFFER_BIT);
 		gl.clear(gl.COLOR_BUFFER_BIT);
 		for (var i=0;i<this.shadersEnum.length;i++) {
@@ -14,6 +14,10 @@ class Graphics {
 				if (this.lightningEnum[s]) sh[s].addLight(xy, rgb, type, data);
 			}
 		}
+	}
+	
+	setInvertion(xy, range) {
+		for (var i in this.invertionEnum) sh[this.invertionEnum[i]].setInvertion(xy, range);
 	}
 	
 	addJetEngineEffect(pos, color) {
@@ -129,6 +133,17 @@ class Graphics {
 			'effect1' : false,
 			'particles' : false
 		};
+		
+		this.invertionEnum = [
+			'tex_background',
+			'effect_jet',
+			'tex_enemy',
+			'tex_player',
+			'tex_bullet',
+			'effect0',
+			'effect1',
+			'particles'
+		];
 	}
 }
 

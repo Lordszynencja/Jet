@@ -155,8 +155,7 @@ vec3 comp_l4(in vec3 l_p, in vec3 l_c, in vec2 l_d) {//line light l_d.x =
 	return ls(l_c, distance((a-p3), dot((a-p3), n)*n));
 }
 
-vec3 cut_light(in vec3 light) {
-	vec3 l = max(light, 0.0);
+vec3 cut_light(in vec3 l) {
 	if (l.r>1.0) l.r = 1.0+(l.r-1.0)/4.0;
 	if (l.g>1.0) l.g = 1.0+(l.g-1.0)/4.0;
 	if (l.b>1.0) l.b = 1.0+(l.b-1.0)/4.0;
@@ -173,6 +172,24 @@ vec3 compute_lights() {
 		else if (lt[i]==4) light += comp_l4(vec3(lp[i], h), lc[i], ld[i]);
 	}
 	return cut_light(light);
+}
+`;
+
+const shInvertion = `
+///////////////
+// INVERTION //
+///////////////
+
+uniform vec2 invertion_point;
+uniform float invertion_range;
+
+vec2 fragCoordPos() {
+	return gl_FragCoord.xy/400.0-1.0;
+}
+
+vec4 computeInvertion(vec4 c) {
+	if (invertion_range>0.0 && distance(invertion_point, fragCoordPos())<invertion_range) c.rgb = 1.0-c.rgb;
+	return c;
 }
 `;
 

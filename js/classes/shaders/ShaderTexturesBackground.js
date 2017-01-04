@@ -27,6 +27,7 @@ varying vec2 tp;
 shFunctions +
 shEffects +
 shLightFunctions +
+shInvertion +
 `
 ///////////////////////
 //  MAIN             //
@@ -38,8 +39,9 @@ void main(void) {
 	vec2 tex_pos = vec2(tp.x, base_y + y);
 	vec4 texture_color = texture2D(texture, tex_pos);
 	if (texture_color.a<0.01) discard;
-	gl_FragColor = texture_color*vec4((use_lightning ? compute_lights() : vec111*basic_light), 1.0);
+	gl_FragColor = texture_color*vec4((use_lightning ? compute_lights() : vec3(basic_light)), 1.0);
 	if (eight_bit_mode) gl_FragColor = vec4(toEightBit(gl_FragColor.rgb), gl_FragColor.a);
+	gl_FragColor = computeInvertion(gl_FragColor);
 }
 `;
 	}
@@ -60,6 +62,8 @@ void main(void) {
 		this.uUseLightning = gl.getUniformLocation(this.shader, "use_lightning");
 		this.uTexture = gl.getUniformLocation(this.shader, "texture");
 		this.uBgPosition = gl.getUniformLocation(this.shader, "bg_position");
+		this.uInvertionPoint = gl.getUniformLocation(this.shader, "invertion_point");
+		this.uInvertionRange = gl.getUniformLocation(this.shader, "invertion_range");
 	}
 
 	createShader() {
@@ -79,6 +83,8 @@ void main(void) {
 		gl.uniform1f(this.uEightBitMode, conf.eightBitMode);
 		gl.uniform1f(this.uUseLightning, conf.useLightning);
 		gl.uniform1f(this.uBgPosition, this.bgPosition);
+		gl.uniform2fv(this.uInvertionPoint, this.invertionPoint);
+		gl.uniform1f(this.uInvertionRange, this.invertionRange);
 	}
 	
 	setBufferData(i) {
@@ -176,6 +182,11 @@ void main(void) {
 		this.resetDrawing();
 	}
 	
+	setInvertion(xy, range) {
+		this.invertionPoint = xy;
+		this.invertionRange = range;
+	}
+	
 	constructor() {
 		this.texturesNo = texNo(BackgroundTextures);
 		this.bgPosition = 0;
@@ -187,6 +198,8 @@ void main(void) {
 		this.lt = [];
 		this.ld = [];
 		this.lightTime = [];
+		this.invertionPoint = [0, 0];
+		this.invertionRange = 0;
 
 		this.bPosition = gl.createBuffer();
 		this.bTexturePosition = gl.createBuffer();

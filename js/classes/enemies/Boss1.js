@@ -22,25 +22,53 @@ class Boss1 {
 		this.y += this.vy;
 	}
 	
-	update() {
-		this.move();
-		for (var i in this.rotatedHitbox) this.hitbox[i] = moveModel(this.rotatedHitbox[i], this.x, this.y);
-		if (this.time%(6*FPS)<3*FPS) {
-			for (var i in this.weapons) this.weapons[i].update(true);
+	distance(v, a) {
+		var t = v/a;
+		return t*v-(t*t-t)*a/2;
+	}
+	
+	escapeMove() {
+		if (this.x>0) {
+			if (this.vx>0 || this.distance(this.vx, -0.0002)>-this.x) this.vx -= 0.0002;
+			else this.vx += 0.0002;
+		} else {
+			if (this.vx<0 || this.distance(this.vx, 0.0002)<-this.x) this.vx += 0.0002;
+			else this.vx -= 0.0002;
 		}
-		for (var i in this.jetEngines) this.jetEngines[i].update();
+		if (this.x>-0.0004 && this.x<0.0004) this.x = 0, this.vx = 0;
+		this.x += this.vx;
+	}
+	
+	update() {
+		if (this.escaping) {
+			this.escapeMove();
+			for (var i in this.rotatedHitbox) this.hitbox[i] = moveModel(this.rotatedHitbox[i], this.x, this.y);
+			if (this.x>-0.1 && this.x<0.1) this.portal++;
+			g.setInvertion([this.x, this.y], Math.sqrt(this.portal/FPS/16));
+			if (Math.sqrt(this.portal/FPS/16)>0.5) {
+				delete enemies[this.num];
+				stats.money += this.money;
+				stats.score += this.points;
+				stats.bossesDefeated++;
+				if (stats.level<2) stats.level = 2;
+				p.finished = true;
+				p.finish_timer = time;
+				g.setInvertion([0, 0], 0);
+			}
+		} else {
+			this.move();
+			for (var i in this.rotatedHitbox) this.hitbox[i] = moveModel(this.rotatedHitbox[i], this.x, this.y);
+			if (this.time%(6*FPS)<3*FPS) {
+				for (var i in this.weapons) this.weapons[i].update(true);
+			}
+			for (var i in this.jetEngines) this.jetEngines[i].update();
+		}
 		this.time++;
 	}
 	
 	dealDamage(damage) {
 		if (standardDealDamage(this, damage)) {
-			delete enemies[this.num];
-			stats.money += this.money;
-			stats.score += this.points;
-			stats.bossesDefeated++;
-			if (stats.level<2) stats.level = 2;
-			p.finished = true;
-			p.finish_timer = time;
+			this.escaping = true;
 		}
 	}
 	
@@ -48,6 +76,7 @@ class Boss1 {
 		g.addEnemyTexture('EnemyShip0', moveModel(this.v, this.x, this.y));
 		for (var i in this.jetEngines) this.jetEngines[i].draw();
 		if (conf.debug) drawHitbox(this);
+		if (this.portal>0) g.drawText(-0.4, 0.7, "I will get you!", 0.06, [0, 0, 0, 1]);
 	}
 	
 	constructor(num) {
@@ -70,5 +99,7 @@ class Boss1 {
 		this.jetEngines = [new JetEngine(this, [-0.27, 0], this.angle, 0.08, 0.5, 1, [2, -0.1, -0.1]),
 		new JetEngine(this, [-0.27, 0.1], this.angle, 0.03, 0.5, 1, [2, -0.1, -0.1]),
 		new JetEngine(this, [-0.27, -0.1], this.angle, 0.03, 0.5, 1, [2, -0.1, -0.1])];
+		this.escaping = false;
+		this.portal = 0;
 	}
 }
