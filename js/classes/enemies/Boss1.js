@@ -43,7 +43,7 @@ class Boss1 {
 		if (this.escaping) {
 			this.escapeMove();
 			for (var i in this.rotatedHitbox) this.hitbox[i] = moveModel(this.rotatedHitbox[i], this.x, this.y);
-			if (this.x>-0.1 && this.x<0.1) this.portal++;
+			if (this.x>-0.1 && this.x<0.1 && this.vx<0.001 && this.vx>-0.001) this.portal++;
 			g.setInvertion([this.x, this.y], Math.sqrt(this.portal/FPS/16));
 			if (Math.sqrt(this.portal/FPS/16)>0.5) {
 				delete enemies[this.num];
