@@ -19,9 +19,13 @@ class Player {
 				if (this.y<=-0.85) this.y = -0.85;
 			}
 			this.ship.update();
-		} else if (this.finished) this.y += (time-this.finish_timer)*0.001;
-		if (this.hp<0) {
-			this.hp = 0;
+		} else if (this.finished) {
+			var v = (time-this.finish_timer)*0.001;
+			this.y += v;
+			this.ship.y += v;
+		}
+		if (this.ship.hp<0) {
+			this.ship.hp = 0;
 			if (!this.dead) {
 				s.play("gameover", 1);
 				this.dead = true;
@@ -31,22 +35,24 @@ class Player {
 		if (this.finished && time-this.finish_timer>250) {
 			ui.newMenu(new LevelSelectMenu());
 			s.changeMusic('menu');
+			this.prepare();
+			this.ship.prepare();
 		} else if (this.dead && time-this.dead_timer>250) {
 			stats.score = 0;
 			ui.newMenu(new LevelSelectMenu());
 			s.changeMusic('menu');
+			this.prepare();
+			this.ship.prepare();
 		}
 	}
 	
 	prepare() {
 		this.x = 0.0;
 		this.y = -0.75;
-		this.hp = 100;
 		this.invincibility = 0;
-		this.score = 0;
 		this.angle = Math.PI/2;
 		this.dead = false;
-		if (ui != undefined && ui.menu != undefined && ui.menu.level != undefined) ui.menu.level.preparePlayer(this);
+		this.finished = false;
 	}
 	
 	draw() {
@@ -55,7 +61,28 @@ class Player {
 		else this.ship.draw();
 	}
 	
+	setData(data) {
+		this.ship = deserialize(data.ship);
+		for (var i in data.cargo) this.cargo[i] = deserialize(data.cargo[i]);
+	}
+	
+	getData() {
+		var data = {
+			ship : serialize(this.ship)
+		};
+		var cargo = [];
+		for (var i in this.cargo) {
+			cargo[i] = serialize(this.cargo[i]);
+		}
+		data.cargo = cargo;
+		return data;
+	}
+	
 	constructor() {
 		this.prepare();
+		this.cargo = [];
+		if (ui != undefined && ui.menu != undefined && ui.menu.level != undefined) ui.menu.level.preparePlayer(this);
 	}
 }
+
+classesList['Player'] = Player;

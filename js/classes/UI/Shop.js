@@ -27,30 +27,28 @@ class PauseMenu {
 	update() {
 	}
 	
-	drawOptions() {
-		for (var i in this.optionsV) {
-			g.addGUITexture(this.options[i], this.optionsV[i]);
-		}
-		g.addGUITexture('Select', this.optionsV[this.position]);
-	}
-	
 	draw() {
 		g.addBackgroundTexture(this.level.texture, makeCoords2(1,1));
+		p.draw();
 		for (var i in effects) effects[i].draw();
 		for (var i in enemies) enemies[i].draw();
 		for (var i in playerMissiles) playerMissiles[i].draw();
 		for (var i in enemyMissiles) enemyMissiles[i].draw();
-		p.draw();
+		drawStandardHp();
+		drawStandardHeat();
 		g.drawText(-0.96, -0.8, stats.score.toString(), 0.1, [0.1, 0.1, 0.1, 1]);
 		this.drawOptions();
 	}
 	
-	constructor(level) {
+	constructor() {
+		this.
 		this.position = 0;
+		this.heatBgV = makeCoords4(0.1,0.5,-0.95,-0.85);
+		this.heatCriticalV = makeCoords4(0.4,0.5,-0.95,-0.85);
+		this.lifeBgV = makeCoords4(0.55,0.95,-0.95,-0.85);
 		
 		this.options = ['Continue','Exit'];
 		this.optionsV = prepareOptionsVertexes(this.options.length);
 		
-		this.level = level;
 	}
 }

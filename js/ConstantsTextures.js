@@ -50,12 +50,9 @@ const GUITextures = {
 	
 	// Game GUI
 	'LevelFinished' : [0, makeTexCoords(128, 255, 0, 63)],
-	'GameOver' : [0, makeTexCoords(128, 255, 0, 63)],
+	'GameOver' : [0, makeTexCoords(0, 127, 0, 63)],
 	'HeatBg' : [0, makeTexCoords(0, 63, 256, 319)],
-	'HealthBg' : [0, makeTexCoords(64, 128, 256, 319)],
-	'ShootTip' : [0, makeTexCoords(256, 383, 0, 63)],
-	'MoveTip' : [0, makeTexCoords(256, 383, 64, 127)],
-	'IndicatorsTip' : [0, makeTexCoords(256, 383, 128, 195)]
+	'HealthBg' : [0, makeTexCoords(64, 128, 256, 319)]
 }
 
 const LettersNumbers = {

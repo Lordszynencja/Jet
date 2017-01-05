@@ -4,7 +4,6 @@ class UI {
 	}
 	
 	prepareGame() {
-		p = new Player();
 		enemies = [];
 		enemyMissiles = [];
 		playerMissiles = [];

@@ -2,8 +2,6 @@ class PlayerWOrbs1 {
 	update(shoot) {
 		this.cooldown--;
 		if (shoot && this.cooldown<=0) {
-			var x = p.x+Math.cos(this.angle)*this.x-Math.sin(this.angle)*this.y;
-			var y = p.y+Math.sin(this.angle)*this.x+Math.cos(this.angle)*this.y;
 			playerMissiles.push(new PlayerOrbs1(this, playerMissiles.length));
 			this.cooldown = this.cooldownTime;
 			stats.shotsFired += 2;
@@ -15,6 +13,27 @@ class PlayerWOrbs1 {
 	draw() {
 	}
 	
+	getData() {
+		var data = {
+			offx : this.x,
+			offy : this.y,
+			angle : this.angle
+		};
+		return data;
+	}
+	
+	setData(data) {
+		this.x = data.offx;
+		this.y = data.offy;
+		this.angle = data.angle;
+		this.prepareData();
+	}
+	
+	prepareData() {
+		this.sin = Math.sin(this.angle)
+		this.cos = Math.cos(this.angle);
+	}
+	
 	constructor(offx = 0,offy = 0,angle = Math.PI/2) {
 		this.cooldown = 0;
 		this.cooldownTime = 50;
@@ -24,3 +43,5 @@ class PlayerWOrbs1 {
 		this.angle = angle;
 	}
 }
+
+classesList["PlayerWOrbs1"] = PlayerWOrbs1;

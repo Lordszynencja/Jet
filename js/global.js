@@ -20,6 +20,33 @@ var stats = {
 	bossesDefeated: 0
 };
 
+var classesList = {};
+
+function deserialize(data) {
+	var object = new classesList[data.className]();
+	object.setData(data.data);
+	return object;
+}
+
+function serialize(object) {
+	var data = {
+		className : object.constructor.name,
+		data : object.getData()
+	};
+	return data;
+}
+
+function savePlayer() {
+	save("Player", serialize(p)); 
+}
+
+function loadPlayer() {
+	var playerData = load("Player");
+	if (playerData != null && playerData != undefined) {
+		p = deserialize(playerData);
+	}
+}
+
 const gameoverV = makeCoords2(0.4, 0.2);
 
 function drawGameover() {

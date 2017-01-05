@@ -47,10 +47,9 @@ class PlayerDefenseOrbs1 {
 	
 	draw() {
 		g.addBulletTexture('Orb1', moveModel(this.v, this.x, this.y));
-		//g.addLight([this.x, this.y], [10, 10, 25], 1, [0, Math.PI]);
 	}
 	
-	constructor(ang,angleSpeed,r,num) {
+	constructor(ang, angleSpeed, r, num) {
 		this.time = 0;
 		this.size = 0.015;
 		this.angle = ang;

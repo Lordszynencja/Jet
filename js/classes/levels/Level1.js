@@ -6,19 +6,11 @@ class Level1 {
 	draw() {
 	}
 	
-	preparePlayer(player) {
-		player.ship = new Ship1(player, Math.PI/2);
-		player.ship.upgradeCooling();
-		player.ship.resetWeapons();
-		player.ship.addWeapon(new PlayerWMachinegun1(0, 0, Math.PI/2), 0);
-		player.ship.addWeapon(new PlayerWMachinegun1(0, 0, Math.PI/2), 1);
-		player.ship.addWeapon(new PlayerWDefenseOrbs1(0, 0, Math.PI/2), 3);
-		player.ship.addWeapon(new PlayerWLaser1(0,0,Math.PI/2),2);
-		//this.ship.addWeapon(new PlayerWDefenseOrbs1(0,0,Math.PI/2),3);
-		//this.ship.addWeapon(new PlayerWOrbs2(0,0,Math.PI/2),1);
-	}
-	
 	constructor() {
+		p.ship.addWeapon(PlayerWMachinegun1, 0);
+		p.ship.addWeapon(PlayerWMachinegun1, 1);
+		p.ship.addWeapon(PlayerWLaser1, 2);
+		p.ship.addWeapon(PlayerWDefenseOrbs1, 3);
 		this.time = 0;
 		this.nextEnemy = 0;
 		this.levelLength = 700;

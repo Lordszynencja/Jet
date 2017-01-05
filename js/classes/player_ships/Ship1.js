@@ -1,7 +1,7 @@
 class Ship1 {
 	update() {
-		this.x = this.player.x;
-		this.y = this.player.y;
+		this.x = p.x;
+		this.y = p.y;
 		
 		var canShoot = c.isPressed("space") && !this.overheat;
 		for (var i in this.weapons) {
@@ -16,21 +16,19 @@ class Ship1 {
 	}
 	
 	dealDamage(damage) {
-		p.hp -= damage;
+		this.hp -= damage;
 	}
 	
 	prepareHitbox() {
 		this.defaultHitbox = [[[0.14648,0.04453],[-0.01992,0.06210],[-0.01992,-0.06210],[0.14648,-0.04453]],
 		[[-0.01992,0.06210],[-0.03046,0.15000],[-0.05507,0.15000],[-0.09609,0.07382],[-0.09609,-0.07382],[-0.05507,-0.15000],[-0.03046,-0.15000],[-0.01992,-0.06210]]];
 		this.rotatedHitbox = [];
-		for (var i in this.defaultHitbox) this.rotatedHitbox[i] = rotateModel(this.defaultHitbox[i],this.angle);
+		for (var i in this.defaultHitbox) this.rotatedHitbox[i] = rotateModel(this.defaultHitbox[i], p.angle);
 		this.hitbox = [];
 	}
 	
 	addWeapon(weapon, weaponNo) {
-		if (weaponNo>=0 && weaponNo<this.weaponsNo) this.weapons[weaponNo] = weapon;
-		this.weapons[weaponNo].x = this.weaponOffsets[weaponNo][0];
-		this.weapons[weaponNo].y = this.weaponOffsets[weaponNo][1];
+		if (weaponNo>=0 && weaponNo<this.weaponsNo) this.weapons[weaponNo] = new weapon(this.weaponOffsets[weaponNo][0], this.weaponOffsets[weaponNo][1], this.weaponAngles[weaponNo]);
 	}
 	
 	upgradeWeapon(wNo) {
@@ -48,10 +46,6 @@ class Ship1 {
 		}
 	}
 	
-	prepareCooling() {
-		this.cooling = [1, 1.5, 2, 3, 4, 5, 6];
-	}
-	
 	upgradeCooling() {
 		if (this.coolingLevel<this.cooling.length-1) this.coolingLevel++;
 	}
@@ -60,29 +54,66 @@ class Ship1 {
 		if (this.coolingLevel>0) this.coolingLevel--;
 	}
 	
-	draw() {
-		this.x = this.player.x;
-		this.y = this.player.y;
-		g.addPlayerShipTexture('Ship1',moveModel(this.v, p.x, p.y));
-		for (var j in this.weapons) this.weapons[j].draw();
-		for (var i in this.jetEngines) this.jetEngines[i].draw();
+	setData(data) {
+		for (var i in data.weapons) {
+			this.weapons[i] = deserialize(data.weapons[i]);
+		}
+		this.coolingLevel = data.coolingLevel;
 	}
 	
-	constructor(player, angle) {
-		this.prepareCooling();
-		this.player = player;
-		this.size = 0.15;
-		this.x = player.x;
-		this.y = player.y;
-		this.v = rotateModel(makeCoords2(0.15,0.15), angle);
-		this.angle = angle;
+	getData() {
+		var data = {
+			coolingLevel : this.coolingLevel
+		};
+		var weapons = [];
+		for (var i in this.weapons) {
+			weapons[i] = serialize(this.weapons[i]);
+		}
+		data.weapons = weapons;
+		return data;
+	}
+	
+	draw() {
+		g.addPlayerShipTexture('Ship1', moveModel(this.v, this.x, this.y));
+		for (var i in this.weapons) this.weapons[i].draw();
+		for (var i in this.jetEngines) this.jetEngines[i].draw();
+		
+		var indAngleMax = Math.PI*1.2;
+		var indAngleMin = Math.PI*-0.2;
+
+		var hpAngle = this.hp/this.maxHP*indAngleMax + (1-this.hp/this.maxHP)*indAngleMin;
+		g.addGUITexture('HealthBg', moveModel(makeCoords1(0.08), 0.9, -0.9))
+		g.addEffect1([0.9, -0.9], 0.06, hpAngle, [16, 0, 0]);
+		
+		var heatAngle = this.heat/this.maxHeat*indAngleMax + (1-this.heat/this.maxHeat)*indAngleMin;
+		g.addGUITexture('HeatBg', moveModel(makeCoords1(0.08), 0.75, -0.9))
+		g.addEffect1([0.75, -0.9], 0.06, heatAngle, [0, 0, 16]);
+	}
+	
+	prepare() {
 		this.heat = 0;
+		this.hp = 100;
 		this.overheat = false;
+	}
+	
+	constructor() {
+		this.cooling = [1, 1.5, 2, 3, 4, 5, 6];
+		this.size = 0.18;
+		this.x = p.x;
+		this.y = p.y;
+		this.v = rotateModel(makeCoords2(0.15, 0.15), p.angle);
+		this.maxHeat = 100;
+		this.coolingLevel = 0;
+		this.maxHP = 100;
 		this.weapons = [];
 		this.weaponsNo = 4;
-		this.weaponOffsets = [[-0.03,-0.15],[-0.03,0.15],[0.15,-0.01],[0.15,0.01]];
-		this.jetEngines = [new JetEngine(this, [-0.1, -0], angle, 0.03, 0.6, 0.5, [0.1, 0.7, 2.5])];
-		this.coolingLevel = 0;
+		this.weaponOffsets = [[-0.03, -0.15], [-0.03, 0.15], [0.15, -0.01], [0.15, 0.01]];
+		this.weaponAngles = [Math.PI/2, Math.PI/2, Math.PI/2, Math.PI/2];
+		this.jetEngines = [new JetEngine(this, [-0.1, -0], p.angle, 0.03, 0.6, 0.5, [0.1, 0.7, 2.5])];
 		this.prepareHitbox();
+		this.resetWeapons();
+		this.prepare();
 	}
 }
+
+classesList["Ship1"] = Ship1;

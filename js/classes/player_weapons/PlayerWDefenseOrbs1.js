@@ -12,16 +12,21 @@ class PlayerWDefenseOrbs1 {
 		return 0;
 	}
 	
+	setData(data) {}
+	
+	getData() {
+		return {};
+	}
+	
 	draw() {
 	}
 	
-	constructor(offx = 0,offy = 0,angle = Math.PI/2) {
+	constructor(offx, offy, angle) {
 		this.cooldown = 0;
 		this.cooldownTime = 500;
 		this.heat = 10;
 		this.orbNo = 16;
-		this.x = offx;
-		this.y = offy;
-		this.angle = angle;
 	}
 }
+
+classesList["PlayerWDefenseOrbs1"] = PlayerWDefenseOrbs1;

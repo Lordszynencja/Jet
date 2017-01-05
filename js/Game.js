@@ -42,6 +42,7 @@ class Game {
 	saveGame() {
 		save(this.saveName, stats);
 		save(this.saveConfigName, conf);
+		savePlayer();
 	}
 	
 	loadGame() {
@@ -53,6 +54,7 @@ class Game {
 		if (loadedConfigSave) {
 			for (var i in loadedConfigSave) conf[i] = loadedConfigSave[i];
 		}
+		loadPlayer();
 	}
 	
 	draw() {
@@ -67,6 +69,8 @@ class Game {
 			s = new Sound();
 			c = new Controls();
 			ui = new UI();
+			p = new Player();
+			p.ship = new Ship1();
 		}
 		this.saveName = 'gameSave';
 		this.saveConfigName = 'theJetConfig';

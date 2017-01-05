@@ -31,20 +31,6 @@ function texNo(texts) {
 	return no;
 }
 
-var heatdrawn = false;
-
-function drawStandardHp() {
-	var angle = p.hp/100*indAngleMax + (1-p.hp/100)*indAngleMin;
-	g.addGUITexture('HealthBg', moveModel(makeCoords1(indLength+0.02), hpPosition[0], hpPosition[1]))
-	g.addEffect1(hpPosition, indLength, angle, hpColor);
-}
-
-function drawStandardHeat() {
-	var angle = p.ship.heat/100*indAngleMax + (1-p.ship.heat/100)*indAngleMin;
-	g.addGUITexture('HeatBg', moveModel(makeCoords1(indLength+0.02), heatPosition[0], heatPosition[1]))
-	g.addEffect1(heatPosition, indLength, angle, heatColor);
-}
-
 //////////////////////
 // SHADER FUNCTIONS //
 //////////////////////

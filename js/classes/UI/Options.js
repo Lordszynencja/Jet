@@ -17,6 +17,9 @@ class Options {
 			this.position++;
 		} else if (this.position>0 && name=='up') {
 			this.position--;
+		} else if (name=='esc') {
+			delete ui.menu;
+			ui.newMenu(new MainMenu());
 		}
 	}
 	
