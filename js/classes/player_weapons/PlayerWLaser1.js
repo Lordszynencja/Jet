@@ -2,9 +2,9 @@ class PlayerWLaser1 {
 	update(shoot) {
 		this.cooldown--;
 		if (shoot && this.cooldown<=0) {
-			playerMissiles.push(new PlayerLaser1(this.x, this.y, playerMissiles.length));
+			playerMissiles.push(new PlayerLaser1(p.x+this.x, p.y+this.y, playerMissiles.length));
 			this.cooldown = this.cooldownTime;
-			s.play("laser", 0.2);
+			s.play("laser", 1);
 			stats.shotsFired++;
 			return this.heat;
 		}
@@ -25,6 +25,14 @@ class PlayerWLaser1 {
 	setData(data) {
 		this.x = data.x;
 		this.y = data.y;
+	}
+	
+	upgrade() {
+		
+	}
+	
+	downgrade() {
+		
 	}
 	
 	constructor(offx = 0, offy = 0, angle = Math.PI/2) {

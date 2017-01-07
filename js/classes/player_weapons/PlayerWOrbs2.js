@@ -7,13 +7,13 @@ class PlayerWOrbs2 {
 			var speed = 0.5;
 			var r1 = 0.2;
 			var r2 = 0.3;
-			for (var i=0;i<3;i++) {
+			for (var i=0;i<=this.level;i++) {
 				playerMissiles.push(new PlayerOrbs2(x, y, r1, r2, speed, playerMissiles.length));
 				playerMissiles.push(new PlayerOrbs2(x, y, -r1, -r2, -speed, playerMissiles.length));
 				speed *= 2;
+			stats.shotsFired += 2;
 			}
 			this.cooldown = this.cooldownTime;
-			stats.shotsFired += 6;
 			return this.heat;
 		}
 		return 0;
@@ -25,7 +25,8 @@ class PlayerWOrbs2 {
 	getData() {
 		var data = {
 			x : this.x,
-			y : this.y
+			y : this.y,
+			level : this.level
 		};
 		return data;
 	}
@@ -33,9 +34,19 @@ class PlayerWOrbs2 {
 	setData(data) {
 		this.x = data.x;
 		this.y = data.y;
+		this.level = level;
+	}
+	
+	upgrade() {
+		if (this.level<2) this.level++;
+	}
+	
+	downgrade() {
+		if (this.level>0) this.level--;
 	}
 	
 	constructor(offx = 0, offy = 0, angle = Math.PI/2) {
+		this.level = 0;
 		this.cooldown = 0;
 		this.cooldownTime = 25;
 		this.heat = 25;

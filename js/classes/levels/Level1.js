@@ -7,10 +7,6 @@ class Level1 {
 	}
 	
 	constructor() {
-		p.ship.addWeapon(PlayerWMachinegun1, 0);
-		p.ship.addWeapon(PlayerWMachinegun1, 1);
-		p.ship.addWeapon(PlayerWLaser1, 2);
-		p.ship.addWeapon(PlayerWDefenseOrbs1, 3);
 		this.time = 0;
 		this.nextEnemy = 0;
 		this.levelLength = 700;
@@ -41,3 +37,6 @@ class Level1 {
 		];
 	}
 }
+
+classesList["Level1"] = Level1;
+if (levelsNumber<2) levelsNumber = 2;

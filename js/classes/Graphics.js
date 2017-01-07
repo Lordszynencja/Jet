@@ -86,7 +86,6 @@ class Graphics {
 	}
 	
 	addText(tex, xy, color) {
-		//console.log(tex);
 		var texData = LettersNumbers[tex];
 		for (var i=0;i<3;i++) sh['tex_text'].addVertex(texData[0], xy[i], texData[1][i], color);
 		for (var i=1;i<4;i++) sh['tex_text'].addVertex(texData[0], xy[i], texData[1][i], color);

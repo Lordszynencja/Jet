@@ -7,10 +7,6 @@ class Level0 {
 	}
 	
 	constructor() {
-		p.ship.addWeapon(PlayerWMachinegun1, 0);
-		p.ship.addWeapon(PlayerWMachinegun1, 1);
-		p.ship.addWeapon(PlayerWEmpty, 2);
-		p.ship.addWeapon(PlayerWEmpty, 3);
 		this.time = 0;
 		this.nextEnemy = 0;
 		this.levelLength = 2000;
@@ -19,7 +15,7 @@ class Level0 {
 		this.texture = 'TreesBases';
 		this.music = 'level1';
 		this.enemies = [
-		[100, Enemy1, [0, 1.1], [0.005, Math.PI*3/2], []],
+		[100, Enemy1, [0, 1.2], [0.005, Math.PI*3/2], []],
 		[300, Enemy1, [0.75, 1.5], [0.005, Math.PI*3/2], []],
 		[500, Enemy1, [0, 1.5], [0.01, Math.PI*3/2], []],
 		[550, Enemy1, [-0.5, 1.5], [0.01, Math.PI*3/2], []],
@@ -50,3 +46,6 @@ class Level0 {
 		];
 	}
 }
+
+classesList["Level0"] = Level0;
+if (levelsNumber<1) levelsNumber = 1;

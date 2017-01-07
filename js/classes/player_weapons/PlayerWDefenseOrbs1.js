@@ -2,30 +2,44 @@ class PlayerWDefenseOrbs1 {
 	update(shoot) {
 		this.cooldown--;
 		if (shoot && this.cooldown<=0) {
-			for (var i=0;i<this.orbNo;i++) {
-				playerMissiles.push(new PlayerDefenseOrbs1(i*Math.PI*2/this.orbNo, 1, 0.2, playerMissiles.length));
+			var n = 5*(this.level+1);
+			for (var i=0;i<n;i++) {
+				playerMissiles.push(new PlayerDefenseOrbs1(i*Math.PI*2/n, 1, p.ship.size*1.2, playerMissiles.length));
+				stats.shotsFired++;
 			}
 			this.cooldown = this.cooldownTime;
-			stats.shotsFired += this.orbNo;
 			return this.heat;
 		}
 		return 0;
 	}
 	
-	setData(data) {}
+	setData(data) {
+		this.level = data.level;
+	}
 	
 	getData() {
-		return {};
+		var data = {
+			level : this.level
+		};
+		return data;
 	}
 	
 	draw() {
 	}
 	
+	upgrade() {
+		if (this.level<3) this.level++;
+	}
+	
+	downgrade() {
+		if (this.level>0) this.level--;
+	}
+	
 	constructor(offx, offy, angle) {
+		this.level = 0;
 		this.cooldown = 0;
 		this.cooldownTime = 500;
 		this.heat = 10;
-		this.orbNo = 16;
 	}
 }
 

@@ -36,8 +36,8 @@ class PlayerOrbs1 {
 	
 	update() {
 		this.time++;
-		var x = p.x+this.weapon.x*this.weapon.cos-this.weapon.y*this.weapon.sin;
-		var y = p.y+this.weapon.x*this.weapon.sin+this.weapon.y*this.weapon.cos;
+		var x = p.x+this.weapon.x;
+		var y = p.y+this.weapon.y;
 		
 		for (var b=0;b<2;b++) {
 			this.x = x + Math.sin(this.angle+Math.PI*(this.time/FPS+b+0.5))*this.range;
@@ -55,8 +55,8 @@ class PlayerOrbs1 {
 	}
 	
 	draw() {
-		var x = p.x+this.weapon.x*this.weapon.cos-this.weapon.y*this.weapon.sin;
-		var y = p.y+this.weapon.x*this.weapon.sin+this.weapon.y*this.weapon.cos;
+		var x = p.x+this.weapon.x;
+		var y = p.y+this.weapon.y;
 		var i;
 		for (i=0;i<2;i++) {
 			var bx = x + Math.sin(this.angle+Math.PI*(this.time/50+i+0.5))*this.range;

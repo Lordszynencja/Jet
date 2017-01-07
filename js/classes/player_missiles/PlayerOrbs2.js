@@ -53,16 +53,15 @@ class PlayerOrbs2 {
 	
 	draw() {
 		g.addBulletTexture('Orb0', moveModel(this.v, this.x, this.y));
-		//g.addLight([this.x, this.y], [10, 10, 1], 1, [0, Math.PI]);
 	}
 	
-	constructor(x,y,r1,r2,angleSpeed,num) {
+	constructor(x, y, r1, r2, angleSpeed, num) {
 		this.time = 0;
 		this.size = 0.03;
 		this.angle = 0;
 		this.angleSpeed = angleSpeed;
 		this.damage = 0.5;
-		this.center = [x,y];
+		this.center = [x, y];
 		this.r1 = r1;
 		this.r2 = r2;
 		this.x = r1;

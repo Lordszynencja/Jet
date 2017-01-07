@@ -125,5 +125,8 @@ const LettersNumbers = {
 	'7': [0, makeTexCoords(96, 127, 448, 511)],
 	'8': [0, makeTexCoords(128, 159, 448, 511)],
 	'9': [0, makeTexCoords(160, 191, 448, 511)],
-	'0': [0, makeTexCoords(192, 223, 448, 511)]
+	'0': [0, makeTexCoords(192, 223, 448, 511)],
+	'$': [0, makeTexCoords(224, 255, 448, 511)],
+	
+	':': [0, makeTexCoords(0, 31, 512, 575)]
 }

@@ -1,3 +1,51 @@
+function logCode(code) {
+	var lines = code.split('\n');
+	var s = '';
+	for (var i in lines) if (i>0) s += (i-1)+':'+lines[i]+'\n';
+	console.log(s);
+}
+
+function checkShaderCompileErrors(code,shader) {
+	if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+		var error = gl.getShaderInfoLog(shader);
+		logCode(code);
+		console.log("##################\nSHADER ERROR\n##################\n"+error+"##################\nSHADER ERROR\n##################\n");
+	}
+}
+
+function compileShaders(vertCode, fragCode) {
+	var vertShader = gl.createShader(gl.VERTEX_SHADER);
+	gl.shaderSource(vertShader,vertCode);
+	gl.compileShader(vertShader);
+	checkShaderCompileErrors(vertCode,vertShader);
+	
+	var fragShader = gl.createShader(gl.FRAGMENT_SHADER);
+	gl.shaderSource(fragShader,fragCode);
+	gl.compileShader(fragShader);
+	checkShaderCompileErrors(fragCode,fragShader);
+	
+	var shader = gl.createProgram();
+	gl.attachShader(shader, vertShader);
+	gl.attachShader(shader, fragShader);
+	gl.linkProgram(shader);
+	return shader;
+}
+
+function prepareBuffer(buffer, name, shader, size) {
+	gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+	var attrib = gl.getAttribLocation(shader,name);
+	gl.vertexAttribPointer(attrib,size,gl.FLOAT,false,0,0);
+	gl.enableVertexAttribArray(attrib);
+	return buffer;
+}
+
+function fillBuffer(buffer, name, shader, size, data) {
+	gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+	var attrib = gl.getAttribLocation(shader, name);
+	gl.vertexAttribPointer(attrib, size, gl.FLOAT, false, 0, 0);
+	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(data), gl.STREAM_DRAW);
+}
+
 function loadTex(texs, id, img) {
 	gl.activeTexture(gl.TEXTURE0);
 	gl.bindTexture(gl.TEXTURE_2D, texs[id]);

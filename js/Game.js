@@ -1,8 +1,6 @@
 var effectPos = [0.0,0.0];
 var effectsize = 0.2;
 var effectAngle = 0.0;
-var textScale = 0.1;
-var textS = 'My Text';
 
 class Game {
 	tick() {
@@ -12,6 +10,11 @@ class Game {
 		//g.addLight([0,0], [-200,-200,-200], 1, [0, Math.PI]);
 		//g.addEffect1(effectPos,effectsize,effectAngle+Math.PI*(0.5+time/100), [1,0.1,0.1]);
 		//g.setInvertion([0, 0], Math.abs(Math.sin(time/FPS)));
+		/*var text = "Exit";
+		var fontSize = 0.1;
+		var position = [0.5, 0.5];
+		g.drawText(position[0], position[1], "Exit", fontSize, [1,1,1,1]);
+		g.addGUITexture('Select', findSelectSize('Exit', fontSize, position));*/
 		if (time%FPS*2) game.saveGame();
 		//effects.push(new Particle([0, 0], Math.PI/2 + Math.random()*0.2, Math.random()*0.01, FPS*0.5, [1,0.5,0,1], 1, effects.length));
 		//g.addEffect1([0,0],10, Math.PI*0.5, [0.1,0.1,1]);
@@ -55,11 +58,35 @@ class Game {
 			for (var i in loadedConfigSave) conf[i] = loadedConfigSave[i];
 		}
 		loadPlayer();
+		if (stats.shipLevel == -1) {
+			this.resetShip();
+		}
 	}
 	
 	draw() {
 		g.draw();
 		requestAnimationFrame(game.draw);
+	}
+	
+	resetShip() {
+		delete p.ship;
+		p.ship = new Ship1();
+		p.ship.addWeapon(PlayerWMachinegun1, 0);
+		p.ship.addWeapon(PlayerWMachinegun1, 1);
+		p.ship.addWeapon(PlayerWEmpty, 2);
+		p.ship.addWeapon(PlayerWEmpty, 3);
+		stats.shipLevel = 0;
+	}
+	
+	resetProgress() {
+		stats.score = 0;
+		stats.money = 0;
+		stats.level = 0;
+		stats.shotsFired = 0;
+		stats.enemiesDefeated = 0;
+		stats.bossesDefeated = 0;
+		stats.shipLevel = 0;
+		this.resetShip();
 	}
 	
 	constructor() {

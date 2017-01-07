@@ -15,32 +15,23 @@ class PlayerWOrbs1 {
 	
 	getData() {
 		var data = {
-			offx : this.x,
-			offy : this.y,
-			angle : this.angle
+			x : this.x,
+			y : this.y
 		};
 		return data;
 	}
 	
 	setData(data) {
-		this.x = data.offx;
-		this.y = data.offy;
-		this.angle = data.angle;
-		this.prepareData();
-	}
-	
-	prepareData() {
-		this.sin = Math.sin(this.angle)
-		this.cos = Math.cos(this.angle);
+		this.x = data.x;
+		this.y = data.y;
 	}
 	
 	constructor(offx = 0,offy = 0,angle = Math.PI/2) {
 		this.cooldown = 0;
 		this.cooldownTime = 50;
 		this.heat = 20;
-		this.x = offx;
-		this.y = offy;
-		this.angle = angle;
+		this.x = Math.cos(p.angle)*offx-Math.sin(p.angle)*offy;
+		this.y = Math.sin(p.angle)*offx+Math.cos(p.angle)*offy;
 	}
 }
 
