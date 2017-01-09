@@ -24,8 +24,8 @@ class Graphics {
 		sh['effect_jet'].addEffect(pos, color);
 	}
 	
-	addEffect0(pos, size) {
-		sh['effect0'].addEffect(pos, size);
+	addEffect0(pos, scale, rotation, color, power) {
+		sh['effect0'].addEffect(pos, scale, rotation, color, power);
 	}
 	
 	addEffect1(start, length, angle, color) {

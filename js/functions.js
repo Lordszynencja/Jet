@@ -10,6 +10,15 @@ function shadow2(xy,tan) {
 	return xy[1];
 }
 
+function normalize(vector) {
+	var l = 0;
+	for (var i in vector) l += vector[i]*vector[i];
+	var vect = [];
+	l = Math.sqrt(l);
+	for (var i in vector) vect[i] = vector[i]/l;
+	return vect;
+}
+
 function angle(x,y) {
 	var d = Math.sqrt(x*x+y*y);
 	return (x>0 ? Math.asin(y/d) : Math.PI-Math.asin(y/d));

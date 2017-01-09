@@ -16,7 +16,8 @@ class Game {
 		g.drawText(position[0], position[1], "Exit", fontSize, [1,1,1,1]);
 		g.addGUITexture('Select', findSelectSize('Exit', fontSize, position));*/
 		if (time%FPS*2) game.saveGame();
-		//effects.push(new Particle([0, 0], Math.PI/2 + Math.random()*0.2, Math.random()*0.01, FPS*0.5, [1,0.5,0,1], 1, effects.length));
+		//effects.push(new Particle([0, 0], Math.PI/2 + Math.random()*0.2, Math.random()*0.1, FPS*0.5, [1,0.5,0,1], 1, effects.length));
+		//g.addEffect0([1,1], 0.5, time/FPS/4, [1,1,0], Math.sin(time/FPS)+1);
 		//g.addEffect1([0,0],10, Math.PI*0.5, [0.1,0.1,1]);
 		/*g.addEffect1(effectPos,effectsize,effectAngle+Math.PI*time/100, [0.1,0.1,1]);
 		g.addEffect1(effectPos,effectsize,effectAngle+Math.PI*(0.5+time/100), [1,0.1,0.1]);
