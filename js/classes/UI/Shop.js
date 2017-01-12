@@ -2,7 +2,7 @@ class PauseMenu {
 	onPress(name) {
 		if (name=='esc') {
 			delete ui.menu;
-			ui.newMenu(new Interface(this.level));
+			ui.newMenu(new LevelSelectMenu(this.level));
 		} else if (name=='enter') {
 			if (this.position == 0) {
 				delete ui.menu;
