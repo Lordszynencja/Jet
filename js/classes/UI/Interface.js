@@ -31,6 +31,7 @@ class Interface {
 		for (var i in enemies) enemies[i].draw();
 		for (var i in playerMissiles) playerMissiles[i].draw();
 		p.draw();
+		p.ship.drawIndicators();
 		g.drawText(-0.96, -0.8, stats.score.toString(), 0.1, [0.1, 0.1, 0.1, 1]);
 		this.level.draw();
 	}

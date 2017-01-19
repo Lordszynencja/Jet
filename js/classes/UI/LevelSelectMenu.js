@@ -7,7 +7,10 @@ class LevelSelectMenu {
 	}
 	
 	onPress(name) {
-		if (name=='enter') {
+		if (name=='esc') {
+			delete ui.menu;
+			ui.newMenu(new MainMenu());
+		} else if (name=='enter') {
 			if (this.position == 0) {
 				delete ui.menu;
 				var level = new Level0();
@@ -16,31 +19,9 @@ class LevelSelectMenu {
 			} else if (this.position < levelsNumber) {
 				if (stats.level >= this.position) this.toLevel(new classesList["Level"+this.position.toString()]());
 			} else if (this.position == levelsNumber) {
-				if (stats.shipLevel == 0 && stats.money>=100) {
-					this.options[levelsNumber] = 'Upgrade Ship: 1000$';
-					this.optionsV = prepareOptionsPositions(this.options, this.fontSize);
-					stats.shipLevel = 1;
-					stats.money -= 100;
-					p.ship.upgradeWeapon(0);
-					p.ship.upgradeWeapon(1);
-					p.ship.addWeapon(PlayerWLaser1, 2);
-					p.ship.addWeapon(PlayerWDefenseOrbs1, 3);
-					p.ship.upgradeCooling();
-				} else if (stats.shipLevel == 1 && stats.money>=1000) {
-					this.options[levelsNumber] = 'Upgrade Ship: max level';
-					this.optionsV = prepareOptionsPositions(this.options, this.fontSize);
-					stats.shipLevel = 2;
-					stats.money -= 1000;
-					p.ship.upgradeWeapon(0);
-					p.ship.upgradeWeapon(0);
-					p.ship.upgradeWeapon(1);
-					p.ship.upgradeWeapon(1);
-					p.ship.upgradeWeapon(3);
-					p.ship.upgradeCooling();
-					p.ship.upgradeCooling();
-					p.ship.upgradeCooling();
-				}
-			} else {
+				delete ui.menu;
+				ui.newMenu(new Shop());
+			} else if (this.position == levelsNumber+1) {
 				delete ui.menu;
 				ui.newMenu(new MainMenu());
 			}
@@ -69,7 +50,6 @@ class LevelSelectMenu {
 			var xy = this.optionsV[i];
 			g.drawText(xy[0], xy[1], this.options[i], this.fontSize, colorActive);
 		}
-		g.drawText(-0.95, -0.9, 'Money:'+stats.money.toString()+'$', 0.05, colorActive);
 		g.addGUITexture('Select', findSelectSize(this.options[this.position], this.fontSize, this.optionsV[this.position]));
 	}
 	
@@ -79,7 +59,7 @@ class LevelSelectMenu {
 		
 		this.options = [];
 		for (var i=0;i<levelsNumber;i++) this.options[i] = 'Level '+(i+1);
-		this.options[levelsNumber] = 'Upgrade Ship: '+(stats.shipLevel == 0 ? '100$' : stats.shipLevel == 1 ? '1000$' : 'max level');
+		this.options[levelsNumber] = 'Shop';
 		this.options[levelsNumber+1] = 'Exit';
 		
 		this.optionsV = prepareOptionsPositions(this.options, this.fontSize);

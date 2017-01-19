@@ -43,12 +43,12 @@ function prepareOptionsVertexes(n) {
 	return v;
 }
 
-function prepareOptionsPositions(options, fontSize) {
+function prepareOptionsPositions(options, fontSize = 0.1) {
 	var v = [];
 	var n = options.length;
 	for (var i=0;i<n;i++) {
 		var x = -options[i].length*fontSize/2;
-		var y = 0.15*n-0.15-i*0.3+fontSize/2;
+		var y = fontSize*2*(n/2-0.5-i);
 		v[i] = [x, y];
 	}
 	return v;

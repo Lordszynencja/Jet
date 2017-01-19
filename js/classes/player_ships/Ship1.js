@@ -77,7 +77,9 @@ class Ship1 {
 		g.addPlayerShipTexture('Ship1', moveModel(this.v, this.x, this.y));
 		for (var i in this.weapons) this.weapons[i].draw();
 		for (var i in this.jetEngines) this.jetEngines[i].draw();
-		
+	}
+	
+	drawIndicators() {
 		var indAngleMax = Math.PI*1.2;
 		var indAngleMin = Math.PI*-0.2;
 
