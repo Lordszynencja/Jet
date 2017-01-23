@@ -24,6 +24,11 @@ var stats = {
 };
 
 var classesList = {};
+var prices = {
+	ships : {},
+	items : {},
+	upgrades : {}
+};
 
 function deserialize(data) {
 	var object = new classesList[data.className]();
@@ -83,5 +88,3 @@ var playerMissiles = [];
 var enemies = [];
 var backgroundObjects = [];
 var effects = [];
-
-var test;

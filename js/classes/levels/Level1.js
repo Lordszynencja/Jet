@@ -7,6 +7,10 @@ class Level1 {
 	}
 	
 	constructor() {
+		p.x = 0;
+		p.y = -0.85;
+		p.ship.x = p.x;
+		p.ship.y = p.y;
 		this.time = 0;
 		this.nextEnemy = 0;
 		this.levelLength = 700;

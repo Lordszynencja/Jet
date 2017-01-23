@@ -5,7 +5,6 @@ Music by Machiane Supremacy used for research purposes
 
 */
 
-
 var effectPos = [0.0,0.0];
 var effectsize = 0.2;
 var effectAngle = 0.0;

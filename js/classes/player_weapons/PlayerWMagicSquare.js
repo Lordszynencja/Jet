@@ -37,6 +37,16 @@ class PlayerWMagicSquare {
 		this.levelChanged();
 	}
 	
+	upgradePrice() {
+		if (this.level<3) return this.prices[this.level];
+		return -1;
+	}
+	
+	downgradePrice() {
+		if (this.level>0) return this.prices[this.level-1];
+		return -1;
+	}
+	
 	upgrade() {
 		if (this.level<3) {
 			this.level++;
@@ -68,6 +78,7 @@ class PlayerWMagicSquare {
 	}
 	
 	constructor(offx = 0, offy = 0, angle = Math.PI/2) {
+		this.prices = [340, 400, 600];
 		this.alternate = false;
 		this.level = 0;
 		this.shootingLight = -1;
@@ -80,3 +91,4 @@ class PlayerWMagicSquare {
 }
 
 classesList["PlayerWMagicSquare"] = PlayerWMagicSquare;
+prices.items["PlayerWMagicSquare"] = [550];
