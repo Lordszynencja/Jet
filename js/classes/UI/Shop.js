@@ -41,7 +41,8 @@ class Shop {
 	}
 	
 	enter2() {
-		//manage weapons
+		delete ui.menu;
+		ui.newMenu(new ShipWeaponsMenu());
 	}
 	
 	enter3() {

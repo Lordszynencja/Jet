@@ -112,7 +112,7 @@ class SmallShip {
 		this.maxHeat = 100;
 		this.maxHP = 50;
 		this.weapons = [];
-		this.weaponsNo = 4;
+		this.weaponsNo = 2;
 		this.weaponOffsets = [[-0.02, 0.1], [-0.02, -0.1]];
 		this.weaponAngles = [Math.PI/2, Math.PI/2, Math.PI/2, Math.PI/2];
 		this.jetEngines = [new JetEngine(this, [-0.0666, -0], p.angle, 0.02, 1.5, 0.7, [0.5, 1.7, 1.5])];

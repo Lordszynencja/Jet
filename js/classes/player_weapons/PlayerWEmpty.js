@@ -10,3 +10,4 @@ class PlayerWEmpty {
 }
 
 classesList["PlayerWEmpty"] = PlayerWEmpty;
+names["PlayerWEmpty"] = 'empty';
