@@ -92,7 +92,7 @@ class Ship1 {
 	
 	prepare() {
 		this.heat = 0;
-		this.hp = 100;
+		this.hp = this.maxHP;
 		this.overheat = false;
 	}
 	
@@ -100,6 +100,10 @@ class Ship1 {
 		this.upgrades = [
 			new CoolingUpgrade([1, 1.5, 2, 3, 4, 5, 6], [50, 70, 115, 85, 80, 60])];
 		this.size = 0.18;
+		this.enginePower = 0.002;
+		this.engineSpeed = 0.02;
+		this.agility = 0.002;
+		this.sideSpeed = 0.02;
 		this.x = p.x;
 		this.y = p.y;
 		this.v = rotateModel(makeCoords2(0.15, 0.15), p.angle);
