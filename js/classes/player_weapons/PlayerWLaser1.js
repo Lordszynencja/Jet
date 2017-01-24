@@ -27,6 +27,12 @@ class PlayerWLaser1 {
 		this.y = data.y;
 	}
 	
+	setSlot(id) {
+		var offset = p.ship.weaponOffsets[id];
+		this.x = Math.cos(p.angle)*offset[0]-Math.sin(p.angle)*offset[1];
+		this.y = Math.sin(p.angle)*offset[0]+Math.cos(p.angle)*offset[1];
+	}
+	
 	upgrade() {
 		
 	}
@@ -35,13 +41,16 @@ class PlayerWLaser1 {
 		
 	}
 	
-	constructor(offx = 0, offy = 0, angle = Math.PI/2) {
+	constructor(slot = 0) {
 		this.cooldown = 0;
 		this.cooldownTime = 50;
 		this.heat = 10;
-		this.x = Math.cos(p.angle)*offx-Math.sin(p.angle)*offy;
-		this.y = Math.sin(p.angle)*offx+Math.cos(p.angle)*offy;
+		this.setSlot(slot);
+		this.price = 200;
+		this.prices = [];
 	}
 }
 
 classesList["PlayerWLaser1"] = PlayerWLaser1;
+levelUnlocks.items[1].push(PlayerWLaser1);
+names["PlayerWLaser1"] = 'Lazertagger';

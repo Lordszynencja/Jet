@@ -26,13 +26,29 @@ class PlayerWOrbs1 {
 		this.y = data.y;
 	}
 	
-	constructor(offx = 0,offy = 0,angle = Math.PI/2) {
+	setSlot(id) {
+		var offset = p.ship.weaponOffsets[id];
+		this.x = Math.cos(p.angle)*offset[0]-Math.sin(p.angle)*offset[1];
+		this.y = Math.sin(p.angle)*offset[0]+Math.cos(p.angle)*offset[1];
+	}
+	
+	upgrade() {
+		
+	}
+	
+	downgrade() {
+		
+	}
+	
+	constructor(slot = 0) {
 		this.cooldown = 0;
 		this.cooldownTime = 50;
 		this.heat = 20;
-		this.x = Math.cos(p.angle)*offx-Math.sin(p.angle)*offy;
-		this.y = Math.sin(p.angle)*offx+Math.cos(p.angle)*offy;
+		this.setSlot(slot);
+		this.price = 175;
 	}
 }
 
 classesList["PlayerWOrbs1"] = PlayerWOrbs1;
+levelUnlocks.items[1].push(PlayerWOrbs1);
+names["PlayerWOrbs1"] = 'Orbitron';

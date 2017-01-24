@@ -156,7 +156,7 @@ function collide(v1,v2) {//v1 & v2 must be convex hulls with vertices in order
 function cleanArray(arr) {
   var newArray = new Array();
   for (var i = 0; i < arr.length; i++) {
-    if (arr[i]) {
+    if (arr[i] != null && arr[i] != undefined) {
       newArray.push(arr[i]);
 	  newArray[newArray.length-1].num = newArray.length-1;
     }

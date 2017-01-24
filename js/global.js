@@ -1,6 +1,6 @@
 var time = 0;
 var loaded = false;
-var levelsNumber = 0;
+var levelsNumber = 2;
 
 var conf = {
 	eightBitMode: false,
@@ -24,11 +24,15 @@ var stats = {
 };
 
 var classesList = {};
-var prices = {
-	ships : {},
-	items : {},
-	upgrades : {}
+var levelUnlocks = {
+	ships : [],
+	items: []
 };
+for (var i=0;i<levelsNumber;i++) {
+	levelUnlocks.ships[i] = [];
+	levelUnlocks.items[i] = [];
+}
+var names = {};
 
 function deserialize(data) {
 	var object = new classesList[data.className]();
@@ -55,6 +59,26 @@ function loadPlayer() {
 	}
 }
 
+function getShipsForCurrentLevel() {
+	var shipsList = [];
+	for (var level in levelUnlocks.ships) {
+		if (level<=stats.level) {
+			for (var s in levelUnlocks.ships[level]) shipsList.push(levelUnlocks.ships[level][s]);
+		}
+	}
+	return shipsList;
+}
+
+function getItemsForCurrentLevel() {
+	var itemsList = [];
+	for (var level in levelUnlocks.items) {
+		if (level<=stats.level) {
+			for (var i in levelUnlocks.items[level]) itemsList.push(levelUnlocks.items[level][i]);
+		}
+	}
+	return itemsList;
+}
+
 const gameoverV = makeCoords2(0.4, 0.2);
 
 function drawGameover() {
@@ -67,6 +91,12 @@ function drawFinish() {
 
 var con = document.getElementById('Tcan').getContext('2d');
 var canvas = document.getElementById('canv');
+var size = window.innerWidth;
+if (size>window.innerHeight) size = window.innerHeight;
+if (size<830) {
+	canvas.width = size-30;
+	canvas.height = size-30;
+}
 var gl = canvas.getContext('experimental-webgl', {preserveDrawingBuffer: true});
 gl.viewport(0, 0, canvas.width, canvas.height);
 gl.disable(gl.DEPTH_TEST);

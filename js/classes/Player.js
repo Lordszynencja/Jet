@@ -61,6 +61,70 @@ class Player {
 		else this.ship.draw();
 	}
 	
+	addWeapon(weapon, id) {
+		if (id>=0 && id<this.ship.weaponsNo) this.ship.weapons[id] = new weapon(id);
+	}
+	
+	takeWeapon(id) {
+		if (id>=0 && id<this.ship.weaponsNo) {
+			var weapon = this.ship.weapons[id];
+			this.ship.weapons[id] = new PlayerWEmpty();
+			if (weapon.constructor.name != 'PlayerWEmpty') return weapon;
+		}
+	}
+	
+	downgradeWeapon(id) {
+		if (id>=0 && id<this.ship.weaponsNo) {
+			this.ship.weapons[id].downgrade();
+		}
+	}
+	
+	upgradeWeapon(id) {
+		if (id>=0 && id<this.ship.weaponsNo) {
+			this.ship.weapons[id].upgrade();
+		}
+	}
+	
+	putInCargo(item) {
+		if (item != null && item.constructor.name != 'PlayerWEmpty') {
+			this.cargo.push(item);
+		}
+	}
+	
+	takeFromCargo(id) {
+		if (id>=0 && id<this.cargo.length) {
+			var item = this.cargo[id];
+			this.cargo[id] = null;
+			this.cargo = cleanArray(this.cargo);
+			return item;
+		}
+	}
+	
+	fromShipToCargo(id) {
+		if (id>=0 && id<this.ship.weaponsNo) this.putInCargo(this.takeWeapon(id));
+	}
+	
+	fromCargoToShip(cargoId, slotId) {
+		if (slotId>=0 && slotId<this.ship.weaponsNo) {
+			this.fromShipToCargo(slotId);
+			this.ship.weapons[slotId] = this.takeFromCargo(cargoId);
+			this.ship.weapons[slotId].setSlot(slotId);
+		}
+	}
+	
+	putAllWeaponsToCargo() {
+		for (var i in this.ship.weapons) {
+			this.putInCargo(this.takeWeapon(i));
+		}
+	}
+	
+	changeShip(ship) {
+		this.putAllWeaponsToCargo();
+		stats.money += this.ship.getPrice();
+		this.ship = new ship();
+		stats.money -= this.ship.getPrice();
+	}
+	
 	setData(data) {
 		this.ship = deserialize(data.ship);
 		for (var i in data.cargo) this.cargo[i] = deserialize(data.cargo[i]);

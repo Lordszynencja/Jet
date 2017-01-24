@@ -7,11 +7,11 @@ class Ship1 {
 		for (var i in this.weapons) {
 			this.heat += this.weapons[i].update(canShoot);
 		}
-		this.heat -= this.cooling[this.coolingLevel];
-		if (this.heat>=100) this.heat = 100, this.overheat = true;
+		for (var i in this.upgrades) this.upgrades[i].update();
+		if (this.heat>=this.maxHeat) this.heat = this.maxHeat, this.overheat = true;
 		if (this.overheat && this.heat<=0) this.overheat = false;
 		if (this.heat<0) this.heat = 0;
-		for (var i in this.rotatedHitbox) this.hitbox[i] = moveModel(this.rotatedHitbox[i], p.x, p.y);
+		for (var i in this.rotatedHitbox) this.hitbox[i] = moveModel(this.rotatedHitbox[i], this.x, this.y);
 		for (var i in this.jetEngines) this.jetEngines[i].update();
 	}
 	
@@ -28,15 +28,7 @@ class Ship1 {
 	}
 	
 	addWeapon(weapon, weaponNo) {
-		if (weaponNo>=0 && weaponNo<this.weaponsNo) this.weapons[weaponNo] = new weapon(this.weaponOffsets[weaponNo][0], this.weaponOffsets[weaponNo][1], this.weaponAngles[weaponNo]);
-	}
-	
-	upgradeWeapon(wNo) {
-		if (wNo>=0 && wNo<this.weaponsNo && this.weapons[wNo]) this.weapons[wNo].upgrade();
-	}
-	
-	downgradeWeapon(wNo) {
-		if (wNo>=0 && wNo<this.weaponsNo && this.weapons[wNo]) this.weapons[wNo].downgrade();
+		if (weaponNo>=0 && weaponNo<this.weaponsNo) this.weapons[weaponNo] = new weapon(weaponNo);
 	}
 	
 	resetWeapons() {
@@ -46,36 +38,34 @@ class Ship1 {
 		}
 	}
 	
-	upgradeCooling() {
-		if (this.coolingLevel<this.cooling.length-1) this.coolingLevel++;
-	}
-	
-	downgradeCooling() {
-		if (this.coolingLevel>0) this.coolingLevel--;
-	}
-	
 	setData(data) {
 		for (var i in data.weapons) {
 			this.weapons[i] = deserialize(data.weapons[i]);
 		}
-		this.coolingLevel = data.coolingLevel;
+		for (var i in data.upgradesLevels) {
+			this.upgrades[i].level = data.upgradesLevels[i];
+		}
 	}
 	
 	getData() {
-		var data = {
-			coolingLevel : this.coolingLevel
-		};
+		var data = {};
 		var weapons = [];
 		for (var i in this.weapons) {
 			weapons[i] = serialize(this.weapons[i]);
 		}
 		data.weapons = weapons;
+		var upgradesLevels = [];
+		for (var i in this.upgrades) {
+			upgradesLevels[i] = this.upgrades[i].level;
+		}
+		data.upgradesLevels = upgradesLevels;
 		return data;
 	}
 	
 	draw() {
 		g.addPlayerShipTexture('Ship1', moveModel(this.v, this.x, this.y));
 		for (var i in this.weapons) this.weapons[i].draw();
+		for (var i in this.upgrades) this.upgrades[i].draw();
 		for (var i in this.jetEngines) this.jetEngines[i].draw();
 	}
 	
@@ -92,6 +82,14 @@ class Ship1 {
 		g.addEffect1([0.75, -0.9], 0.06, heatAngle, [0, 0, 16]);
 	}
 	
+	getPrice() {
+		var price = 1199;
+		for (var u in this.upgrades) {
+			for (var i=0;i<this.upgrades[u].level;i++) price += this.upgrades[u].prices[i];
+		}
+		return price;
+	}
+	
 	prepare() {
 		this.heat = 0;
 		this.hp = 100;
@@ -99,7 +97,8 @@ class Ship1 {
 	}
 	
 	constructor() {
-		this.cooling = [1, 1.5, 2, 3, 4, 5, 6];
+		this.upgrades = [
+			new CoolingUpgrade([1, 1.5, 2, 3, 4, 5, 6], [50, 70, 115, 85, 80, 60])];
 		this.size = 0.18;
 		this.x = p.x;
 		this.y = p.y;
@@ -109,7 +108,7 @@ class Ship1 {
 		this.maxHP = 100;
 		this.weapons = [];
 		this.weaponsNo = 4;
-		this.weaponOffsets = [[-0.03, -0.15], [-0.03, 0.15], [0.15, -0.01], [0.15, 0.01]];
+		this.weaponOffsets = [[-0.03, 0.15], [0.15, 0.01], [0.15, -0.01], [-0.03, -0.15]];
 		this.weaponAngles = [Math.PI/2, Math.PI/2, Math.PI/2, Math.PI/2];
 		this.jetEngines = [new JetEngine(this, [-0.1, -0], p.angle, 0.03, 0.6, 0.5, [0.1, 0.7, 2.5])];
 		this.prepareHitbox();
@@ -119,3 +118,5 @@ class Ship1 {
 }
 
 classesList["Ship1"] = Ship1;
+levelUnlocks.ships[0].push(Ship1);
+names["Ship1"] = "Basic Ship";

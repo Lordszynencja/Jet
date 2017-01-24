@@ -47,6 +47,13 @@ class PlayerWMagicSquare {
 		return -1;
 	}
 	
+	setSlot(id) {
+		var offset = p.ship.weaponOffsets[id];
+		this.x = Math.cos(p.angle)*offset[0]-Math.sin(p.angle)*offset[1];
+		this.y = Math.sin(p.angle)*offset[0]+Math.cos(p.angle)*offset[1];
+		this.angle = p.ship.weaponAngles[id];
+	}
+	
 	upgrade() {
 		if (this.level<3) {
 			this.level++;
@@ -77,18 +84,18 @@ class PlayerWMagicSquare {
 		}
 	}
 	
-	constructor(offx = 0, offy = 0, angle = Math.PI/2) {
+	constructor(slot = 0) {
 		this.prices = [340, 400, 600];
 		this.alternate = false;
 		this.level = 0;
 		this.shootingLight = -1;
 		this.cooldown = 0;
-		this.x = Math.cos(p.angle)*offx-Math.sin(p.angle)*offy;
-		this.y = Math.sin(p.angle)*offx+Math.cos(p.angle)*offy;
-		this.angle = angle;
+		this.setSlot(slot);
 		this.levelChanged();
+		this.price = 300;
 	}
 }
 
 classesList["PlayerWMagicSquare"] = PlayerWMagicSquare;
-prices.items["PlayerWMagicSquare"] = [550];
+levelUnlocks.items[1].push(PlayerWMagicSquare);
+names["PlayerWMagicSquare"] = 'Plasmic Gun';

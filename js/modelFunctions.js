@@ -4,8 +4,7 @@ function makeCoords4(x1,x2,y1,y2) {
 }
 
 function makeCoords2(x,y) {
-	if (y) return makeCoords4(-x,x,y,-y);
-	return makeCoords4(-x1[0],x1[0],x1[1],-x1[1]);
+	return makeCoords4(-x,x,y,-y);
 }
 
 function makeCoords1(x) {

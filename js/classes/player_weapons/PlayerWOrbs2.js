@@ -34,7 +34,13 @@ class PlayerWOrbs2 {
 	setData(data) {
 		this.x = data.x;
 		this.y = data.y;
-		this.level = level;
+		this.level = data.level;
+	}
+	
+	setSlot(id) {
+		var offset = p.ship.weaponOffsets[id];
+		this.x = Math.cos(p.angle)*offset[0]-Math.sin(p.angle)*offset[1];
+		this.y = Math.sin(p.angle)*offset[0]+Math.cos(p.angle)*offset[1];
 	}
 	
 	upgrade() {
@@ -45,14 +51,18 @@ class PlayerWOrbs2 {
 		if (this.level>0) this.level--;
 	}
 	
-	constructor(offx = 0, offy = 0, angle = Math.PI/2) {
+	constructor(slot = 0) {
 		this.level = 0;
 		this.cooldown = 0;
 		this.cooldownTime = 25;
 		this.heat = 25;
-		this.x = Math.cos(p.angle)*offx-Math.sin(p.angle)*offy;
-		this.y = Math.sin(p.angle)*offx+Math.cos(p.angle)*offy;
+		this.setSlot(slot);
+		this.price = 150;
+		this.prices = [250, 300];
 	}
 }
 
 classesList["PlayerWOrbs2"] = PlayerWOrbs2;
+levelUnlocks.items[0].push(PlayerWOrbs2);
+names["PlayerWOrbs2"] = 'Hard-Hitters';
+

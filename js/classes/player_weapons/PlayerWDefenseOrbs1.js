@@ -27,20 +27,30 @@ class PlayerWDefenseOrbs1 {
 	draw() {
 	}
 	
+	setSlot(id) {}
+	
 	upgrade() {
-		if (this.level<3) this.level++;
+		if (this.level<3) {
+			this.level++;
+		}
 	}
 	
 	downgrade() {
-		if (this.level>0) this.level--;
+		if (this.level>0) {
+			this.level--;
+		}
 	}
 	
-	constructor(offx, offy, angle) {
+	constructor(slot) {
 		this.level = 0;
 		this.cooldown = 0;
 		this.cooldownTime = 500;
 		this.heat = 10;
+		this.price = 129;
+		this.prices = [89, 84, 79];
 	}
 }
 
 classesList["PlayerWDefenseOrbs1"] = PlayerWDefenseOrbs1;
+levelUnlocks.items[0].push(PlayerWDefenseOrbs1);
+names["PlayerWDefenseOrbs1"] = 'Defense Orbs';

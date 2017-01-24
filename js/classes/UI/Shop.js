@@ -13,29 +13,30 @@ class Shop {
 	}
 	
 	enter0() {
-		//change ship
+		delete ui.menu;
+		ui.newMenu(new ShipChangeMenu());
 	}
 	
 	enter1() {
 		if (stats.shipLevel == 0 && stats.money>=100) {
 			stats.shipLevel = 1;
 			stats.money -= 100;
-			p.ship.upgradeWeapon(0);
-			p.ship.upgradeWeapon(1);
-			p.ship.addWeapon(PlayerWLaser1, 2);
-			p.ship.addWeapon(PlayerWDefenseOrbs1, 3);
-			p.ship.upgradeCooling();
+			p.upgradeWeapon(0);
+			p.upgradeWeapon(1);
+			p.addWeapon(PlayerWLaser1, 2);
+			p.addWeapon(PlayerWDefenseOrbs1, 3);
+			p.ship.upgrades[0].upgrade();
 		} else if (stats.shipLevel == 1 && stats.money>=1000) {
 			stats.shipLevel = 2;
 			stats.money -= 1000;
-			p.ship.upgradeWeapon(0);
-			p.ship.upgradeWeapon(0);
-			p.ship.upgradeWeapon(1);
-			p.ship.upgradeWeapon(1);
-			p.ship.upgradeWeapon(3);
-			p.ship.upgradeCooling();
-			p.ship.upgradeCooling();
-			p.ship.upgradeCooling();
+			p.upgradeWeapon(0);
+			p.upgradeWeapon(0);
+			p.upgradeWeapon(1);
+			p.upgradeWeapon(1);
+			p.upgradeWeapon(3);
+			p.ship.upgrades[0].upgrade();
+			p.ship.upgrades[0].upgrade();
+			p.ship.upgrades[0].upgrade();
 		}
 	}
 	
@@ -44,7 +45,8 @@ class Shop {
 	}
 	
 	enter3() {
-		//weapons shop
+		delete ui.menu;
+		ui.newMenu(new ItemShop());
 	}
 	
 	enter4() {
