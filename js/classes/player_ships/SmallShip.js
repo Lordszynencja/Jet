@@ -4,10 +4,10 @@ class SmallShip {
 		this.y = p.y;
 		
 		var canShoot = c.isPressed("space") && !this.overheat;
+		for (var i in this.upgrades) this.upgrades[i].update();
 		for (var i in this.weapons) {
 			this.heat += this.weapons[i].update(canShoot);
 		}
-		for (var i in this.upgrades) this.upgrades[i].update();
 		if (this.heat>=this.maxHeat) this.heat = this.maxHeat, this.overheat = true;
 		if (this.overheat && this.heat<=0) this.overheat = false;
 		if (this.heat<0) this.heat = 0;
@@ -93,12 +93,12 @@ class SmallShip {
 	constructor() {
 		this.price = 800;
 		this.upgrades = [
-			new CoolingUpgrade([1, 1.5, 2, 3, 4], [50, 70, 115, 85])];
+			new CoolingUpgrade([1, 1.5, 2, 3, 4], [50, 70, 115, 85]),
+			new EngineUpgrade([0.005], [0.04], []),
+			new WingsUpgrade([0.005], [0.03], [])];
 		this.size = 0.12;
-		this.enginePower = 0.005;
-		this.engineSpeed = 0.03;
-		this.agility = 0.005;
-		this.sideSpeed = 0.02;
+		this.width = 0.1;
+		this.height = 0.1;
 		this.x = p.x;
 		this.y = p.y;
 		this.v = rotateModel(makeCoords2(0.1, 0.1), p.angle);

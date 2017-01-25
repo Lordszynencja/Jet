@@ -1,26 +1,12 @@
 class CoolingUpgrade {
 	update() {
-		p.ship.heat -= this.values[this.level];
+		p.ship.heat -= this.cooling;
 	}
 	
 	draw() {}
 	
-	upgrade() {
-		if (this.level<this.prices.length) this.level++;
-	}
-	
-	downgrade() {
-		if (this.level>0) this.level--;
-	}
-	
-	getUpgradePrice() {
-		if (this.level<this.prices.length) return this.prices[this.level];
-		return null;
-	}
-	
-	getDowngradePrice() {
-		if (this.level>0) return this.prices[this.level-1];
-		return null;
+	levelChanged() {
+		this.cooling = this.values[this.level];
 	}
 	
 	constructor(values, prices) {
@@ -28,7 +14,9 @@ class CoolingUpgrade {
 		this.prices = prices;
 		if (values.length != prices.length+1) console.log("WARNING, wrong values/prices:"+values+"\n"+prices);
 		this.level = 0;
+		this.levelChanged();
 	}
 }
 
 classesList["CoolingUpgrade"] = CoolingUpgrade;
+names["CoolingUpgrade"] = 'Cooling';

@@ -2,40 +2,6 @@ class Player {
 	update() {
 		if (!this.dead && !this.finished) {
 			this.invincibility--;
-			if (c.isPressed("left")) {
-				this.vx -= this.ship.agility;
-				if (this.vx<-this.ship.sideSpeed) this.vx = -this.ship.sideSpeed;
-			}
-			if (c.isPressed("right")) {
-				this.vx += this.ship.agility;
-				if (this.vx>this.ship.sideSpeed) this.vx = this.ship.sideSpeed;
-			}
-			if (!c.isPressed("left") && !c.isPressed("right")) {
-				if (this.vx>this.ship.agility) this.vx -= this.ship.agility;
-				else if (this.vx<-this.ship.agility) this.vx += this.ship.agility;
-				else this.vx = 0;
-			}
-			if (c.isPressed("up")) {
-				this.vy += this.ship.enginePower;
-				if (this.vy>this.ship.engineSpeed) this.vy = this.ship.engineSpeed;
-			}
-			if (c.isPressed("down")) {
-				this.vy -= this.ship.enginePower;
-				if (this.vy<-this.ship.engineSpeed) this.vy = -this.ship.engineSpeed;
-			}
-			if (!c.isPressed("up") && !c.isPressed("down")) {
-				if (this.vy>this.ship.enginePower) this.vy -= this.ship.enginePower;
-				else if (this.vy<-this.ship.enginePower) this.vy += this.ship.enginePower;
-				else this.vy = 0;
-			}
-			
-			this.x += this.vx;
-			if (this.x<=-0.85) this.x = -0.85;
-			else if (this.x>=0.85) this.x = 0.85;
-			this.y += this.vy;
-			if (this.y<=-0.85) this.y = -0.85;
-			else if (this.y>=0.85) this.y = 0.85;
-			
 			this.ship.update();
 		} else if (this.finished) {
 			var v = (time-this.finish_timer)*0.001;

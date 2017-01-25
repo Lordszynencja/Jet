@@ -38,14 +38,14 @@ class ShipWeaponsMenu {
 	upgradeWeapon(slot, fromShip) {
 		if (fromShip) {
 			var weapon = p.ship.weapons[slot];
-			if (weapon.level<weapon.prices.length && weapon.prices[weapon.level]<stats.money) {
+			if (weapon.level<weapon.prices.length && weapon.prices[weapon.level]<=stats.money) {
 				stats.money -= weapon.prices[weapon.level];
 				weapon.level++;
 				weapon.levelChanged();
 			}
 		} else {
 			var weapon = p.cargo[slot];
-			if (weapon.level<weapon.prices.length && weapon.prices[weapon.level]<stats.money) {
+			if (weapon.level<weapon.prices.length && weapon.prices[weapon.level]<=stats.money) {
 				stats.money -= weapon.prices[weapon.level];
 				weapon.level++;
 				weapon.levelChanged();
@@ -87,7 +87,6 @@ class ShipWeaponsMenu {
 	}
 	
 	moveWeapon(cargoSlot, shipSlot) {
-		console.log(1);
 		if (cargoSlot == -1) {
 			p.fromShipToCargo(shipSlot);
 		} else {
