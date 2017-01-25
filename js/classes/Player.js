@@ -138,11 +138,19 @@ class Player {
 		}
 	}
 	
+	getShipPrice() {
+		var price = this.ship.price;
+		for (var u in this.ship.upgrades) {
+			for (var i=0;i<this.ship.upgrades[u].level;i++) price += this.ship.upgrades[u].prices[i];
+		}
+		return price;
+	}
+	
 	changeShip(ship) {
 		this.putAllWeaponsToCargo();
-		stats.money += this.ship.getPrice();
+		stats.money += this.getShipPrice();
 		this.ship = new ship();
-		stats.money -= this.ship.getPrice();
+		stats.money -= this.ship.price;
 	}
 	
 	setData(data) {

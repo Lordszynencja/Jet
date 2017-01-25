@@ -28,26 +28,15 @@ class PlayerWDefenseOrbs1 {
 	}
 	
 	setSlot(id) {}
-	
-	upgrade() {
-		if (this.level<3) {
-			this.level++;
-		}
-	}
-	
-	downgrade() {
-		if (this.level>0) {
-			this.level--;
-		}
-	}
+	levelChanged() {}
 	
 	constructor(slot) {
 		this.level = 0;
 		this.cooldown = 0;
 		this.cooldownTime = 500;
 		this.heat = 10;
-		this.price = 129;
-		this.prices = [89, 84, 79];
+		this.price = 130;
+		this.prices = [90, 85, 80];
 	}
 }
 

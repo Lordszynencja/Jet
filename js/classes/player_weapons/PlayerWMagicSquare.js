@@ -37,35 +37,11 @@ class PlayerWMagicSquare {
 		this.levelChanged();
 	}
 	
-	upgradePrice() {
-		if (this.level<3) return this.prices[this.level];
-		return -1;
-	}
-	
-	downgradePrice() {
-		if (this.level>0) return this.prices[this.level-1];
-		return -1;
-	}
-	
 	setSlot(id) {
 		var offset = p.ship.weaponOffsets[id];
 		this.x = Math.cos(p.angle)*offset[0]-Math.sin(p.angle)*offset[1];
 		this.y = Math.sin(p.angle)*offset[0]+Math.cos(p.angle)*offset[1];
 		this.angle = p.ship.weaponAngles[id];
-	}
-	
-	upgrade() {
-		if (this.level<3) {
-			this.level++;
-			this.levelChanged();
-		}
-	}
-	
-	downgrade() {
-		if (this.level>0) {
-			this.level--;
-			this.levelChanged();
-		}
 	}
 	
 	levelChanged() {
@@ -85,14 +61,14 @@ class PlayerWMagicSquare {
 	}
 	
 	constructor(slot = 0) {
-		this.prices = [340, 400, 600];
-		this.alternate = false;
 		this.level = 0;
-		this.shootingLight = -1;
 		this.cooldown = 0;
+		this.alternate = false;
+		this.shootingLight = -1;
 		this.setSlot(slot);
 		this.levelChanged();
 		this.price = 300;
+		this.prices = [340, 400, 600];
 	}
 }
 

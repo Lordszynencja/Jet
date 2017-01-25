@@ -43,13 +43,7 @@ class PlayerWOrbs2 {
 		this.y = Math.sin(p.angle)*offset[0]+Math.cos(p.angle)*offset[1];
 	}
 	
-	upgrade() {
-		if (this.level<2) this.level++;
-	}
-	
-	downgrade() {
-		if (this.level>0) this.level--;
-	}
+	levelChanged() {}
 	
 	constructor(slot = 0) {
 		this.level = 0;

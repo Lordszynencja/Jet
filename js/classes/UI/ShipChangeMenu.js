@@ -5,7 +5,7 @@ class ShipChangeMenu {
 			ui.newMenu(new Shop());
 		} else if (name=='enter') {
 			if (this.position<this.availableShips.length) {
-				p.changeShip(this.availableShips[this.position]);
+				if (stats.money>=(new this.availableShips[this.position]()).price-p.getShipPrice()) p.changeShip(this.availableShips[this.position]);
 			} else {
 				delete ui.menu;
 				ui.newMenu(new Shop());

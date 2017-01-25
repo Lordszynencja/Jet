@@ -3,10 +3,13 @@ class PlayerWEmpty {
 	setData(data) {}
 	getData() {return {};}
 	setSlot(id) {}
-	upgrade() {}
-	downgrade() {}
+	levelChanged() {}
 	draw() {}
-	constructor(slot) {}
+	constructor(slot) {
+		this.level = 0;
+		this.price = 0;
+		this.prices = [];
+	}
 }
 
 classesList["PlayerWEmpty"] = PlayerWEmpty;

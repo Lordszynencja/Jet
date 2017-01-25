@@ -84,14 +84,6 @@ class SmallShip {
 		g.addEffect1([0.75, -0.9], 0.06, heatAngle, [0, 0, 16]);
 	}
 	
-	getPrice() {
-		var price = 800;
-		for (var u in this.upgrades) {
-			for (var i=0;i<this.upgrades[u].level;i++) price += this.upgrades[u].prices[i];
-		}
-		return price;
-	}
-	
 	prepare() {
 		this.heat = 0;
 		this.hp = this.maxHP;
@@ -99,6 +91,7 @@ class SmallShip {
 	}
 	
 	constructor() {
+		this.price = 800;
 		this.upgrades = [
 			new CoolingUpgrade([1, 1.5, 2, 3, 4], [50, 70, 115, 85])];
 		this.size = 0.12;

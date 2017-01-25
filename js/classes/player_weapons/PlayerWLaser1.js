@@ -33,15 +33,10 @@ class PlayerWLaser1 {
 		this.y = Math.sin(p.angle)*offset[0]+Math.cos(p.angle)*offset[1];
 	}
 	
-	upgrade() {
-		
-	}
-	
-	downgrade() {
-		
-	}
+	levelChanged() {}
 	
 	constructor(slot = 0) {
+		this.level = 0;
 		this.cooldown = 0;
 		this.cooldownTime = 50;
 		this.heat = 10;

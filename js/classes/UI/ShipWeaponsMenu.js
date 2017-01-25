@@ -9,17 +9,11 @@ class ShipWeaponsMenu {
 			}
 		} else if (name=='enter') {
 			if (this.submenu) {
-				if (this.submenuPosition == 0) {
-					console.log("upgrade "+this.slot+(this.isWeaponSlot ? " slot" : " cargo"));
-				} else if (this.submenuPosition == 1) {
-					console.log("downgrade "+this.slot+(this.isWeaponSlot ? " slot" : " cargo"));
-				} else if (this.submenuPosition == 2) {
-					console.log("sell "+this.slot+(this.isWeaponSlot ? " slot" : " cargo"));
-				} else if (this.submenuPosition == 3 && this.isWeaponSlot) {
-					console.log("move to cargo "+this.slot+(this.isWeaponSlot ? " slot" : " cargo"));
-				} else {
-					console.log("move "+this.slot+(this.isWeaponSlot ? " slot" : " cargo")+" to slot "+(this.submenuPosition-3));
-				}
+				if (this.submenuPosition == 0) this.upgradeWeapon(this.slot, this.isWeaponSlot);
+				else if (this.submenuPosition == 1) this.downgradeWeapon(this.slot, this.isWeaponSlot);
+				else if (this.submenuPosition == 2) this.sellWeapon(this.slot, this.isWeaponSlot);
+				else if (this.submenuPosition == 3 && this.isWeaponSlot) this.moveWeapon(-1, this.slot);
+				else this.moveWeapon(this.slot, this.submenuPosition-3);
 			} else {
 				if (this.position<this.options.length-1) {
 					this.prepareSubmenuOptions();
@@ -39,6 +33,68 @@ class ShipWeaponsMenu {
 				if (this.submenuPosition>0) this.submenuPosition--;
 			} else if (this.position>0) this.position--;
 		}
+	}
+	
+	upgradeWeapon(slot, fromShip) {
+		if (fromShip) {
+			var weapon = p.ship.weapons[slot];
+			if (weapon.level<weapon.prices.length && weapon.prices[weapon.level]<stats.money) {
+				stats.money -= weapon.prices[weapon.level];
+				weapon.level++;
+				weapon.levelChanged();
+			}
+		} else {
+			var weapon = p.cargo[slot];
+			if (weapon.level<weapon.prices.length && weapon.prices[weapon.level]<stats.money) {
+				stats.money -= weapon.prices[weapon.level];
+				weapon.level++;
+				weapon.levelChanged();
+			}
+		}
+	}
+	
+	downgradeWeapon(slot, fromShip) {
+		if (fromShip) {
+			var weapon = p.ship.weapons[slot];
+			if (weapon.level>0) {
+				weapon.level--;
+				stats.money += weapon.prices[weapon.level];
+				weapon.levelChanged();
+			}
+		} else {
+			var weapon = p.cargo[slot];
+			if (weapon.level>0) {
+				weapon.level--;
+				stats.money += weapon.prices[weapon.level];
+				weapon.levelChanged();
+			}
+		}
+	}
+	
+	sellWeapon(slot, fromShip) {
+		if (fromShip) {
+			var weapon = p.ship.weapons[slot];
+			stats.money += weapon.price;
+			for (var i=0;i<weapon.level;i++) stats.money += weapon.prices[i];
+			p.ship.weapons[slot] = new PlayerWEmpty();
+		} else {
+			var weapon = p.takeFromCargo(slot);
+			stats.money += weapon.price;
+			for (var i=0;i<weapon.level;i++) stats.money += weapon.prices[i];
+		}
+		this.submenu = false;
+		this.prepareOptions();
+	}
+	
+	moveWeapon(cargoSlot, shipSlot) {
+		console.log(1);
+		if (cargoSlot == -1) {
+			p.fromShipToCargo(shipSlot);
+		} else {
+			p.fromCargoToShip(cargoSlot, shipSlot);
+		}
+		this.submenu = false;
+		this.prepareOptions();
 	}
 	
 	anyKey() {

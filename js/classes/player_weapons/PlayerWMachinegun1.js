@@ -46,20 +46,6 @@ class PlayerWMachinegun1 {
 		this.angle = p.ship.weaponAngles[id];
 	}
 	
-	upgrade() {
-		if (this.level<3) {
-			this.level++;
-			this.levelChanged();
-		}
-	}
-	
-	downgrade() {
-		if (this.level>0) {
-			this.level--;
-			this.levelChanged();
-		}
-	}
-	
 	levelChanged() {
 		if (this.level == 0) {
 			this.angles = [0];
@@ -82,8 +68,8 @@ class PlayerWMachinegun1 {
 	
 	constructor(slot = 0) {
 		this.level = 0;
-		this.shootingLight = -1;
 		this.cooldown = 0;
+		this.shootingLight = -1;
 		this.cooldownTime = 3;
 		this.setSlot(slot);
 		this.levelChanged();

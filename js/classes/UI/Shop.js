@@ -18,26 +18,6 @@ class Shop {
 	}
 	
 	enter1() {
-		if (stats.shipLevel == 0 && stats.money>=100) {
-			stats.shipLevel = 1;
-			stats.money -= 100;
-			p.upgradeWeapon(0);
-			p.upgradeWeapon(1);
-			p.addWeapon(PlayerWLaser1, 2);
-			p.addWeapon(PlayerWDefenseOrbs1, 3);
-			p.ship.upgrades[0].upgrade();
-		} else if (stats.shipLevel == 1 && stats.money>=1000) {
-			stats.shipLevel = 2;
-			stats.money -= 1000;
-			p.upgradeWeapon(0);
-			p.upgradeWeapon(0);
-			p.upgradeWeapon(1);
-			p.upgradeWeapon(1);
-			p.upgradeWeapon(3);
-			p.ship.upgrades[0].upgrade();
-			p.ship.upgrades[0].upgrade();
-			p.ship.upgrades[0].upgrade();
-		}
 	}
 	
 	enter2() {
@@ -75,12 +55,8 @@ class Shop {
 		for (var i in effects) effects[i].draw();
 		for (var i=0;i<this.options.length;i++) {
 			var xy = this.optionsV[i];
-			g.drawText(xy[0], xy[1], this.options[i], this.fontSize, (i==1 || i==5 ? [1, 1, 1, 1] : [0.5, 0.5, 0.5, 1]));
+			g.drawText(xy[0], xy[1], this.options[i], this.fontSize, (i!=1 && i!=4 ? [1, 1, 1, 1] : [0.5, 0.5, 0.5, 1]));
 		}
-		var upgrade = '';
-		if (stats.shipLevel==0) upgrade = '100$';
-		if (stats.shipLevel==1) upgrade = '1000$';
-		g.drawText(-0.2, 3*this.fontSize, upgrade, this.fontSize, [1, 1, 1, 1]);
 		g.drawText(-0.95, -0.9, 'Money:'+stats.money.toString()+'$', 0.05, [1, 1, 1, 1]);
 		g.addGUITexture('Select', findSelectSize(this.options[this.position], this.fontSize, this.optionsV[this.position]));
 	}
