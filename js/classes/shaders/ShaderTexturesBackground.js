@@ -36,12 +36,8 @@ shInvertion +
 void main(void) {
 	#define bg_size `+(this.bgTextureSize/tex_s).toFixed(10)+`
 	float base_y = tp.y-mod(tp.y, bg_size);
-	#define cut `+(1/tex_s).toFixed(10)+`
-	float y = mod(tp.y+bg_position, bg_size)*0.99;
-	if (y>bg_size-cut) y = bg_size-cut;
-	else if (y<cut) y = cut;
-	vec2 tex_pos = vec2(tp.x, base_y + y);
-	vec4 texture_color = texture2D(texture, tex_pos);
+	float y = mod(tp.y+bg_position, bg_size);
+	vec4 texture_color = texture2D(texture, vec2(tp.x, base_y+y));
 	gl_FragColor = texture_color*vec4((use_lightning ? compute_lights() : vec3(basic_light)), 1.0);
 	if (eight_bit_mode) gl_FragColor = vec4(toEightBit(gl_FragColor.rgb), gl_FragColor.a);
 	gl_FragColor = computeInvertion(gl_FragColor);
@@ -70,7 +66,7 @@ void main(void) {
 	}
 
 	createShader() {
-		loadTextures(this.texture, 'background', this.texturesNo);
+		loadTextures(this.texture, 'background', this.texturesNo, false);
 		this.prepareShaderCode();
 		this.shader = compileShaders(this.vertCode, this.fragCode);
 		this.prepareBuffers();
@@ -166,6 +162,8 @@ void main(void) {
 	update() {
 		this.resetDrawing();
 		this.updateLight();
+		if (this.bgPosition<0) this.bgPosition++;
+		else if (this.bgPosition>1) this.bgPosition--;
 	}
 
 	prepare() {

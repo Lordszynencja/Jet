@@ -46,11 +46,16 @@ function fillBuffer(buffer, name, shader, size, data) {
 	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(data), gl.STREAM_DRAW);
 }
 
-function loadTex(texs, id, img) {
+function loadTex(texs, id, img, fancy) {
 	gl.activeTexture(gl.TEXTURE0);
 	gl.bindTexture(gl.TEXTURE_2D, texs[id]);
-	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_NEAREST);
+	if (fancy) {
+		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_NEAREST);
+	} else {
+		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+	}
 	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
 	gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
 	gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
@@ -58,18 +63,18 @@ function loadTex(texs, id, img) {
 	gl.bindTexture(gl.TEXTURE_2D, null);
 }
 
-function loadTextures(texs, name, texturesNo) {
+function loadTextures(texs, name, texturesNo, fancy = true) {
 	con.fillStyle = 'blue';
 	con.fillRect(0, 0, tex_s, tex_s);
 	
 	for (var i=0;i<texturesNo;i++) {
-		loadTex(texs, i, canvas);
+		loadTex(texs, i, canvas, fancy);
 		var imgx = new Image();
-		imgx.onload = (function(texs, id, img) {
+		imgx.onload = (function(texs, id, img, fancy) {
 			return function() {
-				loadTex(texs, id, img);
+				loadTex(texs, id, img, fancy);
 			}
-		})(texs, i, imgx);
+		})(texs, i, imgx, fancy);
 		imgx.src = "textures/"+name+"/texture"+i+".png";
 	}
 }
