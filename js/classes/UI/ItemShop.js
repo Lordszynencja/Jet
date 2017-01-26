@@ -43,6 +43,19 @@ class ItemShop {
 		}
 	}
 	
+	drawTooltip() {
+		if (this.position<this.availableItems.length) {
+			var y = -0.1;
+			var tooltip = this.item.getTooltip();
+			if (tooltip != undefined) {
+				for (var i=0;i<tooltip.length;i++) {
+					g.drawText(-0.95, y, tooltip[i], 0.025, [1, 1, 1, 1]);
+					y -= 0.05;
+				}
+			}
+		}
+	}
+	
 	draw() {
 		g.addBackgroundTexture('ground', makeCoords2(1, 1));
 		if (this.position<this.availableItems.length) {
@@ -50,7 +63,7 @@ class ItemShop {
 			for (var i in playerMissiles) playerMissiles[i].draw();
 		}
 		for (var i in effects) effects[i].draw();
-		
+		this.drawTooltip();
 		for (var i=0;i<this.options.length;i++) {
 			var xy = this.optionsV[i];
 			g.drawText(xy[0], xy[1], this.options[i], this.fontSize, [1, 1, 1, 1]);

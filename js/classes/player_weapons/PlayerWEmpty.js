@@ -5,6 +5,12 @@ class PlayerWEmpty {
 	setSlot(id) {}
 	levelChanged() {}
 	draw() {}
+	
+	getInfo() {
+		var info = ['empty weapon slot'];
+		return info;
+	}
+	
 	constructor(slot) {
 		this.level = 0;
 		this.price = 0;

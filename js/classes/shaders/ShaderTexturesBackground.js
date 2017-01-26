@@ -34,11 +34,14 @@ shInvertion +
 ///////////////////////
 
 void main(void) {
-	float base_y = tp.y-mod(tp.y, 0.25);
-	float y = mod(tp.y+bg_position, 0.25);
+	#define bg_size `+(this.bgTextureSize/tex_s).toFixed(10)+`
+	float base_y = tp.y-mod(tp.y, bg_size);
+	#define cut `+(1/tex_s).toFixed(10)+`
+	float y = mod(tp.y+bg_position, bg_size)*0.99;
+	if (y>bg_size-cut) y = bg_size-cut;
+	else if (y<cut) y = cut;
 	vec2 tex_pos = vec2(tp.x, base_y + y);
 	vec4 texture_color = texture2D(texture, tex_pos);
-	if (texture_color.a<0.01) discard;
 	gl_FragColor = texture_color*vec4((use_lightning ? compute_lights() : vec3(basic_light)), 1.0);
 	if (eight_bit_mode) gl_FragColor = vec4(toEightBit(gl_FragColor.rgb), gl_FragColor.a);
 	gl_FragColor = computeInvertion(gl_FragColor);
@@ -82,7 +85,7 @@ void main(void) {
 		gl.uniform1f(this.uTime, time);
 		gl.uniform1f(this.uEightBitMode, conf.eightBitMode);
 		gl.uniform1f(this.uUseLightning, conf.useLightning);
-		gl.uniform1f(this.uBgPosition, this.bgPosition);
+		gl.uniform1f(this.uBgPosition, (this.bgPosition>=0 ? this.bgPosition%1: (1-Math.abs(this.bgPosition)%1)%1));
 		gl.uniform2fv(this.uInvertionPoint, this.invertionPoint);
 		gl.uniform1f(this.uInvertionRange, this.invertionRange);
 	}
@@ -188,6 +191,7 @@ void main(void) {
 	}
 	
 	constructor() {
+		this.bgTextureSize = 512;
 		this.texturesNo = texNo(BackgroundTextures);
 		this.bgPosition = 0;
 		this.position = [];

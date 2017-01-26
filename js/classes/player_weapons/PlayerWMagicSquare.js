@@ -60,6 +60,17 @@ class PlayerWMagicSquare {
 		}
 	}
 	
+	getInfo() {
+		return ['weapon upgrade level: '+this.level,
+			'Shoots strange low speed energy bullets'];
+	}
+	
+	getTooltip() {
+		return ['price: '+this.price,
+			'Simple, cheap and deadly, this weapon shoots',
+			'stream of bullets at your enemies'];
+	}
+	
 	constructor(slot = 0) {
 		this.level = 0;
 		this.cooldown = 0;

@@ -45,6 +45,19 @@ class PlayerWOrbs2 {
 	
 	levelChanged() {}
 	
+	getInfo() {
+		var info = ['weapon upgrade level: '+this.level,
+			'Shoots tons of small bullets very rapidly'];
+		return info;
+	}
+	
+	getTooltip() {
+		var tooltip = ['price: '+this.price,
+			'Simple, cheap and deadly, this weapon shoots',
+			'stream of bullets at your enemies'];
+			return tooltip;
+	}
+	
 	constructor(slot = 0) {
 		this.level = 0;
 		this.cooldown = 0;
