@@ -15,36 +15,43 @@ class PlayerWOrbs1 {
 	
 	getData() {
 		var data = {
+			level: this.level,
 			x : this.x,
-			y : this.y
+			y : this.y,
+			angle : this.angle
 		};
 		return data;
 	}
 	
 	setData(data) {
+		this.level = data.level;
 		this.x = data.x;
 		this.y = data.y;
+		this.angle = data.angle;
 	}
 	
 	setSlot(id) {
 		var offset = p.ship.weaponOffsets[id];
+		this.angle = p.ship.weaponAngles[id];
 		this.x = Math.cos(p.angle)*offset[0]-Math.sin(p.angle)*offset[1];
 		this.y = Math.sin(p.angle)*offset[0]+Math.cos(p.angle)*offset[1];
 	}
 	
-	levelChanged() {}
+	levelChanged() {
+		if (this.level == 0) this.cooldownTime = 100;
+		else if (this.level == 1) this.cooldownTime = 50;
+		else if (this.level == 2) this.cooldownTime = 25;
+	}
 	
 	getInfo() {
-		var info = ['weapon upgrade level: '+this.level,
-			'Shoots tons of small bullets very rapidly'];
-		return info;
+		return ['Weapon upgrade level: '+this.level,
+			'Energy balls flying around the ship'];
 	}
 	
 	getTooltip() {
-		var tooltip = ['price: '+this.price,
-			'Simple, cheap and deadly, this weapon shoots',
-			'stream of bullets at your enemies'];
-			return tooltip;
+		return ['Price: '+this.price,
+			'Energy that destroys, levitating around',
+			'YOUR SHIP just for '+this.price+'$'];
 	}
 	
 	constructor(slot = 0) {
@@ -54,7 +61,7 @@ class PlayerWOrbs1 {
 		this.heat = 20;
 		this.setSlot(slot);
 		this.price = 175;
-		this.prices = [];
+		this.prices = [200, 350];
 	}
 }
 

@@ -11,6 +11,7 @@ class PauseMenu {
 			} else {
 				delete ui.menu;
 				ui.newMenu(new LevelSelectMenu());
+				effects = [];
 				g.setInvertion([0, 0], 0);
 				s.changeMusic('menu');
 			}

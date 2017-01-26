@@ -9,13 +9,13 @@ class ShipUpgradesMenu {
 			}
 		} else if (name=='enter') {
 			if (this.submenu) {
-				if (this.submenuPosition == 0) this.upgradeUpgrade(this.position);
-				else if (this.submenuPosition == 1) this.downgradeUpgrade(this.position);
-				else if (this.submenuPosition == 2) this.sellUpgrade(this.position);
+				if (this.submenuOptions[this.submenuPosition][0] == 'U') this.upgradeUpgrade(this.position);
+				else if (this.submenuOptions[this.submenuPosition][0] == 'D') this.downgradeUpgrade(this.position);
+				else if (this.submenuOptions[this.submenuPosition][0] == 'S') this.sellUpgrade(this.position);
 			} else {
 				if (this.position<this.options.length-1) {
 					this.prepareSubmenuOptions();
-					this.submenu = true;
+					this.submenu = this.submenuOptions.length>0;
 					this.submenuPosition = 0;
 				} else {
 					delete ui.menu;
@@ -39,6 +39,7 @@ class ShipUpgradesMenu {
 			stats.money -= upgrade.prices[upgrade.level];
 			upgrade.level++;
 			upgrade.levelChanged();
+			this.prepareSubmenuOptions();
 		}
 	}
 	
@@ -48,6 +49,7 @@ class ShipUpgradesMenu {
 			upgrade.level--;
 			stats.money += upgrade.prices[upgrade.level];
 			upgrade.levelChanged();
+			this.prepareSubmenuOptions();
 		}
 	}
 	
@@ -57,6 +59,7 @@ class ShipUpgradesMenu {
 		upgrade.level = 0;
 		upgrade.levelChanged();
 		this.submenu = false;
+		this.prepareSubmenuOptions();
 	}
 	
 	anyKey() {
@@ -89,7 +92,13 @@ class ShipUpgradesMenu {
 	}
 	
 	prepareSubmenuOptions() {
-		this.submenuOptions = ['Upgrade', 'Downgrade', 'Sell all upgrades'];
+		var upgrade = p.ship.upgrades[this.position];
+		this.submenuOptions = [];
+		if (upgrade.level<upgrade.prices.length) this.submenuOptions.push('Upgrade '+upgrade.prices[upgrade.level]);
+		if (upgrade.level>0) {
+			this.submenuOptions.push('Downgrade '+upgrade.prices[upgrade.level-1]);
+			this.submenuOptions.push('Sell upgrade');
+		}
 		this.submenuOptionsV = prepareOptionsPositions(this.submenuOptions, this.fontSize*0.8);
 		var offx = 0.6;
 		var offy = this.optionsV[this.position][1]-0.015;
@@ -97,6 +106,7 @@ class ShipUpgradesMenu {
 			this.submenuOptionsV[i][0] += offx;
 			this.submenuOptionsV[i][1] += offy;
 		}
+		if (this.submenuPosition>=this.submenuOptions.length) this.submenuPosition = this.submenuOptions.length-1;
 	}
 	
 	constructor() {

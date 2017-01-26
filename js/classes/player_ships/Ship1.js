@@ -44,6 +44,7 @@ class Ship1 {
 		}
 		for (var i in data.upgradesLevels) {
 			this.upgrades[i].level = data.upgradesLevels[i];
+			this.upgrades[i].levelChanged();
 		}
 	}
 	

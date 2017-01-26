@@ -7,7 +7,7 @@ class PlayerWEmpty {
 	draw() {}
 	
 	getInfo() {
-		var info = ['empty weapon slot'];
+		var info = ['Empty weapon slot'];
 		return info;
 	}
 	

@@ -67,13 +67,13 @@ class PlayerWMachinegun1 {
 	}
 	
 	getInfo() {
-		var info = ['weapon upgrade level: '+this.level,
-			'Shoots tons of small bullets very rapidly'];
+		var info = ['Weapon upgrade level: '+this.level,
+			'Rapidly shoots tons of small bullets'];
 		return info;
 	}
 	
 	getTooltip() {
-		var tooltip = ['price: '+this.price,
+		var tooltip = ['Price: '+this.price,
 			'Simple, cheap and deadly, this weapon shoots',
 			'stream of bullets at your enemies'];
 			return tooltip;

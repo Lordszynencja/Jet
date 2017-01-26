@@ -4,7 +4,7 @@ class PlayerWMagicSquare {
 		if (shoot && this.cooldown<=0) {
 			var x = p.ship.x+this.x;
 			var y = p.ship.y+this.y;
-			playerMissiles.push(new PlayerMagicSquareBullet(x, y, this.angle, this.level<2 ? 0 : (this.alternate ? 0.07 : -0.07), playerMissiles.length));
+			playerMissiles.push(new PlayerMagicSquareBullet(x, y, this.angle, this.level<2 ? 0 : (this.alternate ? 0.2 : -0.2), playerMissiles.length));
 			this.alternate = !this.alternate;
 			stats.shotsFired++;
 			this.cooldown = this.cooldownTime;
@@ -61,14 +61,14 @@ class PlayerWMagicSquare {
 	}
 	
 	getInfo() {
-		return ['weapon upgrade level: '+this.level,
+		return ['Weapon upgrade level: '+this.level,
 			'Shoots strange low speed energy bullets'];
 	}
 	
 	getTooltip() {
-		return ['price: '+this.price,
-			'Simple, cheap and deadly, this weapon shoots',
-			'stream of bullets at your enemies'];
+		return ['Price: '+this.price,
+			'If you want to disintegrate your enemies,',
+			'PICK THIS GUN'];
 	}
 	
 	constructor(slot = 0) {

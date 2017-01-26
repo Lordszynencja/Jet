@@ -42,6 +42,7 @@ class ShipWeaponsMenu {
 				stats.money -= weapon.prices[weapon.level];
 				weapon.level++;
 				weapon.levelChanged();
+				this.prepareSubmenuOptions();
 			}
 		} else {
 			var weapon = p.cargo[slot];
@@ -49,6 +50,7 @@ class ShipWeaponsMenu {
 				stats.money -= weapon.prices[weapon.level];
 				weapon.level++;
 				weapon.levelChanged();
+				this.prepareSubmenuOptions();
 			}
 		}
 	}
@@ -60,6 +62,7 @@ class ShipWeaponsMenu {
 				weapon.level--;
 				stats.money += weapon.prices[weapon.level];
 				weapon.levelChanged();
+				this.prepareSubmenuOptions();
 			}
 		} else {
 			var weapon = p.cargo[slot];
@@ -67,6 +70,7 @@ class ShipWeaponsMenu {
 				weapon.level--;
 				stats.money += weapon.prices[weapon.level];
 				weapon.levelChanged();
+				this.prepareSubmenuOptions();
 			}
 		}
 	}
@@ -123,6 +127,11 @@ class ShipWeaponsMenu {
 			g.addGUITexture('Select', findSelectSize(this.submenuOptions[this.submenuPosition], this.fontSize*0.8, this.submenuOptionsV[this.submenuPosition]));
 		}
 		g.drawText(-0.95, -0.9, 'Money:'+stats.money.toString()+'$', 0.05, [1, 1, 1, 1]);
+		if (this.position<this.options.length-1) {
+			var weapon = (this.position<p.ship.weaponsNo ? p.ship.weapons[this.position] : p.cargo[this.position-p.ship.weaponsNo]);
+			var weaponInfo = weapon.getInfo();
+			for (var i in weaponInfo) g.drawText(-0.95, -0.5-i*0.1, weaponInfo[i], 0.04, [1, 1, 1, 1]);
+		}
 	}
 	
 	prepareOptions() {
@@ -139,14 +148,24 @@ class ShipWeaponsMenu {
 	prepareSubmenuOptions() {
 		this.submenuOptions = [];
 		if (this.position<p.ship.weaponsNo) {
-			this.submenuOptions = ['Upgrade', 'Downgrade', 'Sell', 'Move to cargo'];
-			this.isWeaponSlot = true;
 			this.slot = this.position;
+			var weapon = p.ship.weapons[this.slot];
+			var upgradePrice = (weapon.level<weapon.prices.length ? weapon.prices[weapon.level] : '-');
+			var downgradePrice = (weapon.level>0 ? weapon.prices[weapon.level-1] : '-');
+			var sellPrice = weapon.price;
+			for (var i=0;i<weapon.level;i++) sellPrice += weapon.prices[i];
+			this.submenuOptions = ['Upgrade '+upgradePrice, 'Downgrade '+downgradePrice, 'Sell '+sellPrice, 'Move to cargo'];
+			this.isWeaponSlot = true;
 		} else if (this.position<this.options.length-1) {
-			this.submenuOptions = ['Upgrade', 'Downgrade', 'Sell'];
+			this.slot = this.position-p.ship.weaponsNo;
+			var weapon = p.cargo[this.slot];
+			var upgradePrice = (weapon.level<weapon.prices.length ? weapon.prices[weapon.level] : '-');
+			var downgradePrice = (weapon.level>0 ? weapon.prices[weapon.level-1] : '-');
+			var sellPrice = weapon.price;
+			for (var i=0;i<weapon.level;i++) sellPrice += weapon.prices[i];
+			this.submenuOptions = ['Upgrade '+upgradePrice, 'Downgrade '+downgradePrice, 'Sell '+sellPrice];
 			for (var i=0;i<p.ship.weaponsNo;i++) this.submenuOptions.push('Move to weapon slot '+(i+1));
 			this.isWeaponSlot = false;
-			this.slot = this.position-p.ship.weaponsNo;
 		}
 		this.submenuOptionsV = prepareOptionsPositions(this.submenuOptions, this.fontSize*0.8);
 		var offx = 0.6;

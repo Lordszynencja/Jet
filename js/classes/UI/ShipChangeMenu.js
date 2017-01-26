@@ -25,7 +25,7 @@ class ShipChangeMenu {
 			this.ship = new ship();
 			this.ship.x = -0.5;
 			this.ship.y = 0;
-		}
+		} else this.ship = null;
 	}
 	
 	anyKey() {
@@ -36,8 +36,11 @@ class ShipChangeMenu {
 	
 	draw() {
 		g.addBackgroundTexture('ground', makeCoords2(1, 1));
-		if (this.position<this.availableShips.length) this.ship.draw();
-		else p.ship.draw();
+		if (this.position<this.availableShips.length) {
+			this.ship.draw();
+			var priceText = this.ship.price+'$';
+			g.drawText(-0.5-priceText.length*0.05, -0.7, priceText, 0.1, [1, 1, 1, 1]);
+		} else p.ship.draw();
 		for (var i in effects) effects[i].draw();
 		for (var i=0;i<this.options.length;i++) {
 			var xy = this.optionsV[i];

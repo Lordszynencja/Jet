@@ -46,16 +46,15 @@ class PlayerWOrbs2 {
 	levelChanged() {}
 	
 	getInfo() {
-		var info = ['weapon upgrade level: '+this.level,
-			'Shoots tons of small bullets very rapidly'];
-		return info;
+		return ['Weapon upgrade level: '+this.level,
+			'Metal balls flying around in strange shape'];
 	}
 	
 	getTooltip() {
-		var tooltip = ['price: '+this.price,
-			'Simple, cheap and deadly, this weapon shoots',
-			'stream of bullets at your enemies'];
-			return tooltip;
+		return ['Price: '+this.price,
+			'These hard metal balls fly at the most',
+			'unpredictable direction, which makes them',
+			'unavoidable'];
 	}
 	
 	constructor(slot = 0) {
@@ -71,5 +70,5 @@ class PlayerWOrbs2 {
 
 classesList["PlayerWOrbs2"] = PlayerWOrbs2;
 levelUnlocks.items[0].push(PlayerWOrbs2);
-names["PlayerWOrbs2"] = 'Hard-Hitters';
+names["PlayerWOrbs2"] = 'Crazy Balls';
 

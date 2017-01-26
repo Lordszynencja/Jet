@@ -69,6 +69,7 @@ class ItemShop {
 			g.drawText(xy[0], xy[1], this.options[i], this.fontSize, [1, 1, 1, 1]);
 		}
 		g.drawText(-0.95, -0.9, 'Money:'+stats.money.toString()+'$', 0.05, [1, 1, 1, 1]);
+		g.drawText(-0.9, 0.8, 'Press space to test the weapon', 0.06, [1, 1, 1, 1]);
 		g.addGUITexture('Select', findSelectSize(this.options[this.position], this.fontSize, this.optionsV[this.position]));
 	}
 	

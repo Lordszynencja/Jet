@@ -25,7 +25,7 @@ class LevelSelectMenu {
 				delete ui.menu;
 				ui.newMenu(new MainMenu());
 			}
-		} else if (this.position<this.options.length && name=='down') {
+		} else if (this.position<this.options.length-1 && name=='down') {
 			this.position++;
 		} else if (this.position>0 && name=='up') {
 			this.position--;

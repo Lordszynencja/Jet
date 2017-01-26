@@ -36,16 +36,14 @@ class PlayerWLaser1 {
 	levelChanged() {}
 	
 	getInfo() {
-		var info = ['weapon upgrade level: '+this.level,
-			'Shoots tons of small bullets very rapidly'];
-		return info;
+		return ['Weapon upgrade level: '+this.level,
+			'Big red laser'];
 	}
 	
 	getTooltip() {
-		var tooltip = ['price: '+this.price,
-			'Simple, cheap and deadly, this weapon shoots',
-			'stream of bullets at your enemies'];
-			return tooltip;
+		return ['Price: '+this.price,
+			'You: big red laser',
+			'Enemies: big red holes'];
 	}
 	
 	constructor(slot = 0) {

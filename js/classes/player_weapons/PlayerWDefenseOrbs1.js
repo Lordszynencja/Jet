@@ -31,16 +31,15 @@ class PlayerWDefenseOrbs1 {
 	levelChanged() {}
 	
 	getInfo() {
-		var info = ['weapon upgrade level: '+this.level,
-			'Shoots tons of small bullets very rapidly'];
-		return info;
+		return ['Weapon upgrade level: '+this.level,
+			'Utility device that creates balls',
+			'which defend you'];
 	}
 	
 	getTooltip() {
-		var tooltip = ['price: '+this.price,
-			'Simple, cheap and deadly, this weapon shoots',
-			'stream of bullets at your enemies'];
-			return tooltip;
+		return ['Price: '+this.price,
+			'This device creates metal balls that orbit',
+			'around your ship, taking hits'];
 	}
 	
 	constructor(slot) {
