@@ -74,12 +74,10 @@ class Game {
 	}
 	
 	handleStatsVersion(v) {
-		if (v<actualVersion) {
+		if (!v && v<actualVersion) {
 			console.log('old save, version:'+v);
 			if (v == undefined || v == null || v<2) this.resetProgress();
-			else {
-				loadPlayer();
-			}
+			else loadPlayer();
 			stats.version = actualVersion;
 		} else {
 			loadPlayer();
@@ -98,15 +96,12 @@ class Game {
 	}
 	
 	constructor() {
-		if (!loaded) {
-			loaded = true;
-			g = new Graphics();
-			s = new Sound();
-			c = new Controls();
-			ui = new UI();
-			p = new Player();
-			p.ship = new Ship1();
-		}
+		g = new Graphics();
+		s = new Sound();
+		c = new Controls();
+		ui = new UI();
+		p = new Player();
+		p.ship = new Ship1();
 		this.saveName = 'gameSave';
 		this.saveConfigName = 'theJetConfig';
 	}
