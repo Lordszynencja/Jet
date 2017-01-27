@@ -65,23 +65,12 @@ class Game {
 		if (loadedConfigSave) {
 			for (var i in loadedConfigSave) conf[i] = loadedConfigSave[i];
 		}
-		this.handleStatsVersion(stats.version);
+		versionHandler.handleOldSave(stats.version);
 	}
 	
 	draw() {
 		g.draw();
 		requestAnimationFrame(game.draw);
-	}
-	
-	handleStatsVersion(v) {
-		if (!v || v<actualVersion) {
-			console.log('old save, version:'+v);
-			if (v == undefined || v == null || v<2) this.resetProgress();
-			else loadPlayer();
-			stats.version = actualVersion;
-		} else {
-			loadPlayer();
-		}
 	}
 	
 	resetProgress() {
