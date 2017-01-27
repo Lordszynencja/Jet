@@ -74,7 +74,7 @@ class Game {
 	}
 	
 	handleStatsVersion(v) {
-		if (!v && v<actualVersion) {
+		if (!v || v<actualVersion) {
 			console.log('old save, version:'+v);
 			if (v == undefined || v == null || v<2) this.resetProgress();
 			else loadPlayer();
