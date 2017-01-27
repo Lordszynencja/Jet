@@ -95,6 +95,17 @@ class Graphics {
 		sh['particles'].addEffect(xy, color, size);
 	}
 	
+	addLine(xy, color) {
+		sh['lines'].addEffect(xy[0], color[0]);
+		sh['lines'].addEffect(xy[1], color[1]);
+	}
+	
+	addTriangle(xy, color) {
+		sh['triangles'].addEffect(xy[0], color[0]);
+		sh['triangles'].addEffect(xy[1], color[1]);
+		sh['triangles'].addEffect(xy[2], color[2]);
+	}
+	
 	constructor() {
 		sh['tex_background'] = new ShaderTexturesBackground();
 		sh['effect_jet'] = new ShaderJetEngineEffect();
@@ -107,6 +118,8 @@ class Graphics {
 		sh['effect0'] = new ShaderEffect0();
 		sh['effect1'] = new ShaderEffect1();
 		sh['particles'] = new ShaderParticles();
+		sh['lines'] = new ShaderLines();
+		sh['triangles'] = new ShaderTriangles();
 		
 		this.shadersEnum = [
 			'tex_background',
@@ -118,7 +131,9 @@ class Graphics {
 			'tex_text',
 			'effect0',
 			'effect1',
-			'particles'];
+			'particles',
+			'lines',
+			'triangles'];
 			
 		this.lightningEnum = {
 			'tex_background' : true,
@@ -130,7 +145,9 @@ class Graphics {
 			'tex_text' : false,
 			'effect0' : false,
 			'effect1' : false,
-			'particles' : false
+			'particles' : false,
+			'lines' : false,
+			'triangles' : false
 		};
 		
 		this.invertionEnum = [
@@ -141,7 +158,9 @@ class Graphics {
 			'tex_bullet',
 			'effect0',
 			'effect1',
-			'particles'
+			'particles',
+			'lines',
+			'triangles'
 		];
 	}
 }
