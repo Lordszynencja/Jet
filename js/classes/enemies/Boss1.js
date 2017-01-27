@@ -72,8 +72,11 @@ class Boss1 {
 	}
 	
 	dealDamage(damage) {
-		if (standardDealDamage(this, damage)) {
-			this.escaping = true;
+		if (!this.escaping) {
+			if (standardDealDamage(this, damage)) {
+				this.escaping = true;
+				effects.push(new Explosion(this.x+0.1, this.y+0.05, 0.05, effects.length));
+			}
 		}
 	}
 	

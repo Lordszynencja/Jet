@@ -71,7 +71,6 @@ void main(void) {
 		this.color[n4+1] = color[1];
 		this.color[n4+2] = color[2];
 		this.color[n4+3] = color[3];
-		this.size[this.n] = size;
 		this.n++;
 	}
 

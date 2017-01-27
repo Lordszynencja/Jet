@@ -44,6 +44,7 @@ class Enemy1 {
 	dealDamage(damage) {
 		if (standardDealDamage(this, damage)) {
 			standardEnemyDestroy(this);
+			effects.push(new Explosion(this.x, this.y, this.size*0.5, effects.length));
 		}
 	}
 	

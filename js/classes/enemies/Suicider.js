@@ -14,7 +14,8 @@ class Suicider {
 		if (this.x>4 || this.x<-4 || this.y>4 || this.y<-4) delete enemies[this.num];
 		standardEnemyUpdate(this);
 		if (collideEnemyWithPlayer(this)) {
-			standardEnemyDestroy(this);
+			delete enemies[this.num];
+			effects.push(new Explosion(this.x, this.y, this.size, effects.length));
 			p.ship.dealDamage(this.collissionDamage);
 		}
 		for (var i in this.jetEngines) this.jetEngines[i].update();
@@ -23,6 +24,7 @@ class Suicider {
 	dealDamage(damage) {
 		if (standardDealDamage(this, damage)) {
 			standardEnemyDestroy(this);
+			effects.push(new Explosion(this.x, this.y, this.size*0.5, effects.length));
 		}
 	}
 	
