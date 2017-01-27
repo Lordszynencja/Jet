@@ -65,10 +65,7 @@ class Game {
 		if (loadedConfigSave) {
 			for (var i in loadedConfigSave) conf[i] = loadedConfigSave[i];
 		}
-		loadPlayer();
-		if (stats.shipLevel == -1) {
-			this.resetShip();
-		}
+		this.handleStatsVersion(stats.version);
 	}
 	
 	draw() {
@@ -76,25 +73,28 @@ class Game {
 		requestAnimationFrame(game.draw);
 	}
 	
-	resetShip() {
-		delete p.ship;
-		p.ship = new Ship1();
-		p.ship.addWeapon(PlayerWMachinegun1, 0);
-		p.ship.addWeapon(PlayerWMachinegun1, 1);
-		p.ship.addWeapon(PlayerWEmpty, 2);
-		p.ship.addWeapon(PlayerWEmpty, 3);
-		stats.shipLevel = 0;
+	handleStatsVersion(v) {
+		if (v<actualVersion) {
+			console.log('old save, version:'+v);
+			if (v == undefined || v == null || v<2) this.resetProgress();
+			else {
+				loadPlayer();
+			}
+			stats.version = actualVersion;
+		} else {
+			loadPlayer();
+		}
 	}
 	
 	resetProgress() {
 		stats.score = 0;
-		stats.money = 0;
+		stats.money = 200;
 		stats.level = 0;
 		stats.shotsFired = 0;
 		stats.enemiesDefeated = 0;
 		stats.bossesDefeated = 0;
-		stats.shipLevel = 0;
-		this.resetShip();
+		p.ship = new SmallShip();
+		p.cargo = [];
 	}
 	
 	constructor() {
@@ -115,3 +115,7 @@ class Game {
 game = new Game();
 game.loadGame();
 game.start();
+
+function z() {
+	stats.money = 9999;
+}

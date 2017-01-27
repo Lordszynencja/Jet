@@ -11,7 +11,7 @@ class PlayerWOrbs2 {
 				playerMissiles.push(new PlayerOrbs2(x, y, r1, r2, speed, playerMissiles.length));
 				playerMissiles.push(new PlayerOrbs2(x, y, -r1, -r2, -speed, playerMissiles.length));
 				speed *= 2;
-			stats.shotsFired += 2;
+				stats.shotsFired += 2;
 			}
 			this.cooldown = this.cooldownTime;
 			return this.heat;

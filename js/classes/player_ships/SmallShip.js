@@ -1,22 +1,10 @@
 class SmallShip {
 	update() {
-		this.x = p.x;
-		this.y = p.y;
-		
-		var canShoot = c.isPressed("space") && !this.overheat;
-		for (var i in this.upgrades) this.upgrades[i].update();
-		for (var i in this.weapons) {
-			this.heat += this.weapons[i].update(canShoot);
-		}
-		if (this.heat>=this.maxHeat) this.heat = this.maxHeat, this.overheat = true;
-		if (this.overheat && this.heat<=0) this.overheat = false;
-		if (this.heat<0) this.heat = 0;
-		for (var i in this.rotatedHitbox) this.hitbox[i] = moveModel(this.rotatedHitbox[i], this.x, this.y);
-		for (var i in this.jetEngines) this.jetEngines[i].update();
+		standardPlayerShipUpdate(this);
 	}
 	
 	dealDamage(damage) {
-		this.hp -= damage;
+		this.upgrades.hull.damage(damage);
 	}
 	
 	prepareHitbox() {
@@ -29,10 +17,6 @@ class SmallShip {
 		this.hitbox = [];
 	}
 	
-	addWeapon(weapon, weaponNo) {
-		if (weaponNo>=0 && weaponNo<this.weaponsNo) this.weapons[weaponNo] = new weapon(weaponNo);
-	}
-	
 	resetWeapons() {
 		for (var i=0;i<this.weaponsNo;i++) {
 			delete this.weapons[i];
@@ -40,71 +24,59 @@ class SmallShip {
 		}
 	}
 	
-	setData(data) {
-		for (var i in data.weapons) {
-			this.weapons[i] = deserialize(data.weapons[i]);
-		}
-		for (var i in data.upgradesLevels) {
-			this.upgrades[i].level = data.upgradesLevels[i];
-			this.upgrades[i].levelChanged();
-		}
+	getData() {
+		return standardsPlayerShipGetData(this);
 	}
 	
-	getData() {
-		var data = {};
-		var weapons = [];
-		for (var i in this.weapons) {
-			weapons[i] = serialize(this.weapons[i]);
-		}
-		data.weapons = weapons;
-		var upgradesLevels = [];
-		for (var i in this.upgrades) {
-			upgradesLevels[i] = this.upgrades[i].level;
-		}
-		data.upgradesLevels = upgradesLevels;
-		return data;
+	setData(data) {
+		standardsPlayerShipSetData(this, data);
 	}
 	
 	draw() {
-		g.addPlayerShipTexture('Ship1', moveModel(this.v, this.x, this.y));
-		for (var i in this.weapons) this.weapons[i].draw();
-		for (var i in this.upgrades) this.upgrades[i].draw();
-		for (var i in this.jetEngines) this.jetEngines[i].draw();
+		standardPlayerShipDraw(this);
 	}
 	
 	drawIndicators() {
 		var indAngleMax = Math.PI*1.2;
 		var indAngleMin = Math.PI*-0.2;
-
-		var hpAngle = this.hp/this.maxHP*indAngleMax + (1-this.hp/this.maxHP)*indAngleMin;
-		g.addGUITexture('HealthBg', moveModel(makeCoords1(0.08), 0.9, -0.9))
-		g.addEffect1([0.9, -0.9], 0.06, hpAngle, [16, 0, 0]);
+		var HP = this.upgrades.hull.shownHP;
+		var heat = this.upgrades.cooling.shownHeat;
 		
-		var heatAngle = this.heat/this.maxHeat*indAngleMax + (1-this.heat/this.maxHeat)*indAngleMin;
-		g.addGUITexture('HeatBg', moveModel(makeCoords1(0.08), 0.75, -0.9))
-		g.addEffect1([0.75, -0.9], 0.06, heatAngle, [0, 0, 16]);
+		var r = 0.1;
+		var r1 = r*0.8;
+		var y = -0.99+r;
+		var x1 = 0.99-r;
+		var x2 = 0.99-3*r;
+		
+		var hpAngle = HP*indAngleMax + (1-HP)*indAngleMin;
+		g.addGUITexture('HealthBg', moveModel(makeCoords1(r), 0.99-r, y))
+		g.addEffect1([x1, y], r1, hpAngle, [16, 0, 0]);
+		
+		var heatAngle = heat*indAngleMax + (1-heat)*indAngleMin;
+		g.addGUITexture('HeatBg', moveModel(makeCoords1(r), 0.99-3*r, y))
+		g.addEffect1([x2, y], r1, heatAngle, [0, 0, 16]);
 	}
 	
 	prepare() {
-		this.heat = 0;
-		this.hp = this.maxHP;
-		this.overheat = false;
+		this.x = p.x;
+		this.y = p.y;
+		for (var i in this.upgrades) this.upgrades[i].prepare();
 	}
 	
 	constructor() {
 		this.price = 800;
-		this.upgrades = [
-			new CoolingUpgrade([1, 1.5, 2, 3, 4], [50, 70, 115, 85]),
-			new EngineUpgrade([0.005], [0.04], []),
-			new WingsUpgrade([0.005], [0.03], [])];
+		this.texture = 'Ship1';
+		this.upgrades = {
+			'cooling': new CoolingUpgrade([1, 1.5, 2, 3, 4], [100, 100, 100, 100, 100, 100, 100], [0, 0, 0, 0, 0, 0, 0], [50, 70, 115, 85]),
+			'engine': new EngineUpgrade([0.005, 0.007, 0.009], [0.04, 0.05, 0.05], [100, 120]),
+			'wings': new WingsUpgrade([0.003, 0.004, 0.005, 0.006], [0.03, 0.035, 0.04, 0.04], [50, 70, 80]),
+			'hull': new HullUpgrade([50, 60, 75], [1, 0.95, 0.9], [100, 130])};
 		this.size = 0.12;
 		this.width = 0.1;
 		this.height = 0.1;
-		this.x = p.x;
-		this.y = p.y;
+		this.collissionDamage = 0.2;
 		this.v = rotateModel(makeCoords2(0.1, 0.1), p.angle);
 		this.maxHeat = 100;
-		this.maxHP = 50;
 		this.weapons = [];
 		this.weaponsNo = 2;
 		this.weaponOffsets = [[-0.02, 0.1], [-0.02, -0.1]];

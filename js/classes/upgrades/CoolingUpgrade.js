@@ -1,18 +1,32 @@
 class CoolingUpgrade {
 	update() {
-		p.ship.heat -= this.cooling;
+		this.heat -= this.cooling;
+		if (this.heat>=this.maxHeat) this.overheat = true;
+		if (this.overheat && this.heat<=this.cooldown) this.overheat = false;
+		if (this.heat<0) this.heat = 0;
+		this.shownHeat = this.shownHeat*0.8+0.2*this.heat/this.maxHeat;
+		if (this.shownHeat>1) this.shownHeat = 1;
 	}
 	
 	draw() {}
 	
 	levelChanged() {
-		this.cooling = this.values[this.level];
+		this.cooling = this.coolingValues[this.level];
+		this.maxHeat = this.overheatValues[this.level];
+		this.cooldown = this.cooldownValues[this.level];
 	}
 	
-	constructor(values, prices) {
-		this.values = values;
+	prepare() {
+		this.heat = 0;
+		this.shownHeat = 0;
+		this.overheat = false;
+	}
+	
+	constructor(coolingValues, overheatValues, cooldownValues, prices) {
+		this.coolingValues = coolingValues;
+		this.overheatValues = overheatValues;
+		this.cooldownValues = cooldownValues;
 		this.prices = prices;
-		if (values.length != prices.length+1) console.log("WARNING, wrong values/prices:"+values+"\n"+prices);
 		this.level = 0;
 		this.levelChanged();
 	}

@@ -12,25 +12,32 @@ const indAngleMin = Math.PI*-0.2;
 const hpColor = [16, 0, 0];
 const heatColor = [0, 0, 16];
 
+const damageTypes = {
+	'normal' : 0,
+	'collission' : 1,
+	'laser' : 2,
+	'other' : 3
+};
+
 const BackgroundTextures = {
 	'TreesBases' : [0, makeTexCoords(0, 511, 0, 511)],
 	'ground' : [0, makeTexCoords(0, 511, 512, 1023)],
 	'winter' : [0, makeTexCoords(512, 1023, 512, 1023)]
-}
+};
 
 const EnemyTextures = {
 	'EnemyShip0' : [0, makeTexCoords(0, 255, 0, 255)]
-}
+};
 
 const BulletsTextures = {
 	'Bullet0' : [0, makeTexCoords(0, 31, 0, 31)],
 	'Orb0' : [0, makeTexCoords(0, 31, 32, 63)],
 	'Orb1' : [0, makeTexCoords(0, 31, 64, 95)]
-}
+};
 
 const PlayerShipTextures = {
 	'Ship1' : [0, makeTexCoords(0, 255, 0, 255)]
-}
+};
 
 const GUITextures = {
 	'Select' : [0, makeTexCoords(0, 127, 224, 255)],
@@ -52,8 +59,8 @@ const GUITextures = {
 	'LevelFinished' : [0, makeTexCoords(128, 255, 0, 63)],
 	'GameOver' : [0, makeTexCoords(0, 127, 0, 63)],
 	'HeatBg' : [0, makeTexCoords(0, 63, 256, 319)],
-	'HealthBg' : [0, makeTexCoords(64, 128, 256, 319)]
-}
+	'HealthBg' : [0, makeTexCoords(64, 127, 256, 319)]
+};
 
 const LettersNumbers = {
 	'A': [0, makeTexCoords(0, 31, 0, 63)],
@@ -134,4 +141,4 @@ const LettersNumbers = {
 	',': [0, makeTexCoords(96, 127, 512, 575)],
 	'.': [0, makeTexCoords(128, 159, 512, 575)],
 	'"': [0, makeTexCoords(160, 192, 512, 575)]
-}
+};

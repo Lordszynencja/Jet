@@ -1,6 +1,7 @@
 var time = 0;
 var loaded = false;
 var levelsNumber = 2;
+const actualVersion = 2;
 
 var conf = {
 	eightBitMode: false,
@@ -19,8 +20,7 @@ var stats = {
 	level: 0,
 	shotsFired: 0,
 	enemiesDefeated: 0,
-	bossesDefeated: 0,
-	shipLevel: -1
+	bossesDefeated: 0
 };
 
 var classesList = {};

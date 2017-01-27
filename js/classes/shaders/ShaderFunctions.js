@@ -224,7 +224,7 @@ uniform vec2 invertion_point;
 uniform float invertion_range;
 
 vec2 fragCoordPos() {
-	return gl_FragCoord.xy/400.0-1.0;
+	return gl_FragCoord.xy/`+(canvas.height/2).toFixed(5)+`-1.0;
 }
 
 vec4 computeInvertion(vec4 c) {

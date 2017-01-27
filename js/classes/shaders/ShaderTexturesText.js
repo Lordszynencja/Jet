@@ -38,6 +38,7 @@ void main(void) {
 	vec4 texture_color = texture2D(texture, tp);
 	if (texture_color.a<0.01) discard;
 	gl_FragColor = texture_color*c;
+	gl_FragColor.a *= gl_FragColor.a;
 	if (eight_bit_mode) gl_FragColor = vec4(toEightBit(gl_FragColor.rgb), gl_FragColor.a);
 }
 `;

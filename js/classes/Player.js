@@ -8,14 +8,6 @@ class Player {
 			this.y += v;
 			this.ship.y += v;
 		}
-		if (this.ship.hp<0) {
-			this.ship.hp = 0;
-			if (!this.dead) {
-				s.play("gameover", 1);
-				this.dead = true;
-				this.dead_timer = time;
-			}
-		}
 		if (this.finished && time-this.finish_timer>250) {
 			ui.newMenu(new LevelSelectMenu());
 			s.changeMusic('menu');
@@ -33,12 +25,10 @@ class Player {
 	prepare() {
 		this.x = 0.0;
 		this.y = -0.75;
-		this.vx = 0;
-		this.vy = 0;
-		this.invincibility = 0;
 		this.angle = Math.PI/2;
 		this.dead = false;
 		this.finished = false;
+		if (this.ship != null && this.ship != undefined) this.ship.prepare();
 	}
 	
 	draw() {

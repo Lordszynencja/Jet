@@ -28,6 +28,10 @@ class WingsUpgrade {
 		this.speed = this.speeds[this.level];
 	}
 	
+	prepare() {
+		this.v = 0;
+	}
+	
 	constructor(agilities, speeds, prices) {
 		this.agilities = agilities;
 		this.speeds = speeds;

@@ -34,7 +34,7 @@ class ShipUpgradesMenu {
 	}
 	
 	upgradeUpgrade(slot) {
-		var upgrade = p.ship.upgrades[slot];
+		var upgrade = p.ship.upgrades[this.slots[slot]];
 		if (upgrade.level<upgrade.prices.length && upgrade.prices[upgrade.level]<=stats.money) {
 			stats.money -= upgrade.prices[upgrade.level];
 			upgrade.level++;
@@ -44,7 +44,7 @@ class ShipUpgradesMenu {
 	}
 	
 	downgradeUpgrade(slot) {
-		var upgrade = p.ship.upgrades[slot];
+		var upgrade = p.ship.upgrades[this.slots[slot]];
 		if (upgrade.level>0) {
 			upgrade.level--;
 			stats.money += upgrade.prices[upgrade.level];
@@ -54,7 +54,7 @@ class ShipUpgradesMenu {
 	}
 	
 	sellUpgrade(slot) {
-		var upgrade = p.ship.upgrades[slot];
+		var upgrade = p.ship.upgrades[this.slots[slot]];
 		for (var i=0;i<upgrade.level;i++) stats.money += upgrade.prices[i];
 		upgrade.level = 0;
 		upgrade.levelChanged();
@@ -92,7 +92,7 @@ class ShipUpgradesMenu {
 	}
 	
 	prepareSubmenuOptions() {
-		var upgrade = p.ship.upgrades[this.position];
+		var upgrade = p.ship.upgrades[this.slots[this.position]];
 		this.submenuOptions = [];
 		if (upgrade.level<upgrade.prices.length) this.submenuOptions.push('Upgrade '+upgrade.prices[upgrade.level]);
 		if (upgrade.level>0) {
@@ -115,7 +115,11 @@ class ShipUpgradesMenu {
 		this.submenu = false;
 		this.fontSize = 0.05;
 		this.options = [];
-		for (var i in p.ship.upgrades) this.options.push(names[p.ship.upgrades[i].constructor.name]);
+		this.slots = [];
+		for (var i in p.ship.upgrades) {
+			this.options.push(names[p.ship.upgrades[i].constructor.name]);
+			this.slots.push(i);
+		}
 		this.options.push('Exit');
 		this.optionsV = prepareOptionsPositions(this.options, this.fontSize);
 	}

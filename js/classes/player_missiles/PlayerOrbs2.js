@@ -60,7 +60,7 @@ class PlayerOrbs2 {
 		this.size = 0.03;
 		this.angle = 0;
 		this.angleSpeed = angleSpeed;
-		this.damage = 0.5;
+		this.damage = 5;
 		this.center = [x, y];
 		this.r1 = r1;
 		this.r2 = r2;

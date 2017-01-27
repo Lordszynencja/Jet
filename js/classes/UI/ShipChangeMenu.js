@@ -38,7 +38,7 @@ class ShipChangeMenu {
 		g.addBackgroundTexture('ground', makeCoords2(1, 1));
 		if (this.position<this.availableShips.length) {
 			this.ship.draw();
-			var priceText = this.ship.price+'$';
+			var priceText = (this.ship.constructor.name == p.ship.constructor.name ? 'OWNED' : this.ship.price+'$');
 			g.drawText(-0.5-priceText.length*0.05, -0.7, priceText, 0.1, [1, 1, 1, 1]);
 		} else p.ship.draw();
 		for (var i in effects) effects[i].draw();
@@ -51,16 +51,15 @@ class ShipChangeMenu {
 	}
 	
 	constructor() {
+		this.position = 0;
 		this.fontSize = 0.05;
 		this.options = [];
+		
 		this.availableShips = getShipsForCurrentLevel();
 		for (var i in this.availableShips) this.options.push(names[this.availableShips[i].name]);
 		this.options.push("Exit");
 		this.optionsV = prepareOptionsPositions(this.options, this.fontSize);
 		for (var i in this.optionsV) this.optionsV[i][0] += 0.5;
-		this.ship = new Ship1();
-		this.ship.x = -0.5;
-		this.ship.y = 0;
-		this.position = 0;
+		this.changePreviewedShip();
 	}
 }

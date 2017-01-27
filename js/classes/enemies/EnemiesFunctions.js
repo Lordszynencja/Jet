@@ -25,3 +25,19 @@ function drawHitbox(enemy) {
 		}
 	}
 }
+
+function collideEnemyWithPlayer(enemy) {
+	var x = enemy.x - p.x;
+	var y = enemy.y - p.y;
+	var maxDistance = enemy.size+p.ship.size;
+	if (x*x+y*y<maxDistance*maxDistance && !p.dead) {
+		for (var i in p.ship.hitbox) {
+			for (var j in enemy.hitbox) {
+				if (collide(enemy.hitbox[j], p.ship.hitbox[i])) {
+					return true;
+				}
+			}
+		}
+	}
+	return false;
+}

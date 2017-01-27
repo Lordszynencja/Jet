@@ -55,6 +55,7 @@ class Boss1 {
 				p.finish_timer = time;
 				g.setInvertion([0, 0], 0);
 			}
+			for (var i in this.jetEngines) this.jetEngines[i].update();
 		} else {
 			this.move();
 			for (var i in this.rotatedHitbox) this.hitbox[i] = moveModel(this.rotatedHitbox[i], this.x, this.y);
@@ -62,6 +63,10 @@ class Boss1 {
 				for (var i in this.weapons) this.weapons[i].update(true);
 			}
 			for (var i in this.jetEngines) this.jetEngines[i].update();
+		}
+		if (collideEnemyWithPlayer(this)) {
+			this.hp -= p.ship.collissionDamage;
+			p.ship.dealDamage(this.collissionDamage);
 		}
 		this.time++;
 	}
@@ -87,6 +92,7 @@ class Boss1 {
 		this.size = 0.45;
 		this.x = 0;
 		this.y = 1.5;
+		this.collissionDamage = 0.5;
 		this.vx = 0;
 		this.vy = 0;
 		this.angle = Math.PI*1.5;

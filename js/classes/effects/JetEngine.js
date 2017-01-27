@@ -107,6 +107,7 @@ class JetEngine {
 		this.pos = [this.ship.x+this.offset[0], this.ship.y+this.offset[1]];
 		this.width = sizex;
 		this.height = sizey;
+		this.defaultHeight = sizey;
 		this.color = color;
 		this.randomness = randomness;
 	}

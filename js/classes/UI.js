@@ -9,6 +9,7 @@ class UI {
 		playerMissiles = [];
 		backgroundObjects = [];
 		effects = [];
+		p.prepare();
 	}
 	
 	newMenu(newMenu) {

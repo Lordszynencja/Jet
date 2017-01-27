@@ -1,4 +1,4 @@
-class Level1 {
+class Level2 {
 	update() {
 		standardLevelUpdate(this);
 	}
@@ -17,7 +17,7 @@ class Level1 {
 		this.number = 1;
 		this.boss = Boss1;
 		this.bossPresent = false;
-		this.texture = 'ground';
+		this.texture = 'winter';
 		this.music = 'level1';
 		this.enemies = [
 		[0, Enemy1, [-0.5, 1.2], [0.01, Math.PI*1.5], []],
@@ -43,5 +43,5 @@ class Level1 {
 	}
 }
 
-classesList["Level1"] = Level1;
-if (levelsNumber<2) levelsNumber = 2;
+classesList["Level2"] = Level2;
+if (levelsNumber<3) levelsNumber = 3;

@@ -51,6 +51,7 @@ class LevelSelectMenu {
 			g.drawText(xy[0], xy[1], this.options[i], this.fontSize, colorActive);
 		}
 		g.addGUITexture('Select', findSelectSize(this.options[this.position], this.fontSize, this.optionsV[this.position]));
+		g.drawText(-0.99, 0.99, 'score: '+stats.score.toString(), 0.025, [0.9, 0.9, 0.1, 1]);
 	}
 	
 	constructor() {

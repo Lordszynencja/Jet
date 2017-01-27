@@ -1,4 +1,4 @@
-class Enemy1 {
+class Suicider {
 	prepareHitbox() {
 		this.defaultHitbox = [
 		[[-0.025, 0.15], [-0.047, 0.15], [-0.098, 0.06], [-0.098, -0.06], [-0.047, -0.15], [-0.025, -0.15]],
@@ -8,34 +8,13 @@ class Enemy1 {
 		this.hitbox = [];
 	}
 	
-	inCollisionRange() {
-		var x = this.x - p.x;
-		var y = this.y - p.y;
-		var maxDistance = this.size+p.ship.size;
-		return (x*x+y*y<maxDistance*maxDistance);
-	}
-	
-	collide() {
-		if (!p.dead && this.inCollisionRange()) {
-			var i;
-			for (i in p.ship.hitbox) {
-				for (j in this.hitbox) {
-					if (collide(this.hitbox[j], p.ship.hitbox[i])) {
-						return true;
-					}
-				}
-			}
-		}
-		return false;
-	}
-	
 	update() {
 		this.x += this.vx;
 		this.y += this.vy;
 		if (this.x>4 || this.x<-4 || this.y>4 || this.y<-4) delete enemies[this.num];
 		standardEnemyUpdate(this);
 		if (collideEnemyWithPlayer(this)) {
-			this.hp -= p.ship.collissionDamage;
+			standardEnemyDestroy(this);
 			p.ship.dealDamage(this.collissionDamage);
 		}
 		for (var i in this.jetEngines) this.jetEngines[i].update();
@@ -54,14 +33,14 @@ class Enemy1 {
 	}
 	
 	constructor(xy, movement, num, data) {
-		this.hp = 20;
-		this.points = 100;
-		this.money = 10;
+		this.hp = 10;
+		this.points = 200;
+		this.money = 20;
 		this.size = 0.15;
-		this.weapons = [new EnemyWMachinegun1(0.15,0,this)];
+		this.weapons = [];
 		this.x = xy[0];
 		this.y = xy[1];
-		this.collissionDamage = 0.3;
+		this.collissionDamage = 20;
 		this.speed = movement[0];
 		this.angle = movement[1];
 		this.vx = Math.cos(this.angle)*this.speed;
@@ -71,6 +50,6 @@ class Enemy1 {
 		this.prepareHitbox();
 		var c = Math.cos(angle);
 		var s = Math.sin(angle);
-		this.jetEngines = [new JetEngine(this, [-0.09, 0], this.angle, 0.02, 0.8, 1, [2, -0.1, -0.1])];
+		this.jetEngines = [new JetEngine(this, [-0.09, 0], this.angle, 0.02, 1.8, 1, [2, -0.1, -0.1])];
 	}
 }

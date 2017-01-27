@@ -19,6 +19,7 @@ class EngineUpgrade {
 		else if (y>=max) y = max;
 		p.y = y;
 		p.ship.y = y;
+		for (var i in p.ship.jetEngines) p.ship.jetEngines[i].height = p.ship.jetEngines[i].defaultHeight*(1+this.v*10);
 	}
 	
 	draw() {}
@@ -26,6 +27,10 @@ class EngineUpgrade {
 	levelChanged() {
 		this.power = this.powers[this.level];
 		this.speed = this.speeds[this.level];
+	}
+	
+	prepare() {
+		this.v = 0;
 	}
 	
 	constructor(powers, speeds, prices) {

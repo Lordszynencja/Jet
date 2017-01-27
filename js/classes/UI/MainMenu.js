@@ -4,7 +4,6 @@ class MainMenu {
 			if (this.position == 0) {
 				delete ui.menu;
 				ui.newMenu(new LevelSelectMenu());
-				ui.prepareGame();
 			} else {
 				delete ui.menu;
 				ui.newMenu(new Options());
