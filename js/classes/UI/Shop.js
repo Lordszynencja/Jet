@@ -13,31 +13,26 @@ class Shop {
 	}
 	
 	enter0() {
-		delete ui.menu;
 		ui.newMenu(new ShipChangeMenu());
 	}
 	
 	enter1() {
-		delete ui.menu;
 		ui.newMenu(new ShipUpgradesMenu());
 	}
 	
 	enter2() {
-		delete ui.menu;
 		ui.newMenu(new ShipWeaponsMenu());
 	}
 	
 	enter3() {
-		delete ui.menu;
 		ui.newMenu(new ItemShop());
 	}
 	
 	enter4() {
-		//test flight
+		ui.newMenu(new TestFlight());
 	}
 	
 	enter5() {
-		delete ui.menu;
 		ui.newMenu(new LevelSelectMenu());
 	}
 	
@@ -57,7 +52,7 @@ class Shop {
 		for (var i in effects) effects[i].draw();
 		for (var i=0;i<this.options.length;i++) {
 			var xy = this.optionsV[i];
-			g.drawText(xy[0], xy[1], this.options[i], this.fontSize, (i!=4 ? [1, 1, 1, 1] : [0.5, 0.5, 0.5, 1]));
+			g.drawText(xy[0], xy[1], this.options[i], this.fontSize, [1, 1, 1, 1]);
 		}
 		g.drawText(-0.95, -0.9, 'Money:'+stats.money.toString()+'$', 0.05, [1, 1, 1, 1]);
 		g.addGUITexture('Select', findSelectSize(this.options[this.position], this.fontSize, this.optionsV[this.position]));
