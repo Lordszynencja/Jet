@@ -86,8 +86,8 @@ class PlayerWMachinegun1 {
 		this.cooldownTime = 3;
 		this.setSlot(slot);
 		this.levelChanged();
-		this.price = 50;
-		this.prices = [60, 80, 120];
+		this.price = 55;
+		this.prices = [100, 140, 190];
 	}
 }
 

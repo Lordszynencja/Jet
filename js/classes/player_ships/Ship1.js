@@ -65,10 +65,10 @@ class Ship1 {
 		this.price = 1200;
 		this.texture = 'Ship1';
 		this.upgrades = {
-			'cooling': new CoolingUpgrade([1, 1.5, 2, 3, 4, 5, 6], [100, 100, 100, 100, 100, 100, 100], [0, 0, 0, 0, 0, 0, 0], [50, 70, 115, 85, 80, 60]),
-			'engine': new EngineUpgrade([0.002, 0.003, 0.006], [0.02, 0.025, 0.04], [150, 200]),
-			'wings': new WingsUpgrade([0.002, 0.004, 0.005, 0.006], [0.02, 0.03, 0.035, 0.035], [100, 85, 95]),
-			'hull': new HullUpgrade([100, 125, 175], [1, 0.95, 0.85], [130, 230])};
+			'cooling': new CoolingUpgrade([1, 1.5, 2, 3, 4, 5, 6], [100, 100, 110, 120, 130, 140, 150], [0, 0, 10, 20, 30, 40, 50], [120, 180, 210, 220, 240, 270]),
+			'engine': new EngineUpgrade([0.002, 0.003, 0.004], [0.02, 0.025, 0.03], [150, 200]),
+			'wings': new WingsUpgrade([0.002, 0.004, 0.005], [0.02, 0.03, 0.035], [120, 190]),
+			'hull': new HullUpgrade([100, 125, 175], [1, 0.95, 0.85], [230, 400])};
 		this.size = 0.18;
 		this.width = 0.15;
 		this.height = 0.15;
@@ -88,4 +88,4 @@ class Ship1 {
 
 classesList["Ship1"] = Ship1;
 levelUnlocks.ships[0].push(Ship1);
-names["Ship1"] = "Basic Ship";
+names["Ship1"] = "Basic medium Ship";

@@ -67,10 +67,10 @@ class SmallShip {
 		this.price = 800;
 		this.texture = 'Ship1';
 		this.upgrades = {
-			'cooling': new CoolingUpgrade([1, 1.5, 2, 3, 4], [100, 100, 100, 100, 100, 100, 100], [0, 0, 0, 0, 0, 0, 0], [50, 70, 115, 85]),
+			'cooling': new CoolingUpgrade([1, 1.5, 2, 3, 4], [100, 100, 110, 120, 130, 140, 150], [0, 0, 10, 20, 30, 40, 50], [90, 130, 180, 190]),
 			'engine': new EngineUpgrade([0.005, 0.007, 0.009], [0.04, 0.05, 0.05], [100, 120]),
-			'wings': new WingsUpgrade([0.003, 0.004, 0.005, 0.006], [0.03, 0.035, 0.04, 0.04], [50, 70, 80]),
-			'hull': new HullUpgrade([50, 60, 75], [1, 0.95, 0.9], [100, 130])};
+			'wings': new WingsUpgrade([0.003, 0.004, 0.005, 0.006], [0.03, 0.035, 0.04, 0.04], [80, 110, 150]),
+			'hull': new HullUpgrade([50, 60, 75], [1, 0.95, 0.9], [100, 190])};
 		this.size = 0.12;
 		this.width = 0.1;
 		this.height = 0.1;
