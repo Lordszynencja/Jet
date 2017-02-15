@@ -69,6 +69,5 @@ class PlayerWOrbs2 {
 }
 
 classesList["PlayerWOrbs2"] = PlayerWOrbs2;
-levelUnlocks.items[0].push(PlayerWOrbs2);
 names["PlayerWOrbs2"] = 'Crazy Balls';
 

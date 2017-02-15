@@ -52,4 +52,3 @@ class Level0 {
 }
 
 classesList["Level0"] = Level0;
-if (levelsNumber<1) levelsNumber = 1;

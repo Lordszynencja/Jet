@@ -1,7 +1,6 @@
 var time = 0;
 var loaded = false;
-var levelsNumber = 2;
-const actualVersion = 2;
+const actualVersion = 3;
 
 var conf = {
 	eightBitMode: false,
@@ -17,7 +16,8 @@ var conf = {
 var stats = {
 	score: 0,
 	money: 0,
-	level: 0,
+	level: null,
+	finishedLevels: [],
 	shotsFired: 0,
 	enemiesDefeated: 0,
 	bossesDefeated: 0
@@ -25,14 +25,13 @@ var stats = {
 
 var classesList = {};
 var levelUnlocks = {
-	ships : [],
-	items: []
+	ships : {},
+	items : {}
 };
-for (var i=0;i<levelsNumber;i++) {
-	levelUnlocks.ships[i] = [];
-	levelUnlocks.items[i] = [];
-}
-var names = {};
+var names = {
+	'Shop' : 'Shop',
+	'Exit' : 'Exit'
+};
 
 function deserialize(data) {
 	var object = new classesList[data.className]();
@@ -61,9 +60,10 @@ function loadPlayer() {
 
 function getShipsForCurrentLevel() {
 	var shipsList = [];
-	for (var level in levelUnlocks.ships) {
-		if (level<=stats.level) {
-			for (var s in levelUnlocks.ships[level]) shipsList.push(levelUnlocks.ships[level][s]);
+	for (var level in stats.finishedLevels) {
+		var ships = levelUnlocks.ships[stats.finishedLevels[level]];
+		if (ships != null) {
+			for (var s in ships) shipsList.push(ships[s]);
 		}
 	}
 	return shipsList;
@@ -71,9 +71,10 @@ function getShipsForCurrentLevel() {
 
 function getItemsForCurrentLevel() {
 	var itemsList = [];
-	for (var level in levelUnlocks.items) {
-		if (level<=stats.level) {
-			for (var i in levelUnlocks.items[level]) itemsList.push(levelUnlocks.items[level][i]);
+	for (var level in stats.finishedLevels) {
+		var items = levelUnlocks.items[stats.finishedLevels[level]]
+		if (items != null) {
+			for (var i in items) itemsList.push(items[i]);
 		}
 	}
 	return itemsList;

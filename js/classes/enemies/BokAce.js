@@ -1,10 +1,10 @@
-class DummyEnemy {
+class BokAce {
 	prepareHitbox() {
 		this.defaultHitbox = [
 		[[-0.025, 0.15], [-0.047, 0.15], [-0.098, 0.06], [-0.098, -0.06], [-0.047, -0.15], [-0.025, -0.15]],
 		[[-0.021, 0.055], [-0.021, -0.055], [0.004, -0.055], [0.15, -0.014], [0.15, 0.01], [0.004, 0.055]]];
 		this.rotatedHitbox = [];
-		for (var i in this.defaultHitbox) this.rotatedHitbox[i] = rotateModel(scaleModel(this.defaultHitbox[i], this.scale), this.angle);
+		for (var i in this.defaultHitbox) this.rotatedHitbox[i] = rotateModel(this.defaultHitbox[i], this.angle);
 		this.hitbox = [];
 	}
 	
@@ -32,8 +32,8 @@ class DummyEnemy {
 	update() {
 		this.x += this.vx;
 		this.y += this.vy;
-		if (this.x>4 || this.x<-4 || this.y>4 || this.y<-4) delete enemies[this.num];
-		for (var i in this.rotatedHitbox) this.hitbox[i] = moveModel(this.rotatedHitbox[i], this.x, this.y);
+		if (this.y<-2) this.y = 2;
+		standardEnemyUpdate(this);
 		if (collideEnemyWithPlayer(this)) {
 			this.hp -= p.ship.collissionDamage;
 			p.ship.dealDamage(this.collissionDamage);
@@ -43,8 +43,13 @@ class DummyEnemy {
 	
 	dealDamage(damage) {
 		if (standardDealDamage(this, damage)) {
-			standardEnemyDestroy(this);
-			effects.push(new Explosion(this.x, this.y, this.size*0.5, effects.length));
+			delete enemies[enemy.num];
+			stats.money += enemy.money;
+			stats.score += enemy.points;
+			stats.bossesDefeated++;
+			stats.level = 'BombardingNight';
+			stats.finishedLevels.push('BombardingNight');
+			effects.push(new Explosion(this.x, this.y, this.size*0.75, effects.length));
 		}
 	}
 	
@@ -54,27 +59,22 @@ class DummyEnemy {
 		if (conf.debug) drawHitbox(this);
 	}
 	
-	constructor(xy, movement, num, data) {
-		this.hp = data[0];
-		this.scale = data[1];
-		this.points = 0;
-		this.money = 0;
-		this.size = 0.18*this.scale;
-		this.weapons = [];
-		this.x = xy[0];
-		this.y = xy[1];
-		this.collissionDamage = 0.0;
-		this.speed = movement[0];
-		this.angle = movement[1];
-		this.vx = Math.cos(this.angle)*this.speed;
-		this.vy = Math.sin(this.angle)*this.speed;
-		this.v = rotateModel(makeCoords2(0.15*this.scale, 0.15*this.scale), this.angle);
+	constructor(num) {
+		this.hp = 100;
+		this.points = 100;
+		this.money = 100;
+		this.size = 0.15;
+		this.weapons = [new EnemyWMachinegun1(0.15, 0, this)];
+		this.x = 0;
+		this.y = 1.2;
+		this.collissionDamage = 0.5;
+		this.speed = 0;
+		this.angle = Math.PI*1.5;
+		this.vx = 0;
+		this.vy = -0.03;
+		this.v = rotateModel(makeCoords2(0.15, 0.15), this.angle);
 		this.num = num;
 		this.prepareHitbox();
-		var c = Math.cos(angle);
-		var s = Math.sin(angle);
-		this.jetEngines = [new JetEngine(this, [-0.09*this.scale, 0], this.angle, 0.02*this.scale, 0.8*this.scale, 1, [2, -0.1, -0.1])];
+		this.jetEngines = [new JetEngine(this, [-0.09, 0], this.angle, 0.02, 0.8, 1, [2, -0.1, -0.1])];
 	}
 }
-
-classesList['DummyEnemy'] = DummyEnemy;

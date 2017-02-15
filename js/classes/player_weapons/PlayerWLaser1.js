@@ -58,5 +58,4 @@ class PlayerWLaser1 {
 }
 
 classesList["PlayerWLaser1"] = PlayerWLaser1;
-levelUnlocks.items[1].push(PlayerWLaser1);
 names["PlayerWLaser1"] = 'Lazertagger';

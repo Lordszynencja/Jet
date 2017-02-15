@@ -66,5 +66,4 @@ class PlayerWOrbs1 {
 }
 
 classesList["PlayerWOrbs1"] = PlayerWOrbs1;
-levelUnlocks.items[1].push(PlayerWOrbs1);
 names["PlayerWOrbs1"] = 'Orbitron';

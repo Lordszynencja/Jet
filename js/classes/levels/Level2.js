@@ -44,4 +44,3 @@ class Level2 {
 }
 
 classesList["Level2"] = Level2;
-if (levelsNumber<3) levelsNumber = 3;

@@ -84,5 +84,4 @@ class PlayerWMagicSquare {
 }
 
 classesList["PlayerWMagicSquare"] = PlayerWMagicSquare;
-levelUnlocks.items[1].push(PlayerWMagicSquare);
 names["PlayerWMagicSquare"] = 'Plasmic Gun';

@@ -92,5 +92,4 @@ class PlayerWMachinegun1 {
 }
 
 classesList["PlayerWMachinegun1"] = PlayerWMachinegun1;
-levelUnlocks.items[0].push(PlayerWMachinegun1);
 names["PlayerWMachinegun1"] = 'Machine Gun';

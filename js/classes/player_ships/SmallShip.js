@@ -89,5 +89,4 @@ class SmallShip {
 }
 
 classesList["SmallShip"] = SmallShip;
-levelUnlocks.ships[0].push(SmallShip);
 names["SmallShip"] = "Small Ship";

@@ -53,5 +53,4 @@ class PlayerWDefenseOrbs1 {
 }
 
 classesList["PlayerWDefenseOrbs1"] = PlayerWDefenseOrbs1;
-levelUnlocks.items[0].push(PlayerWDefenseOrbs1);
 names["PlayerWDefenseOrbs1"] = 'Defense Orbs';

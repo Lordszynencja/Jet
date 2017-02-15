@@ -5,7 +5,7 @@ class ItemShop {
 			ui.newMenu(new Shop());
 		} else if (name=='enter') {
 			if (this.position<this.availableItems.length) {
-				if (stats.money>this.item.price) {
+				if (stats.money>=this.item.price) {
 					stats.money -= this.item.price;
 					p.putInCargo(new this.availableItems[this.position]());
 				}

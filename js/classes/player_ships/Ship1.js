@@ -87,5 +87,4 @@ class Ship1 {
 }
 
 classesList["Ship1"] = Ship1;
-levelUnlocks.ships[0].push(Ship1);
 names["Ship1"] = "Basic medium Ship";

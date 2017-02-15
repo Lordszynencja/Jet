@@ -74,14 +74,7 @@ class Game {
 	}
 	
 	resetProgress() {
-		stats.score = 0;
-		stats.money = 200;
-		stats.level = 0;
-		stats.shotsFired = 0;
-		stats.enemiesDefeated = 0;
-		stats.bossesDefeated = 0;
-		p.ship = new SmallShip();
-		p.cargo = [];
+		versionHandler.resetProgress();
 	}
 	
 	constructor() {

@@ -11,17 +11,16 @@ class LevelSelectMenu {
 			delete ui.menu;
 			ui.newMenu(new MainMenu());
 		} else if (name=='enter') {
-			if (this.position == 0) {
-				delete ui.menu;
-				var level = new Level0();
-				s.changeMusic(level.music);
-				ui.newMenu(new Help(level));
-			} else if (this.position < levelsNumber) {
-				if (stats.level >= this.position) this.toLevel(new classesList["Level"+this.position.toString()]());
-			} else if (this.position == levelsNumber) {
+				//delete ui.menu;
+				//var level = new Level0();
+				//s.changeMusic(level.music);
+				//ui.newMenu(new Help(level));
+			if (this.position < this.levelsNo) {
+				this.toLevel(new classesList[this.events[this.position]]());
+			} else if (this.position == this.levelsNo) {
 				delete ui.menu;
 				ui.newMenu(new Shop());
-			} else if (this.position == levelsNumber+1) {
+			} else if (this.position == this.levelsNo+1) {
 				delete ui.menu;
 				ui.newMenu(new MainMenu());
 			}
@@ -42,11 +41,11 @@ class LevelSelectMenu {
 		g.addBackgroundTexture('ground', makeCoords2(1, 1));
 		var colorActive = [1, 1, 1, 1];
 		var colorNotActive = [0.5, 0.5, 0.5, 1];
-		for (var i=0;i<levelsNumber;i++) {
+		for (var i=0;i<this.levelsNo;i++) {
 			var xy = this.optionsV[i];
-			g.drawText(xy[0], xy[1], this.options[i], this.fontSize, (stats.level<i ? colorNotActive : colorActive));
+			g.drawText(xy[0], xy[1], this.options[i], this.fontSize, colorActive);
 		}
-		for (var i=levelsNumber;i<this.options.length;i++) {
+		for (var i=this.levelsNo;i<this.options.length;i++) {
 			var xy = this.optionsV[i];
 			g.drawText(xy[0], xy[1], this.options[i], this.fontSize, colorActive);
 		}
@@ -58,10 +57,25 @@ class LevelSelectMenu {
 		this.fontSize = 0.055;
 		this.position = 0;
 		
+		this.events = [];
 		this.options = [];
-		for (var i=0;i<levelsNumber;i++) this.options[i] = 'Level '+(i+1);
-		this.options[levelsNumber] = 'Shop';
-		this.options[levelsNumber+1] = 'Exit';
+		
+		if (stats.level != null) {
+			var levels = levelTree[stats.level];
+			this.levelsNo = levels.length;
+			for (var i=0;i<this.levelsNo;i++) {
+				this.events[i] = levels[i];
+			}
+		} else {
+			this.events[0] = 'XantarianEscape';
+			this.levelsNo = 1;
+		}
+		this.events[this.levelsNo] = 'Shop';
+		this.events[this.levelsNo+1] = 'Exit';
+		
+		for (var i in this.events) {
+			this.options[i] = names[this.events[i]];
+		}
 		
 		this.optionsV = prepareOptionsPositions(this.options, this.fontSize);
 	}
