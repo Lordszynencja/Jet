@@ -128,12 +128,12 @@ class Graphics {
 			'tex_player',
 			'tex_bullet',
 			'tex_gui',
-			'tex_text',
 			'effect0',
 			'effect1',
-			'particles',
+			'triangles',
 			'lines',
-			'triangles'];
+			'particles',
+			'tex_text'];
 			
 		this.lightningEnum = {
 			'tex_background' : true,
