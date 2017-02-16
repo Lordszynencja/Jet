@@ -1,6 +1,7 @@
 var time = 0;
 var loaded = false;
 const actualVersion = 3;
+const startingLevel = 'XantarianEscape';
 
 var conf = {
 	eightBitMode: false,
@@ -27,10 +28,6 @@ var classesList = {};
 var levelUnlocks = {
 	ships : {},
 	items : {}
-};
-var names = {
-	'Shop' : 'Shop',
-	'Exit' : 'Exit'
 };
 
 function deserialize(data) {

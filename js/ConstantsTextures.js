@@ -36,7 +36,8 @@ const BulletsTextures = {
 };
 
 const PlayerShipTextures = {
-	'Ship1' : [0, makeTexCoords(0, 255, 0, 255)]
+	'Ship1' : [0, makeTexCoords(0, 255, 0, 255)],
+	'EscapePod' : [0, makeTexCoords(0, 255, 0, 255)],
 };
 
 const GUITextures = {

@@ -1,9 +1,21 @@
 class MainMenu {
+	startNewGame() {
+		p.x = 0;
+		p.y = -0.85;
+		p.ship = new EscapePod();
+		var level = new classesList[startingLevel]();
+		ui.newMenu(new Interface(level));
+	}
+	
 	onPress(name) {
 		if (name=='enter') {
 			if (this.position == 0) {
 				delete ui.menu;
-				ui.newMenu(new LevelSelectMenu());
+				if (stats.level == null) {
+					this.startNewGame();
+				} else {
+					ui.newMenu(new LevelSelectMenu());
+				}
 			} else {
 				delete ui.menu;
 				ui.newMenu(new Options());

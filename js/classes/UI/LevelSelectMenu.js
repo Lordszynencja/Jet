@@ -11,10 +11,6 @@ class LevelSelectMenu {
 			delete ui.menu;
 			ui.newMenu(new MainMenu());
 		} else if (name=='enter') {
-				//delete ui.menu;
-				//var level = new Level0();
-				//s.changeMusic(level.music);
-				//ui.newMenu(new Help(level));
 			if (this.position < this.levelsNo) {
 				this.toLevel(new classesList[this.events[this.position]]());
 			} else if (this.position == this.levelsNo) {
@@ -40,7 +36,6 @@ class LevelSelectMenu {
 	draw() {
 		g.addBackgroundTexture('ground', makeCoords2(1, 1));
 		var colorActive = [1, 1, 1, 1];
-		var colorNotActive = [0.5, 0.5, 0.5, 1];
 		for (var i=0;i<this.levelsNo;i++) {
 			var xy = this.optionsV[i];
 			g.drawText(xy[0], xy[1], this.options[i], this.fontSize, colorActive);

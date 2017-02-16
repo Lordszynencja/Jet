@@ -36,14 +36,12 @@ class EscapePod {
 		var HP = this.upgrades.hull.shownHP;
 		
 		var r = 0.1;
-		var r1 = r*0.8;
 		var y = -0.99+r;
-		var x1 = 0.99-r;
-		var x2 = 0.99-3*r;
+		var x = 0.99-r;
 		
 		var hpAngle = HP*indAngleMax + (1-HP)*indAngleMin;
-		g.addGUITexture('HealthBg', moveModel(makeCoords1(r), 0.99-r, y))
-		g.addEffect1([x1, y], r1, hpAngle, [16, 0, 0]);
+		g.addGUITexture('HealthBg', moveModel(makeCoords1(r), x, y));
+		g.addEffect1([x, y], r*0.8, hpAngle, [16, 0, 0]);
 	}
 	
 	prepare() {
@@ -54,7 +52,7 @@ class EscapePod {
 	
 	constructor() {
 		this.price = 0;
-		this.texture = 'Ship1';//TODO
+		this.texture = 'EscapePod';//TODO
 		this.upgrades = {
 			'cooling': new CoolingUpgrade([0], [100], [0], []),
 			'engine': new EngineUpgrade([0.001], [0.02], []),
@@ -70,7 +68,7 @@ class EscapePod {
 		this.weaponsNo = 0;
 		this.weaponOffsets = [];
 		this.weaponAngles = [];
-		this.jetEngines = [new JetEngine(this, [-0.1, -0], p.angle, 0.02, 0.5, 0.7, [2, 1.2, 0.3])];
+		this.jetEngines = [new JetEngine(this, [-0.05, -0], p.angle, 0.02, 0.5, 0.7, [2, 1.2, 0.3])];
 		this.prepareHitbox();
 		this.resetWeapons();
 		this.prepare();

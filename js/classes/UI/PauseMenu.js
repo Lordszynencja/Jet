@@ -10,14 +10,17 @@ class PauseMenu {
 				s.setMusicVolume(1);
 			} else {
 				delete ui.menu;
-				ui.newMenu(new LevelSelectMenu());
+				ui.newMenu(this.level.constructor.name == startingLevel ? new MainMenu() : new LevelSelectMenu());
 				effects = [];
+				enemies = [];
+				enemyMissiles = [];
+				playerMissiles = [];
 				g.setInvertion([0, 0], 0);
 				s.changeMusic('menu');
 			}
 		} else if (this.position<this.options.length-1 && name=='down') {
 			this.position++;
-		} else if (this.position>0&& name=='up') {
+		} else if (this.position>0 && name=='up') {
 			this.position--;
 		}
 	}
