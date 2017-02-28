@@ -37,7 +37,7 @@ class Chaser {
 	}
 	
 	draw() {
-		g.addEnemyTexture('EnemyShip0', moveModel(this.v, this.x, this.y));
+		g.addEnemyTexture('EnemyShip0', moveModel(rotateModel(this.v, this.angle), this.x, this.y));
 		for (var i in this.jetEngines) this.jetEngines[i].draw();
 		if (conf.debug) drawHitbox(this);
 	}
