@@ -19,7 +19,7 @@ function normalize(vector) {
 	return vect;
 }
 
-function angle(x,y) {
+function angle(x, y) {
 	var d = Math.sqrt(x*x+y*y);
 	return (x>0 ? Math.asin(y/d) : Math.PI-Math.asin(y/d));
 }

@@ -1,12 +1,13 @@
-class EnemyWMachinegun1 {
+class EnemyWTrackingMachinegun {
 	update(shoot) {
 		this.cooldown--;
 		if (shoot && this.cooldown<=0) {
 			var x = this.enemy.x+Math.cos(this.enemy.angle)*this.x-Math.sin(this.enemy.angle)*this.y;
 			var y = this.enemy.y+Math.sin(this.enemy.angle)*this.x+Math.cos(this.enemy.angle)*this.y;
-			enemyMissiles.push(new EnemyBullet1(x, y, this.enemy.angle, enemyMissiles.length));
+			var ang = angle(p.x-x, p.y-y);
+			enemyMissiles.push(new EnemyBullet1(x, y, ang, enemyMissiles.length));
 			this.cooldown = this.cooldownTime;
-			g.addLight([x, y], [1, 1, 0], 1, [this.enemy.angle, Math.PI/6]);
+			g.addLight([x, y], [1, 1, 0], 1, [ang, Math.PI/6]);
 		}
 	}
 	

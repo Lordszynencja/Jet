@@ -22,21 +22,11 @@ class Boss1 {
 		this.y += this.vy;
 	}
 	
-	distance(v, a) {
-		var t = v/a;
-		return t*v-(t*t-t)*a/2;
-	}
-	
 	escapeMove() {
-		if (this.x>0) {
-			if (this.vx>0 || this.distance(this.vx, -0.0002)>-this.x) this.vx -= 0.0002;
-			else this.vx += 0.0002;
-		} else {
-			if (this.vx<0 || this.distance(this.vx, 0.0002)<-this.x) this.vx += 0.0002;
-			else this.vx -= 0.0002;
-		}
-		if (this.x>-0.0004 && this.x<0.0004) this.x = 0, this.vx = 0;
+		this.vx = speedToDestination(this.x, 0, this.vx, 0.0002);
 		this.x += this.vx;
+		this.vy = speedToDestination(this.y, 0.8, this.vy, 0.0002);
+		this.y += this.vy;
 	}
 	
 	update() {

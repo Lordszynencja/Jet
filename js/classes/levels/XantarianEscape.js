@@ -30,6 +30,7 @@ class XantarianEscape {
 		this.texture = 'winter';
 		this.music = 'level1';
 		this.enemies = [
+		[100, Chaser, [0.6, -1.2], [0.025, Math.PI*0.5], []],
 		[100, Suicider, [0.6, -1.2], [0.025, Math.PI*0.5], []],
 		[130, Suicider, [-0.8, -1.2], [0.025, Math.PI*0.5], []],
 		[160, Enemy1, [0.7, -1.2], [0.03, Math.PI*0.51], []],

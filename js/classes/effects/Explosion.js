@@ -4,13 +4,15 @@ var explosionTrig = {
 	cos : []
 };
 
-for (var i=0;i<explosionAngles;i++) {
-	var angle = i/explosionAngles*Math.PI*2;
-	explosionTrig.sin[i] = Math.sin(angle);
-	explosionTrig.cos[i] = Math.cos(angle);
-}
-
 class Explosion {
+	static prepare() {
+		for (var i=0;i<explosionAngles;i++) {
+			var angle = i/explosionAngles*Math.PI*2;
+			explosionTrig.sin[i] = Math.sin(angle);
+			explosionTrig.cos[i] = Math.cos(angle);
+		}
+	}
+	
 	update() {
 		this.t += 1/FPS;
 		for (var i=0;i<explosionAngles;i++) {
@@ -46,3 +48,5 @@ class Explosion {
 		}
 	}
 }
+
+Explosion.prepare();

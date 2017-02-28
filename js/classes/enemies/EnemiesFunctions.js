@@ -17,6 +17,39 @@ function standardDealDamage(enemy, damage) {
 	}
 }
 
+function distanceToStop(v, a) {
+	var t = v/a;
+	if (t>0) {
+		return t*v-(t*t-t)*a/2;
+	} else {
+		return -(t*v-(t*t+t)*a/2);
+	}
+}
+
+function speedToDestination(x, x0, v, a) {
+	var dist = x0-x;
+	if (dist>=-a && dist<=a)  {
+		if (v<-a) return v+a;
+		if (v>a) return v-a;
+		return dist;
+	}
+	if (v>0) {
+		if (dist>=distanceToStop(v+a, a)) {
+			return v+a;
+		} else if (dist>=distanceToStop(v, a)) {
+			return v;
+		}
+		return v-a;
+	} else {
+		if (dist<=distanceToStop(v-a, a)) {
+			return v-a;
+		} else if (dist<=distanceToStop(v, a)) {
+			return v;
+		}
+		return v+a;
+	}
+}
+
 function drawHitbox(enemy) {
 	for (var i in enemy.rotatedHitbox) {
 		var hitbox = moveModel(enemy.rotatedHitbox[i], enemy.x, enemy.y);
