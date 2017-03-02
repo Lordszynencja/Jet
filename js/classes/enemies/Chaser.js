@@ -14,11 +14,14 @@ class Chaser {
 	}
 	
 	update() {
-		this.vx = speedToDestination(this.x, p.x, this.vx, 0.0003);
+		this.vx = speedToDestination(this.x, p.x+this.offx, this.vx, 0.0003);
 		this.x += this.vx;
-		this.vy = speedToDestination(this.y, p.y, this.vy, 0.0003);
+		this.vy = speedToDestination(this.y, p.y+this.offy, this.vy, 0.0003);
 		this.y += this.vy;
 		this.angle = angle(this.vx, this.vy);
+		if (this.angle<Math.PI*0.25 || this.angle>Math.PI*1.75) this.angle = Math.PI/4;
+		else if (this.angle>Math.PI*1.25) this.angle = Math.PI*1.5-this.angle;
+		else if (this.angle>Math.PI*0.75) this.angle = Math.PI*0.75;
 		
 		if (this.x>4 || this.x<-4 || this.y>4 || this.y<-4) delete enemies[this.num];
 		standardEnemyUpdate(this);
@@ -53,9 +56,11 @@ class Chaser {
 		this.collissionDamage = 0.3;
 		this.speed = movement[0];
 		this.angle = movement[1];
+		this.offx = data[0];
+		this.offy = data[1];
 		this.vx = Math.cos(this.angle)*this.speed;
 		this.vy = Math.sin(this.angle)*this.speed;
-		this.v = rotateModel(makeCoords2(0.15, 0.15), this.angle);
+		this.v = makeCoords2(0.15, 0.15);
 		this.num = num;
 		this.prepareHitbox();
 		this.jetEngines = [new JetEngine(this, [-0.09, 0], this.angle, 0.02, 0.8, 1, [2, -0.1, -0.1])];

@@ -21,7 +21,8 @@ function normalize(vector) {
 
 function angle(x, y) {
 	var d = Math.sqrt(x*x+y*y);
-	return (x>0 ? Math.asin(y/d) : Math.PI-Math.asin(y/d));
+	var angle = (x>0 ? Math.asin(y/d) : Math.PI-Math.asin(y/d));
+	return isNaN(angle) ? 0 : angle;
 }
 
 function check(x,x1,x2) {
