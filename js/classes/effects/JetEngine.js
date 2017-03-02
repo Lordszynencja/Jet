@@ -92,19 +92,29 @@ class JetEngine {
 		}
 	}
 	
+	changeAngle(angle) {
+		this.angle = angle;
+		this.cos = Math.cos(angle);
+		this.sin = Math.sin(angle);
+		this.offset = [this.basicOffset[0]*this.cos-this.basicOffset[1]*this.sin, this.basicOffset[0]*this.sin+this.basicOffset[1]*this.cos];
+		this.pos = [this.ship.x+this.offset[0], this.ship.y+this.offset[1]];
+	}
+	
 	constructor(ship, pos, angle, sizex, sizey, randomness, color) {
 		this.ship = ship;
 		this.maxN = 16;
 		this.details = 8;
-		this.angle = angle;
-		this.cos = Math.cos(angle);
-		this.sin = Math.sin(angle);
 		this.v = [];
 		this.r = [];
 		for (var i=0;i<this.maxN;i++) this.v[i] = [];
 		for (var i=0;i<this.maxN;i++) this.r[i] = [];
-		this.offset = [pos[0]*this.cos-pos[1]*this.sin, pos[0]*this.sin+pos[1]*this.cos];
-		this.pos = [this.ship.x+this.offset[0], this.ship.y+this.offset[1]];
+		this.basicOffset = pos;
+		this.changeAngle(angle);
+		//this.angle = angle;
+		//this.cos = Math.cos(angle);
+		//this.sin = Math.sin(angle);
+		//this.offset = [pos[0]*this.cos-pos[1]*this.sin, pos[0]*this.sin+pos[1]*this.cos];
+		//this.pos = [this.ship.x+this.offset[0], this.ship.y+this.offset[1]];
 		this.width = sizex;
 		this.height = sizey;
 		this.defaultHeight = sizey;

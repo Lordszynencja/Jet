@@ -13,7 +13,7 @@ function getDummyForLevel(level) {
 }
 
 function standardLevelUpdate(level) {
-	g.moveBackground(-level.levelSpeed);
+	g.moveBackground(-level.levelSpeed*bg_tex_s/tex_s);
 	while (level.nextEnemy<level.enemies.length && level.time>=level.enemies[level.nextEnemy][0]) {
 		var enemyData = level.enemies[level.nextEnemy];
 		enemies.push(new enemyData[1](enemyData[2], enemyData[3], enemies.length, enemyData[4]));

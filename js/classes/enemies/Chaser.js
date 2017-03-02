@@ -18,10 +18,17 @@ class Chaser {
 		this.x += this.vx;
 		this.vy = speedToDestination(this.y, p.y+this.offy, this.vy, 0.0003);
 		this.y += this.vy;
-		this.angle = angle(this.vx, this.vy);
-		if (this.angle<Math.PI*0.25 || this.angle>Math.PI*1.75) this.angle = Math.PI/4;
-		else if (this.angle>Math.PI*1.25) this.angle = Math.PI*1.5-this.angle;
-		else if (this.angle>Math.PI*0.75) this.angle = Math.PI*0.75;
+		if (this.vx>this.maxXSpeed) this.vx = this.maxXSpeed;
+		else if (this.vx<-this.maxXSpeed) this.vx = -this.maxXSpeed;
+		if (this.vy>this.maxYSpeed) this.vy = this.maxYSpeed;
+		else if (this.vy<-this.maxYSpeed) this.vy = -this.maxYSpeed;
+		
+		this.angle = angle(this.vx, ui.menu.level.levelSpeed+this.vy);
+		//if (this.angle<Math.PI*0.25 || this.angle>Math.PI*1.75) this.angle = Math.PI*0.25;
+		//else if (this.angle>Math.PI*1.25) this.angle = Math.PI*1.75-this.angle;
+		//else if (this.angle>Math.PI*0.75) this.angle = Math.PI*0.75;
+		
+		for (var i in this.jetEngines) this.jetEngines[i].changeAngle(this.angle);
 		
 		if (this.x>4 || this.x<-4 || this.y>4 || this.y<-4) delete enemies[this.num];
 		standardEnemyUpdate(this);
@@ -50,6 +57,8 @@ class Chaser {
 		this.points = 100;
 		this.money = 10;
 		this.size = 0.15;
+		this.maxXSpeed = 0.02;
+		this.maxYSpeed = 0.025;
 		this.weapons = [new EnemyWTrackingMachinegun(0.15, 0, this)];
 		this.x = xy[0];
 		this.y = xy[1];

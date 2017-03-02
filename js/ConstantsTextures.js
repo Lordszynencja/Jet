@@ -1,5 +1,6 @@
 const spawn_chance = 0.05;
 const FPS = 50;
+const bg_tex_s = 512;
 const tex_s = 2048;
 const maxMissiles = 256;
 const maxEnemies = 64;

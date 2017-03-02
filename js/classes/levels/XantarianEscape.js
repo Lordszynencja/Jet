@@ -26,7 +26,7 @@ class XantarianEscape {
 		this.time = 0;
 		this.nextEnemy = 0;
 		this.levelLength = 800;
-		this.levelSpeed = 0.003;
+		this.levelSpeed = 0.03;
 		this.texture = 'winter';
 		this.music = 'level1';
 		this.enemies = [
