@@ -14,6 +14,9 @@ class Chaser {
 	}
 	
 	update() {
+		if (p.x>0.6 && this.offx>0) this.offx = -this.offx;
+		if (p.x<-0.6 && this.offx<0) this.offx = -this.offx;
+		
 		this.vx = speedToDestination(this.x, p.x+this.offx, this.vx, 0.0003);
 		this.x += this.vx;
 		this.vy = speedToDestination(this.y, p.y+this.offy, this.vy, 0.0003);
@@ -24,9 +27,6 @@ class Chaser {
 		else if (this.vy<-this.maxYSpeed) this.vy = -this.maxYSpeed;
 		
 		this.angle = angle(this.vx, ui.menu.level.levelSpeed+this.vy);
-		//if (this.angle<Math.PI*0.25 || this.angle>Math.PI*1.75) this.angle = Math.PI*0.25;
-		//else if (this.angle>Math.PI*1.25) this.angle = Math.PI*1.75-this.angle;
-		//else if (this.angle>Math.PI*0.75) this.angle = Math.PI*0.75;
 		
 		for (var i in this.jetEngines) this.jetEngines[i].changeAngle(this.angle);
 		
@@ -63,7 +63,6 @@ class Chaser {
 		this.x = xy[0];
 		this.y = xy[1];
 		this.collissionDamage = 0.3;
-		this.speed = movement[0];
 		this.angle = movement[1];
 		this.offx = data[0];
 		this.offy = data[1];

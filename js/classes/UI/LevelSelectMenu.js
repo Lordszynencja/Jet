@@ -1,6 +1,7 @@
 class LevelSelectMenu {
 	toLevel(level) {
 		delete ui.menu;
+		clearAll();
 		ui.newMenu(new Interface(level));
 		s.changeMusic(level.music);
 		ui.prepareGame();
@@ -11,14 +12,14 @@ class LevelSelectMenu {
 			delete ui.menu;
 			ui.newMenu(new MainMenu());
 		} else if (name=='enter') {
-			if (this.position < this.levelsNo) {
-				this.toLevel(new classesList[this.events[this.position]]());
-			} else if (this.position == this.levelsNo) {
+			if (this.events[this.position] === 'Shop') {
 				delete ui.menu;
 				ui.newMenu(new Shop());
-			} else if (this.position == this.levelsNo+1) {
+			} else if (this.events[this.position] === 'Exit') {
 				delete ui.menu;
 				ui.newMenu(new MainMenu());
+			} else {
+				this.toLevel(new classesList[this.events[this.position]]());
 			}
 		} else if (this.position<this.options.length-1 && name=='down') {
 			this.position++;
@@ -65,8 +66,8 @@ class LevelSelectMenu {
 			this.events[0] = 'XantarianEscape';
 			this.levelsNo = 1;
 		}
-		this.events[this.levelsNo] = 'Shop';
-		this.events[this.levelsNo+1] = 'Exit';
+		if (stats.shopAvailable) this.events.push('Shop');
+		this.events.push('Exit');
 		
 		for (var i in this.events) {
 			this.options[i] = names[this.events[i]];

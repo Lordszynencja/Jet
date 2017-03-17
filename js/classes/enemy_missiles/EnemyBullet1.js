@@ -49,18 +49,18 @@ class EnemyBullet1 {
 		g.addBulletTexture('Bullet0', moveModel(this.v, this.x, this.y));
 	}
 	
-	constructor(x, y, angle, num) {
+	constructor(x, y, ang, num) {
 		this.speed = 0.05;
 		this.size = 0.01;
 		this.damage = 1;
 		this.x = x;
 		this.y = y;
-		this.angle = angle;
-		this.vx = this.speed*Math.cos(angle);
-		this.vy = this.speed*Math.sin(angle);
-		this.v = rotateModel(makeCoords2(0.01, 0.01), angle);
-		this.rotatedHitbox = rotateModel(makeCoords2(0.02,0.01), angle);
-		this.hitbox = moveModel(this.rotatedHitbox,x,y);
+		this.vx = this.speed*Math.cos(ang);
+		this.vy = this.speed*Math.sin(ang);
+		this.angle = angle(this.vx, this.vy + ui.menu.level.levelSpeed);
+		this.v = rotateModel(makeCoords2(0.01, 0.01), this.angle);
+		this.rotatedHitbox = rotateModel(makeCoords2(0.02,0.01), this.angle);
+		this.hitbox = moveModel(this.rotatedHitbox, x, y);
 		this.num = num;
 		
 	}

@@ -21,7 +21,8 @@ var stats = {
 	finishedLevels: [],
 	shotsFired: 0,
 	enemiesDefeated: 0,
-	bossesDefeated: 0
+	bossesDefeated: 0,
+	shopAvailable: false
 };
 
 var classesList = {};
@@ -116,3 +117,11 @@ var playerMissiles = [];
 var enemies = [];
 var backgroundObjects = [];
 var effects = [];
+
+function clearAll() {
+	enemyMissiles = [];
+	playerMissiles = [];
+	enemies = [];
+	backgroundObjects = [];
+	effects = [];
+}

@@ -43,15 +43,12 @@ class Suicider {
 		this.x = xy[0];
 		this.y = xy[1];
 		this.collissionDamage = 20;
-		this.speed = movement[0];
-		this.angle = movement[1];
-		this.vx = Math.cos(this.angle)*this.speed;
-		this.vy = Math.sin(this.angle)*this.speed;
+		this.vx = Math.cos(movement[1])*movement[0];
+		this.vy = Math.sin(movement[1])*movement[0];
+		this.angle = angle(this.vx, this.vy+ui.menu.level.levelSpeed);
 		this.v = rotateModel(makeCoords2(0.15,0.15), this.angle);
 		this.num = num;
 		this.prepareHitbox();
-		var c = Math.cos(angle);
-		var s = Math.sin(angle);
 		this.jetEngines = [new JetEngine(this, [-0.09, 0], this.angle, 0.02, 1.8, 1, [2, -0.1, -0.1])];
 	}
 }
