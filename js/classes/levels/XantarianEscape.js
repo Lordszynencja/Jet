@@ -11,7 +11,7 @@ class XantarianEscape {
 	onEnd() {
 		stats.level = 'XantarianEscape';
 		stats.finishedLevels.push('XantarianEscape');
-		p.ship = new SmallShip();
+		p.ship = new TrainingShip();
 		p.addWeapon(PlayerWVulcan, 0);
 		stats.shopAvailable = false;
 	}
