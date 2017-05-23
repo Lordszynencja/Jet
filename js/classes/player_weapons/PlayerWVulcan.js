@@ -4,7 +4,7 @@ class PlayerWVulcan {
 		if (shoot && this.cooldown<=0) {
 			var x = p.x+this.x;
 			var y = p.y+this.y;
-			playerMissiles.push(new PlayerBullet1(x, y, this.angle+Math.random()*0.2-0.1, playerMissiles.length));
+			playerMissiles.push(new PlayerBullet1(x, y, this.angle+Math.random()*0.2, playerMissiles.length));
 			stats.shotsFired++;
 			this.cooldown = this.cooldownTime;
 			s.play("shot", 0.8);

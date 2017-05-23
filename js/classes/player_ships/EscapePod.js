@@ -52,13 +52,13 @@ class EscapePod {
 	
 	constructor() {
 		this.price = 0;
-		this.texture = 'EscapePod';
+		this.texture = 'EscapePod';//TODO
 		this.upgrades = {
 			'cooling': new CoolingUpgrade([0], [100], [0], []),
 			'engine': new EngineUpgrade([0.001], [0.02], []),
-			'wings': new WingsUpgrade([0.001], [0.02], []),
-			'hull': new HullUpgrade([200], [1], [])};
-		this.size = 0.2;
+			'wings': new WingsUpgrade([0.003], [0.03], []),
+			'hull': new HullUpgrade([50], [0.5], [])};
+		this.size = 0.18;
 		this.width = 0.1;
 		this.height = 0.1;
 		this.collissionDamage = 0.2;
@@ -68,7 +68,7 @@ class EscapePod {
 		this.weaponsNo = 0;
 		this.weaponOffsets = [];
 		this.weaponAngles = [];
-		this.jetEngines = [new JetEngine(this, [-0.1, -0], p.angle, 0.02, 0.5, 0.7, [2, 1.2, 0.3])];
+		this.jetEngines = [new JetEngine(this, [-0.05, -0], p.angle, 0.02, 0.5, 0.7, [2, 1.2, 0.3])];
 		this.prepareHitbox();
 		this.resetWeapons();
 		this.prepare();

@@ -9,7 +9,6 @@ class Player {
 			this.ship.y += v;
 		}
 		if (this.finished && time-this.finish_timer>250) {
-			ui.menu.level.onEnd();
 			ui.newMenu(new LevelSelectMenu());
 			s.changeMusic('menu');
 			this.prepare();
