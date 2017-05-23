@@ -37,7 +37,7 @@ void main(void) {
 	#define bg_size `+(this.bgTextureSize/tex_s).toFixed(10)+`
 	float base_y = tp.y-mod(tp.y, bg_size);
 	float y = mod(tp.y+bg_position, bg_size);
-	vec4 texture_color = texture2D(texture, vec2(tp.x, base_y+y));
+	vec4 texture_color = texture2D(texture, vec2(tp.x, tp.y/*base_y+y*/));
 	gl_FragColor = texture_color*vec4((use_lightning ? compute_lights() : vec3(basic_light)), 1.0);
 	if (eight_bit_mode) gl_FragColor = vec4(toEightBit(gl_FragColor.rgb), gl_FragColor.a);
 	gl_FragColor = computeInvertion(gl_FragColor);
@@ -81,7 +81,7 @@ void main(void) {
 		gl.uniform1f(this.uTime, time);
 		gl.uniform1f(this.uEightBitMode, conf.eightBitMode);
 		gl.uniform1f(this.uUseLightning, conf.useLightning);
-		gl.uniform1f(this.uBgPosition, (this.bgPosition>=0 ? this.bgPosition%1: (1-Math.abs(this.bgPosition)%1)%1));
+		gl.uniform1f(this.uBgPosition, (this.bgPosition>=0 ? this.bgPosition%1 : (1-Math.abs(this.bgPosition)%1)%1));
 		gl.uniform2fv(this.uInvertionPoint, this.invertionPoint);
 		gl.uniform1f(this.uInvertionRange, this.invertionRange);
 	}
