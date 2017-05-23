@@ -20,7 +20,7 @@ function standardLevelUpdate(level) {
 		level.nextEnemy++;
 	}
 	
-	if (level.time==level.levelLength && !p.dead) {
+	if (level.time == level.levelLength && !p.dead) {
 		level.onFinish();
 	}
 	level.time++;

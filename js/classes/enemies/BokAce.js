@@ -47,9 +47,10 @@ class BokAce {
 			stats.money += enemy.money;
 			stats.score += enemy.points;
 			stats.bossesDefeated++;
-			stats.level = 'BombardingNight';
-			stats.finishedLevels.push('BombardingNight');
 			effects.push(new Explosion(this.x, this.y, this.size*0.75, effects.length));
+			p.finished = true;
+			p.finish_timer = time;
+			g.setInvertion([0, 0], 0);
 		}
 	}
 	
