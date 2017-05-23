@@ -24,7 +24,7 @@ class Interface {
 	}
 	
 	draw() {
-		g.addBackgroundTexture(this.level.texture, makeCoords2(1,1));
+		g.addBackgroundTexture(this.level.texture, makeCoords2(1, 1));
 		for (var i in effects) effects[i].draw();
 		for (var i in enemyMissiles) enemyMissiles[i].draw();
 		for (var i in enemies) enemies[i].draw();

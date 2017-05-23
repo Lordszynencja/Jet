@@ -3,12 +3,17 @@ class BombardingNight {
 		standardLevelUpdate(this);
 	}
 	
-	onEnd() {
-		enemies.push(new BokAce(enemies.length));
+	onFinish() {
+		p.finished = true;
+		p.finish_timer = time;
 	}
 	
-	draw() {
+	onEnd() {
+		stats.level = 'BombardingNight';
+		stats.finishedLevels.push('BombardingNight');
 	}
+	
+	draw() {}
 	
 	constructor() {
 		p.x = 0;
@@ -18,10 +23,11 @@ class BombardingNight {
 		this.time = 0;
 		this.nextEnemy = 0;
 		this.levelLength = 800;
+		this.levelSpeed = 0.004;
 		this.texture = 'winter';
 		this.music = 'level1';
 		this.enemies = [
-		[100, Suicider, [0.2, -1.2], [0.04, Math.PI*0.5], []]
+			[100, Suicider, [0.2, -1.2], [0.04, Math.PI*0.5], []]
 		];
 	}
 }

@@ -3,11 +3,13 @@ class BombardingDay {
 		standardLevelUpdate(this);
 	}
 	
+	onFinish() {
+		enemies.push(new BokAce(enemies.length));
+	}
+	
 	onEnd() {
 		stats.level = 'BombardingDay';
 		stats.finishedLevels.push('BombardingDay');
-		p.finished = true;
-		p.finish_timer = time;
 	}
 	
 	draw() {
@@ -21,6 +23,7 @@ class BombardingDay {
 		this.time = 0;
 		this.nextEnemy = 0;
 		this.levelLength = 800;
+		this.levelSpeed = 0.004;
 		this.texture = 'winter';
 		this.music = 'level1';
 		this.enemies = [

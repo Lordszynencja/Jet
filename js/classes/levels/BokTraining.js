@@ -3,11 +3,14 @@ class BokTraining {
 		standardLevelUpdate(this);
 	}
 	
+	onFinish() {
+		p.finished = true;
+		p.finish_timer = time;
+	}
+	
 	onEnd() {
 		stats.level = 'BokTraining';
 		stats.finishedLevels.push('BokTraining');
-		p.finished = true;
-		p.finish_timer = time;
 	}
 	
 	draw() {
@@ -25,7 +28,7 @@ class BokTraining {
 		this.texture = 'winter';
 		this.music = 'level1';
 		this.enemies = [
-		[100, Suicider, [0.2, -1.2], [0.04, Math.PI*0.5], []]
+			[100, Suicider, [0.2, -1.2], [0.04, Math.PI*0.5], []]
 		];
 	}
 }
