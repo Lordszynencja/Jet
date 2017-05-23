@@ -3,15 +3,17 @@ class XantarianEscape {
 		standardLevelUpdate(this);
 	}
 	
+	onFinish() {
+		p.finished = true;
+		p.finish_timer = time;
+	}
+	
 	onEnd() {
 		stats.level = 'XantarianEscape';
 		stats.finishedLevels.push('XantarianEscape');
 		p.ship = new SmallShip();
 		p.addWeapon(PlayerWVulcan, 0);
 		stats.shopAvailable = false;
-		p.finished = true;
-		p.finish_timer = time;
-		stats.money += 200;
 	}
 	
 	draw() {

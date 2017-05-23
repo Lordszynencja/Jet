@@ -11,7 +11,6 @@ class Interface {
 	
 	update() {
 		this.level.update();
-		g.moveBackground(-0.001);
 		for (var i in effects) effects[i].update();
 		for (var i in enemies) enemies[i].update();
 		for (var i in playerMissiles) playerMissiles[i].update();

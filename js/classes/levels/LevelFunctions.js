@@ -21,7 +21,7 @@ function standardLevelUpdate(level) {
 	}
 	
 	if (level.time==level.levelLength && !p.dead) {
-		level.onEnd();
+		level.onFinish();
 	}
 	level.time++;
 }
